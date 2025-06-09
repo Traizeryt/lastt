@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Traizer Tweaks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'SF Pro Display', sans-serif;
+        }
+
+        :root {
+            --neon-green: #3ac5ff;
+        }
+
+        body {
+            background: linear-gradient(135deg, #050b1f 0%, #0f1a3c 50%, #101349 100%);
+            position: relative;
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #050b1f;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(58, 197, 255, 0.08) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: rgba(15, 26, 60, 0.8);
+            transition: background-color 0.3s ease, padding 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 40px;
+        }
+
+        .nav-links {
+            position: absolute;
+            left: 52%; 
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-item {
+            position: relative;
+            text-decoration: none;
+            color: #f1f1f1;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            padding: 5px 0;
+        }
+
+        .nav-item:hover {
+            color: var(--neon-green);
+        }
+
+        .nav-item.active {
+            color: var(--neon-green);
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -8px;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: var(--neon-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .login-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .buy-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            background-color: var(--neon-green);
+            color: #111;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .login-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            text-decoration: none;
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
+            text-decoration: none;
+        }
+
+        /* Login Form Styles */
+        .login-container {
+            max-width: 450px;
+            margin: 120px auto 50px;
+            padding: 40px;
+            background: rgba(20, 22, 30, 0.7);
+            border-radius: 20px;
+            border: 1px solid rgba(67, 255, 173, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(67, 255, 173, 0.03), transparent);
+            z-index: -1;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #ffffff, var(--neon-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .login-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: white;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: rgba(67, 255, 173, 0.5);
+            outline: none;
+            box-shadow: 0 0 10px rgba(67, 255, 173, 0.2);
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: -15px;
+            margin-bottom: 25px;
+        }
+
+        .forgot-password a {
+            color: var(--neon-green);
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: var(--neon-green);
+            border: none;
+            border-radius: 10px;
+            color: #111;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .login-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(67, 255, 173, 0.3);
+        }
+
+        .or-divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .or-divider span {
+            padding: 0 15px;
+            font-size: 14px;
+        }
+
+        .google-btn {
+            width: 100%;
+            padding: 14px;
+            background: #ffffff;
+            border: none;
+            border-radius: 10px;
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .google-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .google-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .signup-prompt {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .signup-prompt a {
+            color: var(--neon-green);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .signup-prompt a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #ff4d4d;
+            background: rgba(255, 77, 77, 0.1);
+            border: 1px solid rgba(255, 77, 77, 0.3);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .success-message {
+            color: #43FFAD;
+            background: rgba(67, 255, 173, 0.1);
+            border: 1px solid rgba(67, 255, 173, 0.3);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                max-width: 90%;
+                padding: 30px;
+                margin-top: 100px;
+            }
+
+            .login-title {
+                font-size: 2rem;
+            }
+
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Add modal/popup styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: #14161e;
+            border-radius: 15px;
+            border: 1px solid rgba(67, 255, 173, 0.3);
+            padding: 30px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 30px rgba(67, 255, 173, 0.2);
+            animation: modalFadeIn 0.4s forwards;
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        .modal-title {
+            color: var(--neon-green);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .modal-message {
+            margin-bottom: 20px;
+            color: #f1f1f1;
+            line-height: 1.5;
+        }
+        
+        .modal-close {
+            background-color: var(--neon-green);
+            color: #111;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(67, 255, 173, 0.3);
+        }
+    </style>
+    
+    <!-- Firebase Core + Auth SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
+
+    <!-- Initialize Firebase (AFTER SDKs loaded) -->
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCdf1V7A8b8VtPTldgLOT_2C5cPcVy8mPw",
+          authDomain: "traizer-tweaks-website.firebaseapp.com",
+          projectId: "traizer-tweaks-website",
+          storageBucket: "traizer-tweaks-website.appspot.com",
+          messagingSenderId: "67249464573",
+          appId: "1:67249464573:web:27689234a1598e5ab8b8d4",
+          measurementId: "G-MWLG1YTVS6"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // GOOGLE SIGN-IN
+        function signInWithGoogle() {
+          const provider = new firebase.auth.GoogleAuthProvider();
+
+          auth.signInWithPopup(provider)
+            .then((result) => {
+              const user = result.user;
+
+              // Optional: Save to Firestore
+              db.collection("users").doc(user.uid).set({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL,
+                lastLogin: new Date()
+              }, { merge: true });
+
+              // Show success message instead of alert
+              const successMessage = document.getElementById('success-message');
+              successMessage.textContent = 'Login successful! Redirecting...';
+              successMessage.style.display = 'block';
+              
+              setTimeout(() => {
+                window.location.href = "index.html";
+              }, 1500);
+            })
+            .catch((error) => {
+              console.error("Google Sign-In Error:", error);
+              
+              // Show error message instead of alert
+              const errorMessage = document.getElementById('error-message');
+              errorMessage.textContent = "Google login failed: " + error.message;
+              errorMessage.style.display = 'block';
+            });
+        }
+
+        // EMAIL LOGIN
+        function loginUser() {
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          auth.signInWithEmailAndPassword(email, password)
+            .then(() => {
+              // Show success message instead of alert
+              const successMessage = document.getElementById('success-message');
+              successMessage.textContent = 'Login successful! Redirecting...';
+              successMessage.style.display = 'block';
+              
+              setTimeout(() => {
+                window.location.href = "index.html";
+              }, 1500);
+            })
+            .catch((error) => {
+              console.error("Login error:", error);
+              
+              // Show detailed error message
+              const errorMessage = document.getElementById('error-message');
+              let errorText = "Incorrect email or password";
+              
+              if (error.code === 'auth/invalid-email') {
+                  errorText = 'Invalid email address format.';
+              } else if (error.code === 'auth/user-disabled') {
+                  errorText = 'This account has been disabled.';
+              } else if (error.code === 'auth/user-not-found') {
+                  errorText = 'No account found with this email address.';
+              } else if (error.code === 'auth/wrong-password') {
+                  errorText = 'Incorrect password.';
+              }
+              
+              errorMessage.textContent = errorText;
+              errorMessage.style.display = 'block';
+            });
+        }
+        
+        // Check auth state on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Email/Password Login form submission
+            const loginForm = document.getElementById('login-form');
+            
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show coming soon modal instead of actual login
+                showComingSoonModal();
+            });
+            
+            // Modify Google login button
+            const googleLoginBtn = document.getElementById('google-login-btn');
+            if (googleLoginBtn) {
+                googleLoginBtn.onclick = function(e) {
+                    e.preventDefault();
+                    showComingSoonModal();
+                };
+            }
+            
+            // Navigation - add scrolled class to navbar when scrolling
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // Check if user is already logged in
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // User is signed in
+                console.log("User is already signed in:", user.email);
+            }
+        });
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473336/image-removebg-preview_23_ww5uf8.png" alt="Traizer Tweaks" class="logo">
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item">Home</a>
+            <a href="pricing.html" class="nav-item">Pricing</a>
+            <a href="features.html" class="nav-item">Features</a>
+            <a href="download.html" class="nav-item">Download</a>
+            <a href="support.html" class="nav-item">Support</a>
+        </div>
+        <div class="nav-buttons">
+            <a href="login.html" class="login-btn active">LOGIN</a>
+            <a href="pricing.html" class="buy-btn">BUY NOW</a>
+        </div>
+    </nav>
+
+    <div class="login-container">
+        <div class="login-header">
+            <h1 class="login-title">Welcome Back</h1>
+            <p class="login-subtitle">Sign in to continue to Traizer Tweaks</p>
+        </div>
+        
+        <div id="error-message" class="error-message"></div>
+        <div id="success-message" class="success-message"></div>
+        
+        <form id="login-form">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+            </div>
+            
+            <div class="forgot-password">
+                <a href="#">Forgot Password?</a>
+            </div>
+            
+            <button type="submit" class="login-btn-primary">LOGIN</button>
+        </form>
+        
+        <div class="or-divider">
+            <span>OR</span>
+        </div>
+        
+        <button id="google-login-btn" onclick="signInWithGoogle()" class="google-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" class="google-icon">
+            Sign in with Google
+        </button>
+        
+        <div class="signup-prompt">
+            Don't have an account? <a href="signup.html">Sign up</a>
+        </div>
+    </div>
+
+    <!-- Add the modal for coming soon feature -->
+    <div id="comingSoonModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">Feature Coming Soon!</h3>
+            <p class="modal-message">We're currently enhancing our login system to provide you with the best experience. This feature will be available shortly.</p>
+            <button class="modal-close" onclick="closeModal()">Got it</button>
+        </div>
+    </div>
+
+    <script>
+        // Login modal functions
+        function showComingSoonModal() {
+            document.getElementById('comingSoonModal').style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('comingSoonModal').style.display = 'none';
+        }
+        
+        // When user clicks anywhere outside of the modal, close it
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('comingSoonModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html> 

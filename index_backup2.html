@@ -1,0 +1,4928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traizer Tweaks - Lower Your Ping and Boost FPS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Helvetica Neue';
+            src: url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.eot');
+            src: url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.eot?#iefix') format('embedded-opentype'),
+                url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.woff2') format('woff2'),
+                url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.woff') format('woff'),
+                url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.ttf') format('truetype'),
+                url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.svg#Helvetica Neue LT Pro 45 Light') format('svg');
+            font-weight: 300;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'SF Pro Display';
+            src: url('https://db.onlinewebfonts.com/t/1c45e28f8e86cc89876f003b953cc3e9.eot');
+            src: url('https://db.onlinewebfonts.com/t/1c45e28f8e86cc89876f003b953cc3e9.eot?#iefix') format('embedded-opentype'),
+                url('https://db.onlinewebfonts.com/t/1c45e28f8e86cc89876f003b953cc3e9.woff2') format('woff2'),
+                url('https://db.onlinewebfonts.com/t/1c45e28f8e86cc89876f003b953cc3e9.woff') format('woff'),
+                url('https://db.onlinewebfonts.com/t/1c45e28f8e86cc89876f003b953cc3e9.ttf') format('truetype'),
+                url('https://db.onlinewebfonts.com/t/1c45e28f8e86cc89876f003b953cc3e9.svg#SF Pro Display') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'SF Pro Display';
+            src: url('https://db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.eot');
+            src: url('https://db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.eot?#iefix') format('embedded-opentype'),
+                url('https://db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.woff2') format('woff2'),
+                url('https://db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.woff') format('woff'),
+                url('https://db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.ttf') format('truetype'),
+                url('https://db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.svg#SF Pro Display Bold') format('svg');
+            font-weight: 700;
+            font-style: normal;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', 'Inter', sans-serif;
+        }
+
+        :root {
+            --neon-green: #3ac5ff;
+            --dark-bg: #0f1a3c;
+            --dark-surface: #162252;
+            --light-text: #ffffff;
+            --accent-green: #3ac5ff;
+            --accent-blue: #3ac5ff;
+            --secondary-green: #2196f3;
+        }
+
+        /* Hide the TRAIZER STANDARD TWEAKING UTILITY section */
+        .tweaking-utility-section {
+            display: none !important;
+        }
+
+        /* Hide the Gaming Success Dashboard section */
+        .gaming-success-dashboard, .gaming-success-dashboard + .gamer-success-hub {
+            display: none !important;
+        }
+
+        /* Hide the Gaming Success Dashboard section */
+        .gaming-success-dashboard {
+            display: none !important;
+        }
+
+        body {
+            background: linear-gradient(135deg, #050b1f 0%, #0f1a3c 50%, #101349 100%);
+            position: relative;
+            color: white;
+            overflow-x: hidden;
+            background-color: #050b1f;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(67, 255, 173, 0.08) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        /* Animated background lines */
+        .bg-lines {
+            display: none; /* Hide the background lines */
+        }
+
+        .bg-line {
+            display: none; /* Hide the individual lines */
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: rgba(15, 26, 60, 0.8);
+            transition: background-color 0.3s ease, padding 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 40px;
+        }
+
+        .nav-links {
+            position: absolute;
+            left: 52%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-item {
+            position: relative;
+            text-decoration: none;
+            color: #f1f1f1;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            padding: 5px 0;
+        }
+
+        .nav-item:hover {
+            color: var(--accent-green);
+        }
+
+        .nav-item.active {
+            color: var(--accent-green);
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -8px;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-green);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .login-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .buy-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            background-color: var(--accent-green);
+            color: #111;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 20px 60px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 60px;
+        }
+
+        .alpha-tag {
+            background-color: rgba(58, 197, 255, 0.2);
+            color: #3ac5ff;
+            border: 1px solid rgba(58, 197, 255, 0.3);
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .hero-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: 700;
+            font-size: 4.5rem;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: titleFadeUp 0.4s ease forwards 0.2s;
+            letter-spacing: -1px;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #3ac5ff, #2196f3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+
+        @keyframes titleFadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-description {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .app-showcase {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .app-image {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(58, 197, 255, 0.6);
+            transition: all 0.5s ease;
+            animation: glowPulse 3s infinite alternate;
+            position: relative;
+        }
+        
+        @keyframes glowPulse {
+            0% {
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(58, 197, 255, 0.4);
+            }
+            100% {
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 50px rgba(58, 197, 255, 0.8);
+            }
+        }
+        
+        .app-image:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 70px rgba(58, 197, 255, 0.9);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: #4361EE;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 20px rgba(58, 197, 255, 0.4);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(58, 197, 255, 0.1);
+            border-color: var(--accent-green);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .trusted-title, .game-logo, 
+        .performance-title, .performance-heading, .benefit-box {
+            opacity: 0;
+        }
+
+        .fade-up {
+            transform: translateY(30px);
+        }
+
+        .fade-in {
+            opacity: 0;
+        }
+
+        .slide-left {
+            transform: translateX(-30px);
+        }
+
+        .slide-right {
+            transform: translateX(30px);
+        }
+
+        .zoom-in {
+            transform: scale(0.9);
+        }
+
+        /* Animation classes that will be added by JS */
+        .animate {
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            opacity: 1;
+            transform: translate(0) scale(1);
+        }
+
+        .hero-subtitle {
+            font-size: 2.5rem;
+            line-height: 1.3;
+            color: white;
+            margin-bottom: 15px;
+            font-weight: 700;
+            transform: translateY(20px);
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            transform: translateY(20px);
+            margin-top: 20px;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 20px rgba(140, 82, 255, 0.4);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(46, 204, 113, 0.1);
+            border-color: var(--accent-green);
+        }
+
+        .trusted-section {
+            text-align: center;
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: transparent;
+            position: relative;
+        }
+
+        .trusted-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: 300;
+            font-size: 2.8rem;
+            margin-bottom: 70px;
+            color: white;
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .trusted-title.animate {
+            animation: revealTitle 1s forwards cubic-bezier(0.13, 0.82, 0.31, 1);
+        }
+
+        @keyframes revealTitle {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .performance-section .benefit-box {
+            background: rgba(15, 20, 30, 0.75);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .performance-section .benefit-box:hover {
+            transform: translateY(-15px);
+            border-color: rgba(67, 255, 173, 0.3);
+            background: rgba(21, 26, 36, 0.85);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 15px rgba(67, 255, 173, 0.1);
+        }
+
+        .performance-section .benefit-box h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Gradient text colors for performance benefits */
+        .performance-section .benefit-box:nth-child(1) h3 {
+            background: linear-gradient(to right, #c471ed, #f64f59);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .performance-section .benefit-box:nth-child(2) h3 {
+            background: linear-gradient(to right, #2193b0, #6dd5ed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .performance-section .benefit-box:nth-child(3) h3 {
+            background: linear-gradient(to right, #f7b733, #fc4a1a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .performance-section .benefit-box:nth-child(4) h3 {
+            background: linear-gradient(to right, #f24b7a, #f5576c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .performance-section .benefit-box:nth-child(5) h3 {
+            background: linear-gradient(to right, #00b09b, #96c93d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .performance-section .benefit-box:nth-child(6) h3 {
+            background: linear-gradient(to right, #8e2de2, #4a00e0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Enhanced Stats Section Styling */
+        .stats-overview {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .stat-item {
+            background: rgba(22, 28, 37, 0.7);
+            border: 2px solid rgba(67, 255, 173, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            width: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(40px);
+            opacity: 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        
+        .stat-item:hover::after {
+            opacity: 1;
+        }
+        
+        .stat-item.animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-10px);
+            border-color: rgba(67, 255, 173, 0.6);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(67, 255, 173, 0.2);
+            background: rgba(25, 35, 45, 0.8);
+        }
+        
+        .stat-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(67, 255, 173, 0.2), rgba(67, 255, 173, 0.05));
+            border-radius: 50%;
+            margin-bottom: 15px;
+            color: var(--neon-green);
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover .stat-icon-wrapper {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, rgba(67, 255, 173, 0.3), rgba(67, 255, 173, 0.1));
+            box-shadow: 0 0 20px rgba(67, 255, 173, 0.4);
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            margin: 10px 0;
+            background: linear-gradient(to right, white, var(--neon-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover .stat-number {
+            transform: scale(1.1);
+        }
+        
+        .stat-description {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+            max-width: 150px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 992px) {
+            .stats-overview {
+                gap: 20px;
+            }
+            
+            .stat-item {
+                width: 190px;
+                padding: 25px 15px;
+            }
+            
+            .stat-number {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .stats-overview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .stats-overview {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-item {
+                width: 100%;
+                max-width: 220px;
+            }
+        }
+
+        /* Style for small interface notes */
+        .interface-note {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.8rem;
+            color: rgba(200, 200, 200, 0.7);
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* Add a faster animation for stats */
+        @keyframes statFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-item.animate {
+            animation: statFadeIn 0.4s forwards ease-out;
+        }
+
+        /* CTA Buttons */
+        .cta-btn.primary-btn {
+            padding: 18px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #111;
+            background-color: var(--accent-green);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+        }
+
+        .cta-btn.secondary-btn {
+            padding: 18px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            border: 2px solid var(--accent-green);
+            background-color: transparent;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .cta-btn.primary-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(46, 204, 113, 0.4);
+        }
+
+        .cta-btn.secondary-btn:hover {
+            background-color: rgba(46, 204, 113, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .hero-img {
+            position: relative;
+            z-index: 1;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-left: 40px;
+            flex: 1;
+        }
+
+        .hero-img img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 15px 50px rgba(140, 82, 255, 0.2);
+            opacity: 0;
+            animation: imgFadeUp 0.4s ease forwards 0.3s;
+            margin: 0 auto;
+            display: block;
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        @keyframes imgFadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-img.animate img {
+            opacity: 1;
+        }
+
+        /* Testimonials Section Styling */
+        .testimonials-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .testimonials-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: 300;
+            font-size: 2.8rem;
+            margin-bottom: 60px;
+            color: white;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.4s ease forwards;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .testimonial-card {
+            background: rgba(26, 26, 26, 0.6);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: left;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(58, 197, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.4s ease forwards;
+            animation-delay: calc(var(--i) * 0.05s);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(58, 197, 255, 0.3);
+            background: rgba(30, 30, 30, 0.8);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            background: linear-gradient(135deg, #8C52FF, #5E17EB);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .testimonial-info {
+            flex: 1;
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .testimonial-game {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .testimonial-rating {
+            margin-bottom: 15px;
+            color: #FFC107;
+        }
+
+        .testimonial-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* FAQ Section Styling */
+        .faq-section {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .faq-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: 300;
+            font-size: 2.8rem;
+            margin-bottom: 60px;
+            color: white;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.4s ease forwards;
+        }
+
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .faq-item {
+            background: rgba(26, 26, 26, 0.6);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(140, 82, 255, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.4s ease forwards;
+            animation-delay: calc(var(--i) * 0.05s);
+        }
+
+        .faq-item:hover {
+            border-color: rgba(140, 82, 255, 0.2);
+            background: rgba(30, 30, 30, 0.7);
+        }
+
+        .faq-item.active {
+            background: rgba(30, 30, 30, 0.8);
+            border-color: rgba(140, 82, 255, 0.3);
+        }
+
+        .faq-question {
+            padding: 20px 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .faq-toggle {
+            width: 20px;
+            height: 20px;
+            position: relative;
+        }
+
+        .faq-toggle::before,
+        .faq-toggle::after {
+            content: '';
+            position: absolute;
+            background-color: #8C52FF;
+            transition: all 0.3s ease;
+        }
+
+        .faq-toggle::before {
+            width: 20px;
+            height: 2px;
+            top: 9px;
+            left: 0;
+        }
+
+        .faq-toggle::after {
+            width: 2px;
+            height: 20px;
+            top: 0;
+            left: 9px;
+        }
+
+        .faq-item.active .faq-toggle::after {
+            transform: rotate(90deg);
+            opacity: 0;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+            padding: 0 25px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 25px 20px;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .how-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: 300;
+            font-size: 2.8rem;
+            margin-bottom: 60px;
+            color: white;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.4s ease forwards;
+        }
+
+        .steps-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .step-card {
+            background: rgba(26, 26, 26, 0.7);
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 350px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+            border: 1px solid rgba(140, 82, 255, 0.05);
+            opacity: 0;
+            transform: translateY(30px);
+            flex: 1;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(140, 82, 255, 0.3);
+            background: rgba(30, 30, 30, 0.9);
+        }
+
+        .step-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 5rem;
+            font-weight: 800;
+            opacity: 0.1;
+            color: white;
+            line-height: 1;
+        }
+
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            color: #8C52FF;
+        }
+
+        .step-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .step-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-img {
+            position: relative;
+            z-index: 1;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-left: 40px;
+            flex: 1;
+        }
+
+        /* Game Logos Section */
+        .game-logos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+        }
+
+        .game-logo {
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInLogo 0.4s forwards;
+            animation-delay: calc(var(--i) * 0.05s);
+        }
+        
+        @keyframes fadeInLogo {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .game-logo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(58, 197, 255, 0.1);
+            border-color: rgba(58, 197, 255, 0.15);
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .game-logo img {
+            max-width: 100%;
+            max-height: 100px;
+            transition: all 0.3s ease;
+            object-fit: contain;
+        }
+
+        .game-logo:nth-child(1) img {
+            max-height: 130px; /* Make CS2 logo larger */
+        }
+
+        .game-logo:nth-child(4) img {
+            filter: none; /* Show GTA V logo in original colors */
+            max-height: 100px;
+        }
+
+        .game-logo:hover img {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+        }
+        
+        .game-logo:nth-child(4):hover img {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+        }
+
+        @media (max-width: 992px) {
+            .game-logos {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .game-logos {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .game-logos {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .interface-note {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.8rem;
+            color: rgba(200, 200, 200, 0.7);
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* Premium Features Section Styles */
+        .premium-features-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .premium-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: 300;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.4s ease forwards;
+        }
+
+        .premium-text {
+            color: #3ac5ff;
+            font-weight: 600;
+        }
+
+        .premium-description {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.4s ease forwards 0.1s;
+        }
+
+        .premium-features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .premium-feature-card {
+            background: rgba(26, 26, 26, 0.6);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+            border: 1px solid rgba(58, 197, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .premium-feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(58, 197, 255, 0.3);
+            background: rgba(30, 30, 30, 0.8);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.8rem;
+        }
+
+        .feature-icon.purple {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(138, 43, 226, 0.1));
+            color: #9c5fff;
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.2);
+        }
+
+        .feature-icon.blue {
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.2), rgba(0, 123, 255, 0.1));
+            color: #3ac5ff;
+            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
+        }
+
+        .feature-icon.green {
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.2), rgba(40, 167, 69, 0.1));
+            color: #43ffad;
+            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.2);
+        }
+
+        .feature-icon.pink {
+            background: linear-gradient(135deg, rgba(232, 62, 140, 0.2), rgba(232, 62, 140, 0.1));
+            color: #ff6b9d;
+            box-shadow: 0 10px 20px rgba(232, 62, 140, 0.2);
+        }
+
+        .feature-icon.yellow {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 193, 7, 0.1));
+            color: #ffc107;
+            box-shadow: 0 10px 20px rgba(255, 193, 7, 0.2);
+        }
+
+        .feature-icon.red {
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.2), rgba(220, 53, 69, 0.1));
+            color: #ff5c75;
+            box-shadow: 0 10px 20px rgba(220, 53, 69, 0.2);
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .feature-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Animation for premium features */
+        [data-aos="fade-up"] {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.4s ease, transform 0.4s ease; /* Reduced from 0.8s to 0.4s */
+        }
+
+        [data-aos="fade-up"].aos-animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Update the animation delay for premium feature cards */
+        .premium-feature-card[data-aos-delay="100"] {
+            transition-delay: 0.05s; /* Reduced from 0.1s */
+        }
+        
+        .premium-feature-card[data-aos-delay="200"] {
+            transition-delay: 0.1s; /* Reduced from 0.2s */
+        }
+        
+        .premium-feature-card[data-aos-delay="300"] {
+            transition-delay: 0.15s; /* Reduced from 0.3s */
+        }
+        
+        .premium-feature-card[data-aos-delay="400"] {
+            transition-delay: 0.2s; /* Reduced from 0.4s */
+        }
+        
+        .premium-feature-card[data-aos-delay="500"] {
+            transition-delay: 0.25s; /* Reduced from 0.5s */
+        }
+
+        @media (max-width: 992px) {
+            .premium-features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .premium-title {
+                font-size: 2.5rem;
+            }
+            
+            .premium-description {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .premium-features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .premium-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Stats Showcase Section Styles */
+        .stats-showcase-section {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, rgba(15, 26, 60, 0.3) 0%, rgba(15, 26, 60, 0.8) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-showcase-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(58, 197, 255, 0.5), transparent);
+        }
+
+        .stats-showcase-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(58, 197, 255, 0.5), transparent);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stats-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: 300;
+            font-size: 2.8rem;
+            margin-bottom: 70px;
+            color: white;
+            position: relative;
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.4s ease forwards;
+        }
+
+        .stats-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #3ac5ff, #43ffad);
+            border-radius: 3px;
+        }
+
+        .stats-cards-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .stats-card {
+            width: 250px;
+            height: 250px;
+            perspective: 1000px;
+            margin-bottom: 20px;
+        }
+
+        .stats-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .stats-card:hover .stats-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .stats-card-front, .stats-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .stats-card-front {
+            background: rgba(22, 28, 37, 0.7);
+            border: 2px solid rgba(58, 197, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 20px rgba(58, 197, 255, 0.1);
+            color: white;
+        }
+
+        .stats-card-back {
+            background: linear-gradient(135deg, rgba(58, 197, 255, 0.2), rgba(67, 255, 173, 0.2));
+            border: 2px solid rgba(58, 197, 255, 0.5);
+            color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 30px rgba(58, 197, 255, 0.2);
+        }
+
+        .stats-card-back p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .stats-icon-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, rgba(58, 197, 255, 0.2), rgba(67, 255, 173, 0.1));
+            color: #3ac5ff;
+            font-size: 28px;
+            box-shadow: 0 5px 15px rgba(58, 197, 255, 0.2);
+        }
+
+        .stats-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            margin: 5px 0;
+            background: linear-gradient(to right, white, #3ac5ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stats-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+
+        @media (max-width: 1100px) {
+            .stats-cards-container {
+                gap: 20px;
+            }
+            
+            .stats-card {
+                width: 220px;
+                height: 220px;
+            }
+            
+            .stats-number {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .stats-cards-container {
+                gap: 15px;
+            }
+            
+            .stats-card {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .stats-icon-container {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+            
+            .stats-number {
+                font-size: 2.5rem;
+            }
+            
+            .stats-label {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-cards-container {
+                gap: 20px;
+            }
+            
+            .stats-card {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .stats-icon-container {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+            
+            .stats-number {
+                font-size: 2.2rem;
+            }
+            
+            .stats-card-back p {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .stats-cards-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stats-card {
+                width: 280px;
+                height: 180px;
+            }
+        }
+        
+        /* Gaming Success Dashboard Styles */
+        .gaming-success-dashboard {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, rgba(15, 26, 60, 0.3) 0%, rgba(15, 26, 60, 0.8) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gaming-success-dashboard::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(58, 197, 255, 0.5), transparent);
+        }
+
+        .gaming-success-dashboard::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(58, 197, 255, 0.5), transparent);
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-gap: 40px;
+        }
+
+        .dashboard-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: 300;
+            font-size: 2.8rem;
+            margin-bottom: 40px;
+            color: white;
+            text-align: center;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.4s ease forwards;
+        }
+
+        .highlight-text {
+            color: #3ac5ff;
+            font-weight: 600;
+        }
+
+        /* Live Activity Feed Styles */
+        .activity-feed-container {
+            background: rgba(22, 28, 37, 0.7);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(58, 197, 255, 0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.4s ease forwards 0.1s;
+        }
+
+        .activity-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .activity-header h3 {
+            font-size: 1.4rem;
+            color: white;
+            margin: 0;
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 59, 59, 0.15);
+            padding: 6px 12px;
+            border-radius: 30px;
+            color: #ff5c5c;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ff5c5c;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 92, 92, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(255, 92, 92, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 92, 92, 0);
+            }
+        }
+
+        .activity-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .activity-feed::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .activity-feed::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .activity-feed::-webkit-scrollbar-thumb {
+            background: rgba(58, 197, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .activity-item {
+            display: flex;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(30, 30, 40, 0.5);
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .activity-item:hover {
+            transform: translateX(5px);
+            background: rgba(40, 40, 50, 0.7);
+        }
+
+        .activity-item.new-order {
+            border-left-color: #3ac5ff;
+        }
+
+        .activity-item.new-review {
+            border-left-color: #ffc107;
+        }
+
+        .activity-time {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            width: 70px;
+            padding-top: 3px;
+        }
+
+        .activity-content {
+            flex: 1;
+            display: flex;
+            gap: 15px;
+        }
+
+        .activity-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 16px;
+        }
+
+        .new-order .activity-icon {
+            background: rgba(58, 197, 255, 0.15);
+            color: #3ac5ff;
+        }
+
+        .new-review .activity-icon {
+            background: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+        }
+
+        .activity-details {
+            flex: 1;
+        }
+
+        .activity-details p {
+            margin: 0 0 5px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+        }
+
+        .activity-action {
+            color: rgba(255, 255, 255, 0.7) !important;
+            font-size: 0.85rem !important;
+        }
+
+        .review-stars {
+            color: #ffc107;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+
+        .review-quote {
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-size: 0.85rem !important;
+        }
+
+        /* Performance Metrics Styles */
+        .performance-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.4s ease forwards 0.2s;
+        }
+
+        .metric-card {
+            background: rgba(22, 28, 37, 0.7);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(58, 197, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(58, 197, 255, 0.4);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(58, 197, 255, 0.1);
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .metric-header h3 {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .metric-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(58, 197, 255, 0.15);
+            color: #3ac5ff;
+            font-size: 16px;
+        }
+
+        .metric-chart {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circular-progress {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+            width: 100%;
+            height: 100%;
+        }
+
+        .progress-ring-circle-bg {
+            fill: transparent;
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 8;
+        }
+
+        .progress-ring-circle {
+            fill: transparent;
+            stroke: #3ac5ff;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.8s ease;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .progress-text span:last-child {
+            font-size: 1.2rem;
+            margin-left: 2px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            margin: 10px 0;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+        }
+
+        .metric-value span:last-child {
+            font-size: 1.5rem;
+            margin-left: 2px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .metric-bar {
+            margin-top: 10px;
+        }
+
+        .bar-container {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3ac5ff, #43ffad);
+            border-radius: 4px;
+            width: 0;
+            animation: fillBar 1s ease forwards 0.5s;
+        }
+
+        @keyframes fillBar {
+            to {
+                width: var(--width, 100%);
+            }
+        }
+
+        .bar-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .support-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: rgba(58, 197, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.8rem;
+            border: 1px solid rgba(58, 197, 255, 0.2);
+        }
+
+        .badge i {
+            color: #3ac5ff;
+            font-size: 0.7rem;
+        }
+
+        /* Featured Review Styles */
+        .featured-review {
+            background: rgba(22, 28, 37, 0.7);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(58, 197, 255, 0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.4s ease forwards 0.3s;
+        }
+
+        .featured-review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .featured-review-header h3 {
+            font-size: 1.4rem;
+            color: white;
+            margin: 0;
+        }
+
+        .featured-stars {
+            color: #ffc107;
+            font-size: 1rem;
+        }
+
+        .featured-review-content {
+            display: flex;
+            gap: 20px;
+        }
+
+        .featured-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8C52FF, #5E17EB);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .featured-details {
+            flex: 1;
+        }
+
+        .featured-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .featured-game {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 15px;
+        }
+
+        .featured-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        .featured-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .featured-stats .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 15px;
+            background: rgba(58, 197, 255, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(58, 197, 255, 0.2);
+        }
+
+        .featured-stats .stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #3ac5ff;
+        }
+
+        .featured-stats .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 5px;
+        }
+
+        @media (max-width: 992px) {
+            .performance-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .featured-review-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .featured-stats {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .performance-metrics {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-title {
+                font-size: 2rem;
+            }
+            
+            .activity-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .activity-time {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 5px;
+            }
+            
+            .activity-item {
+                flex-direction: column;
+            }
+        }
+
+        /* Gamer Success Hub Styles - New Simplified Version */
+        .gamer-success-hub {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, rgba(15, 26, 60, 0.3) 0%, rgba(15, 26, 60, 0.8) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gamer-success-hub::before,
+        .gamer-success-hub::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(58, 197, 255, 0.5), transparent);
+        }
+
+        .gamer-success-hub::before {
+            top: 0;
+        }
+
+        .gamer-success-hub::after {
+            bottom: 0;
+        }
+
+        .hub-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .hub-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 3rem;
+            font-weight: 300;
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.4s forwards;
+        }
+
+        .accent-text {
+            color: #3ac5ff;
+            font-weight: 600;
+        }
+
+        /* Key Metrics */
+        .key-metrics {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .metric-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.4s forwards 0.1s;
+        }
+
+        .metric-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: rgba(22, 28, 37, 0.7);
+            border: 2px solid rgba(58, 197, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 15px rgba(58, 197, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .metric-circle::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, transparent, rgba(58, 197, 255, 0.5), transparent);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .metric-item:hover .metric-circle::before {
+            opacity: 1;
+        }
+
+        .metric-item:hover .metric-circle {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 25px rgba(58, 197, 255, 0.2);
+        }
+
+        .metric-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1;
+        }
+
+        .metric-symbol {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-left: 2px;
+        }
+
+        .metric-label {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        /* Live Feed */
+        .live-feed {
+            background: rgba(22, 28, 37, 0.7);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(58, 197, 255, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.4s forwards 0.2s;
+        }
+
+        .feed-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 59, 59, 0.15);
+            padding: 8px 15px;
+            border-radius: 30px;
+            color: #ff5c5c;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ff5c5c;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        .feed-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .feed-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(30, 30, 40, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .feed-item:hover {
+            transform: translateX(5px);
+            background: rgba(40, 40, 50, 0.7);
+        }
+
+        .feed-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .order-icon {
+            background: rgba(58, 197, 255, 0.15);
+            color: #3ac5ff;
+        }
+
+        .review-icon {
+            background: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+        }
+
+        .feed-content {
+            flex: 1;
+        }
+
+        .feed-content p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .feed-time {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Featured Testimonial */
+        .featured-testimonial {
+            background: rgba(22, 28, 37, 0.7);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(58, 197, 255, 0.2);
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.4s forwards 0.3s;
+        }
+
+        .testimonial-quote {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 2rem;
+            color: rgba(58, 197, 255, 0.2);
+        }
+
+        .testimonial-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            margin: 20px 0 30px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3ac5ff, #43ffad);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .author-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            margin: 0 0 5px;
+        }
+
+        .author-stars {
+            color: #ffc107;
+            font-size: 0.9rem;
+        }
+
+        /* Trust Badges */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.4s forwards 0.5s;
+        }
+
+        .trust-badges .badge {
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: rgba(58, 197, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            border: 1px solid rgba(58, 197, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .trust-badges .badge:hover {
+            transform: translateY(-3px);
+            background: rgba(58, 197, 255, 0.15);
+            border-color: rgba(58, 197, 255, 0.4);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 10px rgba(58, 197, 255, 0.2);
+        }
+
+        .trust-badges .badge i {
+            color: #3ac5ff;
+            margin-right: 8px;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hub-title {
+                font-size: 2.5rem;
+            }
+            
+            .key-metrics {
+                gap: 20px;
+            }
+            
+            .metric-circle {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .metric-number {
+                font-size: 2.5rem;
+            }
+            
+            .testimonial-text {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hub-title {
+                font-size: 2rem;
+            }
+            
+            .metric-circle {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .metric-number {
+                font-size: 2rem;
+            }
+            
+            .feed-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .testimonial-text {
+                font-size: 1rem;
+            }
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: rgba(15, 26, 60, 0.9);
+            padding: 60px 0 20px;
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            margin-top: 80px;
+            border-top: 1px solid rgba(58, 197, 255, 0.2);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-about {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo {
+            height: 40px;
+            margin-bottom: 15px;
+        }
+
+        .footer-desc {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--accent-green);
+            color: #111;
+            transform: translateY(-3px);
+        }
+
+        .footer-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+        }
+
+        .footer-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-green);
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 12px;
+        }
+
+        .footer-link a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .footer-link a:hover {
+            color: var(--accent-green);
+            padding-left: 5px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .contact-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: var(--accent-green);
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 20px 0 0;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 992px) {
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-about {
+                text-align: center;
+                align-items: center;
+            }
+            
+            .footer-title:after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Modal/Popup styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #14151F;
+            border-radius: 15px;
+            padding: 40px;
+            width: 450px;
+            max-width: 90%;
+            border: 1px solid rgba(58, 197, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(58, 197, 255, 0.15);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: modalFadeIn 0.4s forwards;
+        }
+
+        @keyframes modalFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #3ac5ff;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .modal-message {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .modal-close {
+            padding: 10px 25px;
+            background-color: #3ac5ff;
+            color: #111;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(58, 197, 255, 0.3);
+        }
+
+        /* Sliding Reviews Section */
+        .sliding-reviews-section {
+            padding: 30px 0;
+            overflow: hidden;
+            background: rgba(15, 26, 60, 0.3);
+            position: relative;
+        }
+
+        .sliding-reviews-section::before,
+        .sliding-reviews-section::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(58, 197, 255, 0.5), transparent);
+        }
+
+        .sliding-reviews-section::before {
+            top: 0;
+        }
+
+        .sliding-reviews-section::after {
+            bottom: 0;
+        }
+
+        .sliding-reviews-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .sliding-reviews-track {
+            display: flex;
+            animation: slideReviews 0s linear infinite;
+        }
+
+        @keyframes slideReviews {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .sliding-review {
+            min-width: 300px;
+            background: rgba(22, 34, 82, 0.4);
+            margin: 0 15px;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .sliding-review:hover {
+            transform: translateY(-5px);
+            border-color: rgba(58, 197, 255, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 10px rgba(58, 197, 255, 0.2);
+        }
+
+        .review-stars {
+            color: #ffc107;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .sliding-review-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .sliding-reviewer {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #3ac5ff;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
+
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyCdfLV7ABb8VtPIdgLOT_2C5cCpWZy8mPw",
+          authDomain: "traizer-tweaks-webite.firebaseapp.com",
+          projectId: "traizer-tweaks-webite",
+          storageBucket: "traizer-tweaks-webite.firebasestorage.app",
+          messagingSenderId: "672494064573",
+          appId: "1:672494064573:web:2768923341590e5ab8b8d4",
+          measurementId: "G-MWLG1YTVS6"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+</head>
+<body>
+    <!-- Background animation lines -->
+    <div class="bg-lines"></div>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="assets/image-removebg-preview(23).png" alt="TRAIZER TWEAKS" class="logo">
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item active">HOME</a>
+            <a href="pricing.html" class="nav-item">PRICING</a>
+            <a href="features.html" class="nav-item">FEATURES</a>
+            <a href="download.html" class="nav-item">DOWNLOAD</a>
+            <a href="support.html" class="nav-item">SUPPORT</a>
+        </div>
+        <div class="nav-buttons">
+            <button class="login-btn">LOGIN</button>
+            <a href="pricing.html" class="buy-btn">BUY NOW</a>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="alpha-tag">Lithium's Alpha Release is Live</div>
+            <h1 class="hero-title">Maximize Performance<br>
+            <span class="gradient-text">Minimize Hassle</span></h1>
+            <p class="hero-description">Stop lagging, start winning - optimize your PC now.</p>
+            <div class="btn-container">
+                <a href="download.html" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Download Now
+                </a>
+                <a href="#" class="btn btn-secondary">
+                    <i class="fab fa-discord"></i> Join our Discord
+                </a>
+            </div>
+        </div>
+        <div class="app-showcase">
+            <img src="assets/Control-V(30).png" alt="PC Tweaks Dashboard Interface" class="app-image">
+        </div>
+    </section>
+
+    <!-- Traizer Standard Tweaking Utility Section -->
+    <section class="tweaking-utility-section">
+        <h2 class="utility-title">TRAIZER STANDARD TWEAKING UTILITY</h2>
+        
+        <p class="utility-description">
+            The Traizer standard tweaking utility is our more budget friendly alternative to premium that can easily and effectively
+            optimize your PC for better performance and low latency with a press of a few buttons.
+        </p>
+        
+        <div class="utility-features-top">
+            <div class="utility-feature-box">
+                <p class="feature-category">Experience Up To A</p>
+                <h3 class="feature-value pink">30%</h3>
+                <p class="feature-name">FPS Increase</p>
+            </div>
+            
+            <div class="utility-feature-box">
+                <p class="feature-category">Up To A</p>
+                <h3 class="feature-value blue">200%</h3>
+                <p class="feature-name">Latency Decrease!</p>
+            </div>
+            
+            <div class="utility-feature-box">
+                <p class="feature-category">Over</p>
+                <h3 class="feature-value orange">650</h3>
+                <p class="feature-name">Optimizations</p>
+            </div>
+        </div>
+        
+        <div class="utility-features-bottom">
+            <div class="utility-feature-box">
+                <p class="feature-category">Stop Freezes & Stutters</p>
+                <h3 class="feature-value gradient-gold">Fix FPS Drops</h3>
+                <p class="feature-name">Experience Smoothness</p>
+            </div>
+            
+            <div class="utility-feature-box">
+                <p class="feature-category">Experience A More</p>
+                <h3 class="feature-value gradient-green">Responsive</h3>
+                <p class="feature-name">Gaming Experience</p>
+            </div>
+            
+            <div class="utility-feature-box">
+                <p class="feature-category">Fix Packet Loss</p>
+                <h3 class="feature-value gradient-pink">Reduce Ping</h3>
+                <p class="feature-name">Optimize Your Internet</p>
+            </div>
+        </div>
+        
+        <p class="utility-disclaimer">
+            Statistics measured using latencymon and other benchmarking tools after a clean install of windows. As well as reviews and benchmarks from customers, so the tool
+            has been tested on all sorts of pcs. Keep in mind that results may vary, depending on your specs and how optimized your pc is.
+        </p>
+    </section>
+
+    <!-- Trusted Section -->
+    <section class="trusted-section">
+        <h2 class="trusted-title">Trusted by Many Gamers Worldwide</h2>
+        <div class="game-logos">
+            <div class="game-logo" style="--i: 0">
+                <img src="assets/counter-strike-2-logo-png_seeklogo-477252.png" alt="Counter Strike 2" style="filter: brightness(0) invert(1); max-height: 150px;">
+            </div>
+            <div class="game-logo" style="--i: 1">
+                <img src="assets/Valorant-Symbol.png" alt="Valorant" style="filter: brightness(0) invert(1); max-height: 150px;">
+            </div>
+            <div class="game-logo" style="--i: 2">
+                <img src="assets/Fortnite-Logo-1.png" alt="Fortnite" style="filter: brightness(0) invert(1); max-height: 150px;">
+            </div>
+            <div class="game-logo" style="--i: 3">
+                <img src="assets/grand-theft-auto-v-logo-png-transparent.png" alt="GTA V" style="max-height: 150px;">
+            </div>
+            <div class="game-logo" style="--i: 4">
+                <img src="assets/Apex-Legends-logo.png" alt="Apex Legends" style="filter: brightness(0) invert(1); max-height: 150px;">
+            </div>
+            <div class="game-logo" style="--i: 5">
+                <img src="assets/Call-of-Duty-Logo-2014.png" alt="Call of Duty" style="filter: brightness(0) invert(1); max-height: 150px;">
+            </div>
+        </div>
+        <p class="interface-note">Compatible and optimized for all games - no exceptions</p>
+    </section>
+
+    <!-- Premium Features Section -->
+    <section class="premium-features-section">
+        <h2 class="premium-title"><span class="premium-text">Premium</span> Features</h2>
+        <p class="premium-description">
+            Traizer Tweaks is a powerful Windows optimization utility designed to boost FPS, lower latency, and enhance overall gaming performance. 
+            Trusted by over 1,000 users with excellent feedback,
+             it provides noticeable improvements in games like Fortnite, Warzone, and Valorant.
+              Whether you're chasing smoother gameplay or more responsive controls, 
+              Traizer Tweaks gives your system the competitive edge it deserves.
+        </p>
+        
+        <div class="premium-features-grid">
+            <div class="premium-feature-card" data-aos="fade-up">
+                <div class="feature-icon purple">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <h3 class="feature-title">Drastically Increase FPS</h3>
+                <p class="feature-description">
+                    Push your system to its limits and unlock the smooth, high-FPS gameplay you've
+                    been missing. Experience gaming at its finest.
+                </p>
+            </div>
+            
+            <div class="premium-feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon blue">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3 class="feature-title">Boost PC Performance</h3>
+                <p class="feature-description">
+                    Eliminate background bottlenecks and optimize your system for maximum speed
+                    and responsiveness across all applications.
+                </p>
+            </div>
+            
+            <div class="premium-feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon green">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="feature-title">Reduce Latency Instantly</h3>
+                <p class="feature-description">
+                    Lower input lag and get a faster, more responsive feel in every match. React
+                    faster than your opponents.
+                </p>
+            </div>
+            
+            <div class="premium-feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon pink">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h3 class="feature-title">Fix Packet Loss & Decrease Ping</h3>
+                <p class="feature-description">
+                    Stabilize your connection, reduce ping spikes, and dominate with consistent
+                    network performance in competitive gaming.
+                </p>
+            </div>
+            
+            <div class="premium-feature-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="feature-icon yellow">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="feature-title">Stop Freezes & Stutters</h3>
+                <p class="feature-description">
+                    Smooth out gameplay by preventing lag spikes, FPS drops, and micro-stuttering for
+                    seamless gaming sessions.
+                </p>
+            </div>
+            
+            <div class="premium-feature-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="feature-icon red">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h3 class="feature-title">Ultra-Quick Setup</h3>
+                <p class="feature-description">
+                    Unlock your PC's full potential in under 10 minutes with our streamlined, automated
+                    setup process.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Showcase Section -->
+    <section class="stats-showcase-section">
+        <div class="stats-container">
+            <h2 class="stats-title">Trusted by Thousands of Gamers</h2>
+            
+            <div class="stats-cards-container">
+                <div class="stats-card">
+                    <div class="stats-card-inner">
+                        <div class="stats-card-front">
+                            <div class="stats-icon-container">
+                                <i class="fas fa-smile"></i>
+                            </div>
+                            <div class="stats-number counter" data-target="97">0</div>
+                            <p class="stats-label">Customer Satisfaction</p>
+                        </div>
+                        <div class="stats-card-back">
+                            <p>97% of our users report significant performance improvements after using our software</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-card">
+                    <div class="stats-card-inner">
+                        <div class="stats-card-front">
+                            <div class="stats-icon-container">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stats-number counter" data-target="250">0</div>
+                            <p class="stats-label">5* Reviews</p>
+                        </div>
+                        <div class="stats-card-back">
+                            <p>Over 250 five-star reviews from gamers who experienced dramatic performance improvements</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-card">
+                    <div class="stats-card-inner">
+                        <div class="stats-card-front">
+                            <div class="stats-icon-container">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="stats-number counter" data-target="500">0</div>
+                            <p class="stats-label">Orders Completed</p>
+                        </div>
+                        <div class="stats-card-back">
+                            <p>More than 500 gamers have boosted their PC performance with our optimization tools</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-card">
+                    <div class="stats-card-inner">
+                        <div class="stats-card-front">
+                            <div class="stats-icon-container">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <div class="stats-number counter" data-target="24">0</div>
+                            <p class="stats-label">Hours Support</p>
+                        </div>
+                        <div class="stats-card-back">
+                            <p>Round-the-clock customer support to help you get the most out of your gaming experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Replace with: -->
+    
+    <!-- Gaming Success Dashboard -->
+    <section class="gaming-success-dashboard">
+        <div class="dashboard-container">
+            <h2 class="dashboard-title">Real-Time <span class="highlight-text">Success</span> Dashboard</h2>
+            
+            <!-- Live Activity Feed -->
+            <div class="activity-feed-container">
+                <div class="activity-header">
+                    <div class="live-indicator">
+                        <span class="pulse-dot"></span>
+                        <span>LIVE</span>
+                    </div>
+                    <h3>Recent Orders & Reviews</h3>
+                </div>
+                
+                <div class="activity-feed">
+                    <div class="activity-item new-order">
+                        <div class="activity-time">Just now</div>
+                        <div class="activity-content">
+                            <div class="activity-icon"><i class="fas fa-shopping-cart"></i></div>
+                            <div class="activity-details">
+                                <p><strong>Alex S.</strong> from California</p>
+                                <p class="activity-action">purchased Premium Package</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item new-review">
+                        <div class="activity-time">3 mins ago</div>
+                        <div class="activity-content">
+                            <div class="activity-icon"><i class="fas fa-star"></i></div>
+                            <div class="activity-details">
+                                <p><strong>Jamie T.</strong> from UK</p>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="review-quote">"FPS increased by 45% in Warzone!"</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item new-order">
+                        <div class="activity-time">7 mins ago</div>
+                        <div class="activity-content">
+                            <div class="activity-icon"><i class="fas fa-shopping-cart"></i></div>
+                            <div class="activity-details">
+                                <p><strong>Taylor R.</strong> from Canada</p>
+                                <p class="activity-action">purchased Standard Package</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item new-review">
+                        <div class="activity-time">12 mins ago</div>
+                        <div class="activity-content">
+                            <div class="activity-icon"><i class="fas fa-star"></i></div>
+                            <div class="activity-details">
+                                <p><strong>Jordan K.</strong> from Australia</p>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="review-quote">"No more stuttering in Fortnite!"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Performance Metrics -->
+            <div class="performance-metrics">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Customer Satisfaction</h3>
+                        <div class="metric-icon"><i class="fas fa-smile"></i></div>
+                    </div>
+                    <div class="metric-chart">
+                        <div class="circular-progress">
+                            <svg viewBox="0 0 100 100" class="progress-ring">
+                                <circle class="progress-ring-circle-bg" cx="50" cy="50" r="45" />
+                                <circle class="progress-ring-circle" cx="50" cy="50" r="45" stroke-dasharray="283" stroke-dashoffset="8.49" />
+                            </svg>
+                            <div class="progress-text">
+                                <span class="counter" data-target="97">0</span><span>%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>5-Star Reviews</h3>
+                        <div class="metric-icon"><i class="fas fa-star"></i></div>
+                    </div>
+                    <div class="metric-value">
+                        <span class="counter" data-target="250">0</span><span>+</span>
+                    </div>
+                    <div class="metric-bar">
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 90%"></div>
+                        </div>
+                        <div class="bar-labels">
+                            <span>0</span>
+                            <span>300</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Orders Completed</h3>
+                        <div class="metric-icon"><i class="fas fa-shopping-cart"></i></div>
+                    </div>
+                    <div class="metric-value">
+                        <span class="counter" data-target="500">0</span><span>+</span>
+                    </div>
+                    <div class="metric-bar">
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 83%"></div>
+                        </div>
+                        <div class="bar-labels">
+                            <span>0</span>
+                            <span>600</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Support Availability</h3>
+                        <div class="metric-icon"><i class="fas fa-headset"></i></div>
+                    </div>
+                    <div class="metric-value">
+                        <span class="counter" data-target="24">0</span><span>/7</span>
+                    </div>
+                    <div class="support-badges">
+                        <div class="badge">
+                            <i class="fas fa-clock"></i>
+                            <span>24/7</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-bolt"></i>
+                            <span>Fast Response</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Expert Help</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Featured Review -->
+            <div class="featured-review">
+                <div class="featured-review-header">
+                    <h3>Featured Review</h3>
+                    <div class="featured-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <div class="featured-review-content">
+                    <div class="featured-avatar">MJ</div>
+                    <div class="featured-details">
+                        <div class="featured-name">Michael J.</div>
+                        <div class="featured-game">Valorant Pro Player</div>
+                        <p class="featured-text">"As a professional Valorant player, every millisecond matters. After using Traizer Tweaks, my input lag decreased by 40% and my FPS is rock solid at 240. This tool is now essential for my tournament preparation."</p>
+                        <div class="featured-stats">
+                            <div class="stat">
+                                <span class="stat-value">+40%</span>
+                                <span class="stat-label">FPS</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">-35%</span>
+                                <span class="stat-label">Latency</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">100%</span>
+                                <span class="stat-label">Satisfied</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gamer Success Hub - Simplified Version -->
+    <section class="gamer-success-hub">
+        <div class="hub-container">
+            <h2 class="hub-title">Gamer <span class="accent-text">Success</span> Hub</h2>
+            
+            <!-- Key Metrics -->
+            <div class="key-metrics">
+                <div class="metric-item">
+                    <div class="metric-circle">
+                        <span class="metric-number" data-value="97">97</span>
+                        <span class="metric-symbol">%</span>
+                    </div>
+                    <p class="metric-label">Happy Gamers</p>
+                </div>
+                
+                <div class="metric-item">
+                    <div class="metric-circle">
+                        <span class="metric-number" data-value="500">500</span>
+                        <span class="metric-symbol">+</span>
+                    </div>
+                    <p class="metric-label">Optimized PCs</p>
+                </div>
+                
+                <div class="metric-item">
+                    <div class="metric-circle">
+                        <span class="metric-number" data-value="24">24</span>
+                        <span class="metric-symbol">/7</span>
+                    </div>
+                    <p class="metric-label">Support</p>
+                </div>
+            </div>
+            
+            <!-- Live Feed -->
+            <div class="live-feed">
+                <div class="feed-header">
+                    <div class="live-indicator">
+                        <span class="live-dot"></span>
+                        <span>LIVE ACTIVITY</span>
+                    </div>
+                </div>
+                
+                <div class="feed-container">
+                    <div class="feed-item">
+                        <div class="feed-icon order-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="feed-content">
+                            <p><strong>New Order</strong> from United States</p>
+                            <span class="feed-time">Just now</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feed-item">
+                        <div class="feed-icon review-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="feed-content">
+                            <p><strong>5★ Review</strong> from Germany</p>
+                            <span class="feed-time">2 mins ago</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feed-item">
+                        <div class="feed-icon order-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="feed-content">
+                            <p><strong>New Order</strong> from Canada</p>
+                            <span class="feed-time">5 mins ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Featured Testimonial -->
+            <div class="featured-testimonial">
+                <div class="testimonial-quote">
+                    <i class="fas fa-quote-left"></i>
+                </div>
+                <p class="testimonial-text">
+                    "My FPS doubled in Warzone and my ping dropped by 40ms. This is the best optimization tool I've ever used!"
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">JD</div>
+                    <div class="author-info">
+                        <p class="author-name">James D.</p>
+                        <div class="author-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trust Badges -->
+            <div class="trust-badges">
+                <div class="badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Secure</span>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-undo"></i>
+                    <span>30-Day Guarantee</span>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-headset"></i>
+                    <span>24/7 Support</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section with Sliding Reviews -->
+    <section class="how-it-works">
+        <h2 class="how-title">How Traizer Tweaks Works</h2>
+        <div class="steps-container">
+            <div class="step-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                <div class="step-number">1</div>
+                <div class="step-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 15V17M12 7V13M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="step-title">Download & Install</h3>
+                <p class="step-description">Grab Traizer Tweaks instantly with our lightning-fast download. Installation is quick and hassle-free, getting you up and running in moments.</p>
+            </div>
+            <div class="step-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                <div class="step-number">2</div>
+                <div class="step-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.5421 9.5L12.0001 13.0419L8.45808 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="step-title">One-Click Optimization</h3>
+                <p class="step-description">Witness the magic as over 2000+ advanced tweaks transform your system. Our simplified process requires zero technical knowledge.</p>
+            </div>
+            <div class="step-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
+                <div class="step-number">3</div>
+                <div class="step-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.5 9C14.5 11.2091 12.7091 13 10.5 13C8.29086 13 6.5 11.2091 6.5 9C6.5 6.79086 8.29086 5 10.5 5C12.7091 5 14.5 6.79086 14.5 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10.5 13V21L16.5 17L18.5 21L20.5 20L18.5 15H14.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="step-title">Enjoy Better Gaming</h3>
+                <p class="step-description">Jump back into your games and feel the transformation. Experience silky-smooth gameplay, lightning-fast response times, and superior performance instantly.</p>
+            </div>
+        </div>
+        
+        <!-- Sliding Reviews Section -->
+        <section class="sliding-reviews-section">
+            <div class="sliding-reviews-container">
+                <div class="sliding-reviews-track">
+                    <!-- First set of reviews -->
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"great customer service fixed my problem quick an easy testing tweaks now"</p>
+                        <div class="sliding-reviewer">Goji</div>
+                    </div>
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"+rep great customer service 10/10"</p>
+                        <div class="sliding-reviewer">Deleted User</div>
+                    </div>
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"great tweaks and services 10/10 you guys should use it"</p>
+                        <div class="sliding-reviewer">lucassupon7</div>
+                    </div>
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"w tweaks"</p>
+                        <div class="sliding-reviewer">MC_Ad</div>
+                    </div>
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"w fps boost using tweaks"</p>
+                        <div class="sliding-reviewer">アレックス</div>
+                    </div>
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"w tweaks w man"</p>
+                        <div class="sliding-reviewer">Asto</div>
+                    </div>
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"Amazing performance boost, my game is butter smooth now!"</p>
+                        <div class="sliding-reviewer">RapidFire</div>
+                    </div>
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"Ping dropped by 30ms, no more lag spikes!"</p>
+                        <div class="sliding-reviewer">ShadowGamer</div>
+                    </div>
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"Best optimization tool I've ever used, 10/10"</p>
+                        <div class="sliding-reviewer">VelocityX</div>
+                    </div>
+                    
+                    image.png                    <!-- Duplicate reviews for continuous scrolling effect -->
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"great customer service fixed my problem quick an easy testing tweaks now"</p>
+                        <div class="sliding-reviewer">Goji</div>
+                    </div>
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"+rep great customer service 10/10"</p>
+                        <div class="sliding-reviewer">Deleted User</div>
+                    </div>
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"great tweaks and services 10/10 you guys should use it"</p>
+                        <div class="sliding-reviewer">lucassupon7</div>
+                    </div>
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"Best optimization tool I've ever used, 10/10"</p>
+                        <div class="sliding-reviewer">VelocityX</div>
+                    </div>
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"+rep really good 80 more fps and 0 delay on my 1660 ti and i7 11th gen"</p>
+                        <div class="sliding-reviewer">YENO</div>
+                    </div>
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"9/10 paid tweaks. 100+ fps and zero delay"</p>
+                        <div class="sliding-reviewer">VTP kyinofv</div>
+                    </div>
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"+rep the tweaks are so good from 180 fps to 400+ fps"</p>
+                        <div class="sliding-reviewer">Dreww</div>
+                    </div>
+                    
+                    <!-- Duplicate reviews for continuous scrolling effect -->
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"great customer service fixed my problem quick an easy testing tweaks now"</p>
+                        <div class="sliding-reviewer">Goji</div>
+                    </div>
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"+rep great customer service 10/10"</p>
+                        <div class="sliding-reviewer">Deleted User</div>
+                    </div>
+                    <div class="sliding-review">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="sliding-review-text">"great tweaks and services 10/10 you guys should use it"</p>
+                        <div class="sliding-reviewer">lucassupon7</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Add the FAQ section before the user-reviews-section -->
+    <div class="faq-section">
+        <h2 class="faq-title">Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    How does Traizer Tweaks improve my gaming performance?
+                    <div class="faq-toggle"></div>
+                </div>
+                <div class="faq-answer">
+                    Traizer Tweaks uses a combination of system-level optimizations, network adjustments, and game-specific tweaks to maximize your PC's performance. We optimize Windows settings, adjust GPU and CPU parameters, and fine-tune network configurations to reduce latency and increase FPS. Our proprietary algorithms identify performance bottlenecks and apply targeted fixes for your specific hardware configuration.
+            </div>
+        </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    Is Traizer Tweaks safe to use on my computer?
+                    <div class="faq-toggle"></div>
+                    </div>
+                <div class="faq-answer">
+                    Absolutely! Traizer Tweaks is designed with safety as a priority. All optimizations are non-destructive and can be easily reverted if needed. We don't modify critical system files or make permanent changes to your hardware. Our software has been tested extensively across thousands of different PC configurations to ensure stability and reliability.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Will Traizer Tweaks work with my specific games?
+                    <div class="faq-toggle"></div>
+                    </div>
+                <div class="faq-answer">
+                    Traizer Tweaks is designed to enhance performance across all games by optimizing your system at a fundamental level. However, we also include game-specific optimizations for popular titles like Fortnite, Valorant, CS2, Apex Legends, Call of Duty, and many others. Our regular updates ensure compatibility with the latest game releases and patches.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Do I need technical knowledge to use Traizer Tweaks?
+                    <div class="faq-toggle"></div>
+                    </div>
+                <div class="faq-answer">
+                    Not at all! Traizer Tweaks is designed with simplicity in mind. Our one-click optimization process handles everything automatically. You don't need any technical expertise to achieve significant performance improvements. For advanced users, we also offer customizable options to fine-tune specific aspects of your system's performance.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    What's the difference between the Free and Premium versions?
+                    <div class="faq-toggle"></div>
+                    </div>
+                <div class="faq-answer">
+                    The Free version provides basic optimizations that can still significantly improve your gaming experience. The Premium version includes advanced features like game-specific optimizations, deeper system tweaks, auto-updates for the latest optimizations, priority support, and custom profiles for different games. Premium users typically see 2-3x better performance improvements compared to the Free version.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    How long do the optimizations last?
+                    <div class="faq-toggle"></div>
+                </div>
+                <div class="faq-answer">
+                    Traizer Tweaks optimizations are permanent until you manually revert them or reinstall your operating system. However, Windows updates and driver changes may occasionally overwrite some tweaks. That's why we recommend running a quick optimization check after major system updates. Premium and Standard users receive automatic update notifications when new optimizations are available.
+            </div>
+                </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Can I use Traizer Tweaks on multiple computers?
+                    <div class="faq-toggle"></div>
+            </div>
+                <div class="faq-answer">
+                    Standard and Premium licenses are tied to one PC at a time. If you need to transfer your license to a new computer, you can deactivate it on your old system through your account. We also offer family plans for households with multiple PCs. Contact our support team for more information on multi-device licensing options.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Will Traizer Tweaks cause conflicts with my antivirus software?
+                    <div class="faq-toggle"></div>
+                </div>
+                <div class="faq-answer">
+                    Traizer Tweaks is designed to work harmoniously with all major antivirus software. Our application is digitally signed and verified, and we maintain a whitelist status with popular security solutions. If your antivirus does flag our software, it's typically a false positive due to the system-level optimizations we perform. We provide detailed instructions for adding exclusions if needed.
+            </div>
+                </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Do you offer refunds if I'm not satisfied?
+                    <div class="faq-toggle"></div>
+            </div>
+                <div class="faq-answer">
+                    Yes! We offer a 30-day money-back guarantee for all paid plans. If you're not completely satisfied with the performance improvements, simply contact our support team within 30 days of purchase for a full refund. We ask that you allow our team one opportunity to help resolve any issues you're experiencing before requesting a refund.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    How often is Traizer Tweaks updated?
+                    <div class="faq-toggle"></div>
+                </div>
+                <div class="faq-answer">
+                    We release updates based on your subscription level: Premium users receive weekly updates with the latest optimizations, Standard users get monthly updates, and Free users receive quarterly updates. Our development team constantly researches new optimization techniques and ensures compatibility with the latest game releases and Windows updates.
+            </div>
+                </div>
+            </div>
+    </div>
+
+    <!-- Add the reviews section before the features section -->
+    <section id="reviews" class="user-reviews-section">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 20px 20px;">
+            <h2 class="section-title" style="text-align: center; font-family: 'Poppins', sans-serif; font-size: 2.8rem; font-weight: 700; margin-bottom: 30px; color: white; position: relative;">
+                Start Optimizing Today
+                <div class="cta-buttons-container" style="display: flex; justify-content: center; gap: 30px; margin-top: 30px;">
+                    <a href="download.html" class="cta-btn primary-btn" style="padding: 18px 35px; border-radius: 50px; font-weight: 600; text-decoration: none; color: #111; background-color: var(--neon-green); font-size: 1.1rem; transition: all 0.3s ease; display: inline-block; text-align: center; box-shadow: 0 10px 20px rgba(67, 255, 173, 0.3);">Try Free Version</a>
+                    <a href="https://payhip.com/b/2u0Dk" class="cta-btn secondary-btn" style="padding: 18px 35px; border-radius: 50px; font-weight: 600; text-decoration: none; color: white; border: 2px solid var(--neon-green); background-color: transparent; font-size: 1.1rem; transition: all 0.3s ease; display: inline-block; text-align: center;">View All Plans</a>
+                </div>
+            </h2>
+        </div>
+    </section>
+
+    <script>
+        // Navigation bar scroll behavior
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Get all navigation items
+        const navItems = document.querySelectorAll('.nav-item');
+        
+        // Add click event to all navigation items
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items
+                navItems.forEach(nav => nav.classList.remove('active'));
+                
+                // Add active class to the clicked item
+                this.classList.add('active');
+            });
+        });
+        
+        // Performance benefits section animation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add a class to help identify performance benefits cards
+            const performanceBenefits = document.querySelectorAll('.performance-section .benefit-box');
+            
+            // Set initial state for section and elements
+            const performanceSection = document.querySelector('.performance-section');
+            if (performanceSection) {
+                performanceSection.style.opacity = '0';
+                performanceSection.style.transform = 'translateY(30px)';
+                performanceSection.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            }
+            
+            const performanceHeading = document.querySelector('.performance-section .performance-heading');
+            if (performanceHeading) {
+                performanceHeading.style.opacity = '0';
+                performanceHeading.style.transform = 'translateY(30px)';
+                performanceHeading.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            }
+            
+            const performanceTitle = document.querySelector('.performance-section .performance-title');
+            if (performanceTitle) {
+                performanceTitle.style.opacity = '0';
+                performanceTitle.style.transform = 'translateY(30px)';
+                performanceTitle.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            }
+            
+            performanceBenefits.forEach(benefit => {
+                benefit.style.opacity = '0';
+                benefit.style.transform = 'translateY(50px)';
+                benefit.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+            
+            // Function to check if element is in viewport
+            const isInViewport = (elem) => {
+                const rect = elem.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+                    rect.bottom >= 0
+                );
+            };
+            
+            // Function to handle the scroll animation
+            const handleScrollAnimation = () => {
+                if (performanceSection && isInViewport(performanceSection)) {
+                    // Animate the section first
+                    performanceSection.style.opacity = '1';
+                    performanceSection.style.transform = 'translateY(0)';
+                    
+                    // Then animate the title with slight delay
+                    setTimeout(() => {
+                        if (performanceTitle) {
+                            performanceTitle.style.opacity = '1';
+                            performanceTitle.style.transform = 'translateY(0)';
+                        }
+                    }, 200);
+                    
+                    // Then animate the heading with slight delay
+                    setTimeout(() => {
+                        if (performanceHeading) {
+                            performanceHeading.style.opacity = '1';
+                            performanceHeading.style.transform = 'translateY(0)';
+                        }
+                    }, 400);
+                    
+                    // Finally animate each benefit box with staggered delay
+                    performanceBenefits.forEach((benefit, index) => {
+                        setTimeout(() => {
+                            benefit.style.opacity = '1';
+                            benefit.style.transform = 'translateY(0)';
+                        }, 600 + (index * 150)); // Staggered delay for each card
+                    });
+                    
+                    // Remove scroll listener once animation is done
+                    window.removeEventListener('scroll', handleScrollAnimation);
+                }
+            };
+            
+            // Apply initial animation if section is already visible
+            setTimeout(handleScrollAnimation, 500);
+            
+            // Apply animation on scroll
+            window.addEventListener('scroll', handleScrollAnimation);
+            
+            // Gaming Success Dashboard Animations
+            const animateGamingDashboard = () => {
+                const dashboardSection = document.querySelector('.gaming-success-dashboard');
+                if (!dashboardSection) return;
+                
+                // Animate circular progress
+                const progressCircle = document.querySelector('.progress-ring-circle');
+                if (progressCircle && isInViewport(progressCircle)) {
+                    const radius = progressCircle.r.baseVal.value;
+                    const circumference = radius * 2 * Math.PI;
+                    const targetValue = 97; // Customer satisfaction percentage
+                    
+                    progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+                    progressCircle.style.strokeDashoffset = circumference;
+                    
+                    setTimeout(() => {
+                        const offset = circumference - (targetValue / 100) * circumference;
+                        progressCircle.style.strokeDashoffset = offset;
+                    }, 500);
+                }
+                
+                // Animate counters
+                const counters = document.querySelectorAll('.gaming-success-dashboard .counter');
+                counters.forEach(counter => {
+                    if (isInViewport(counter)) {
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        let count = 0;
+                        const duration = 2000; // Animation duration in ms
+                        const step = Math.max(1, Math.floor(target / (duration / 16))); // 16ms is approx one frame at 60fps
+                        
+                        const updateCount = () => {
+                            if (count < target) {
+                                count += step;
+                                if (count > target) count = target;
+                                counter.innerText = Math.floor(count);
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        
+                        setTimeout(() => {
+                            updateCount();
+                        }, 500);
+                    }
+                });
+                
+                // Set bar fill widths
+                const barFills = document.querySelectorAll('.bar-fill');
+                barFills.forEach(fill => {
+                    if (isInViewport(fill)) {
+                        const width = fill.style.width;
+                        fill.style.setProperty('--width', width);
+                    }
+                });
+                
+                // Animate activity feed items
+                const activityItems = document.querySelectorAll('.activity-item');
+                activityItems.forEach((item, index) => {
+                    if (isInViewport(item)) {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateX(-20px)';
+                        item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateX(0)';
+                        }, 300 + (index * 150));
+                    }
+                });
+            };
+            
+            // Check dashboard animations on scroll and initial load
+            window.addEventListener('scroll', animateGamingDashboard);
+            setTimeout(animateGamingDashboard, 500);
+            
+            // Simulate new activity items appearing periodically
+            const simulateNewActivity = () => {
+                const activityFeed = document.querySelector('.activity-feed');
+                if (!activityFeed) return;
+                
+                const activities = [
+                    { type: 'new-order', time: 'Just now', name: 'Chris M.', location: 'Germany', action: 'purchased Premium Package' },
+                    { type: 'new-review', time: 'Just now', name: 'Sophia L.', location: 'France', rating: 5, quote: '"Ping reduced by 40ms in Apex Legends!"' },
+                    { type: 'new-order', time: 'Just now', name: 'Daniel K.', location: 'Brazil', action: 'purchased Standard Package' },
+                    { type: 'new-review', time: 'Just now', name: 'Emma R.', location: 'Sweden', rating: 5, quote: '"Finally no more stuttering in CS2!"' }
+                ];
+                
+                // Select random activity
+                const randomActivity = activities[Math.floor(Math.random() * activities.length)];
+                
+                // Create new activity item
+                const newItem = document.createElement('div');
+                newItem.className = `activity-item ${randomActivity.type}`;
+                newItem.style.opacity = '0';
+                newItem.style.transform = 'translateX(-20px)';
+                newItem.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                if (randomActivity.type === 'new-order') {
+                    newItem.innerHTML = `
+                        <div class="activity-time">${randomActivity.time}</div>
+                        <div class="activity-content">
+                            <div class="activity-icon"><i class="fas fa-shopping-cart"></i></div>
+                            <div class="activity-details">
+                                <p><strong>${randomActivity.name}</strong> from ${randomActivity.location}</p>
+                                <p class="activity-action">${randomActivity.action}</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    let stars = '';
+                    for (let i = 0; i < randomActivity.rating; i++) {
+                        stars += '<i class="fas fa-star"></i>';
+                    }
+                    
+                    newItem.innerHTML = `
+                        <div class="activity-time">${randomActivity.time}</div>
+                        <div class="activity-content">
+                            <div class="activity-icon"><i class="fas fa-star"></i></div>
+                            <div class="activity-details">
+                                <p><strong>${randomActivity.name}</strong> from ${randomActivity.location}</p>
+                                <div class="review-stars">
+                                    ${stars}
+                                </div>
+                                <p class="review-quote">${randomActivity.quote}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                // Add to feed and animate
+                if (activityFeed.children.length >= 6) {
+                    activityFeed.removeChild(activityFeed.lastChild);
+                }
+                
+                activityFeed.insertBefore(newItem, activityFeed.firstChild);
+                
+                setTimeout(() => {
+                    newItem.style.opacity = '1';
+                    newItem.style.transform = 'translateX(0)';
+                }, 100);
+                
+                // Update times for other activities
+                const otherActivities = activityFeed.querySelectorAll('.activity-item:not(:first-child)');
+                otherActivities.forEach(item => {
+                    const timeEl = item.querySelector('.activity-time');
+                    let currentTime = timeEl.textContent;
+                    
+                    if (currentTime === 'Just now') {
+                        timeEl.textContent = '1 min ago';
+                    } else if (currentTime.includes('min')) {
+                        const minutes = parseInt(currentTime);
+                        if (!isNaN(minutes)) {
+                            timeEl.textContent = `${minutes + 1} mins ago`;
+                        }
+                    }
+                });
+            };
+            
+            // Simulate new activity every 8-15 seconds
+            const startActivitySimulation = () => {
+                const randomInterval = Math.floor(Math.random() * (15000 - 8000 + 1)) + 8000;
+                setTimeout(() => {
+                    simulateNewActivity();
+                    startActivitySimulation();
+                }, randomInterval);
+            };
+            
+            // Start simulation after 10 seconds
+            setTimeout(startActivitySimulation, 10000);
+        });
+        
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animations to elements
+            const animateElements = document.querySelectorAll('.hero-title, .hero-subtitle, .btn-container, .hero-img');
+            
+            // Animate hero section elements on page load
+            setTimeout(() => {
+                animateElements.forEach(el => {
+                    el.classList.add('animate');
+                });
+            }, 100);
+
+            // Function to check if element is in viewport
+            const isInViewport = (el) => {
+                const rect = el.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+                    rect.bottom >= 0
+                );
+            };
+
+            // Elements to animate when they come into view
+            const scrollAnimateElements = document.querySelectorAll(
+                '.trusted-title, .game-logo, ' +
+                '.how-title, .step-card, .features-title, .reviews-title, .feature-card, ' + 
+                '.testimonials-title, .testimonial-card, .faq-title, .faq-item'
+            );
+            
+            // Initial check for elements in viewport
+            scrollAnimateElements.forEach(el => {
+                if (isInViewport(el)) {
+                    el.classList.add('animate');
+                    
+                    // Apply staggered animation delays for game logos
+                    if (el.classList.contains('game-logo')) {
+                        const gameLogos = document.querySelectorAll('.game-logo');
+                        const index = Array.from(gameLogos).indexOf(el);
+                        el.style.animationDelay = `${index * 0.1}s`;
+                    }
+                    
+                    // Apply staggered animation delays for testimonial cards
+                    if (el.classList.contains('testimonial-card')) {
+                        el.style.transitionDelay = `${index * 0.15}s`;
+                    }
+                    
+                    // Apply staggered animation delays for FAQ items
+                    if (el.classList.contains('faq-item')) {
+                        el.style.transitionDelay = `${index * 0.1}s`;
+                    }
+                }
+            });
+
+            // Check for elements on scroll
+            window.addEventListener('scroll', () => {
+                scrollAnimateElements.forEach(el => {
+                    if (isInViewport(el) && !el.classList.contains('animate')) {
+                        el.classList.add('animate');
+                        
+                        // Apply staggered animation delays for game logos
+                        if (el.classList.contains('game-logo')) {
+                            const gameLogos = document.querySelectorAll('.game-logo');
+                            const index = Array.from(gameLogos).indexOf(el);
+                            el.style.animationDelay = `${index * 0.1}s`;
+                        }
+                        
+                        // Apply staggered animation delays for testimonial cards
+                        if (el.classList.contains('testimonial-card')) {
+                            el.style.transitionDelay = `${index * 0.15}s`;
+                        }
+                        
+                        // Apply staggered animation delays for FAQ items
+                        if (el.classList.contains('faq-item')) {
+                            el.style.transitionDelay = `${index * 0.1}s`;
+                        }
+                    }
+                });
+                
+                // Animate step cards with delay
+                const stepCards = document.querySelectorAll('.step-card');
+                stepCards.forEach((card, index) => {
+                    if (isInViewport(card) && !card.classList.contains('animate')) {
+                        setTimeout(() => {
+                            card.classList.add('animate');
+                        }, index * 200);
+                    }
+                });
+            });
+            
+            // Counter animation function
+            const animateCounter = (counter, target, suffix = '') => {
+                const speed = 200; // Animation speed - lower is faster
+                const inc = target / speed;
+                let currentCount = 0;
+                
+                const updateCount = () => {
+                    if (currentCount < target) {
+                        currentCount += inc;
+                        if (currentCount > target) currentCount = target;
+                        counter.innerText = Math.floor(currentCount);
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                
+                updateCount();
+            };
+            
+            // Animate counters when they come into view
+            const counterElements = document.querySelectorAll('.counter');
+            let counterAnimated = false;
+            
+            // Function to check and start counter animations
+            const checkCounters = () => {
+                const statsSection = document.querySelector('.stats-overview');
+                if (statsSection && isInViewport(statsSection) && !counterAnimated) {
+                    counterAnimated = true;
+                    counterElements.forEach(counter => {
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        counter.innerText = '0';
+                        setTimeout(() => {
+                            animateCounter(counter, target);
+                        }, 400); // Slight delay before starting animation
+                    });
+                }
+            };
+            
+            // Check counters on initial load and scroll
+            checkCounters();
+            window.addEventListener('scroll', checkCounters);
+            
+            // Gamer Success Hub animations
+            const animateGamerHub = () => {
+                const hubSection = document.querySelector('.gamer-success-hub');
+                if (!hubSection) return;
+                
+                // Animate metric numbers
+                const metricNumbers = document.querySelectorAll('.metric-number');
+                metricNumbers.forEach(number => {
+                    if (isInViewport(number)) {
+                        const value = parseInt(number.getAttribute('data-value'));
+                        let count = 0;
+                        const duration = 2000; // Animation duration in ms
+                        const step = Math.max(1, Math.floor(value / (duration / 16))); // 16ms is approx one frame at 60fps
+                        
+                        const updateCount = () => {
+                            if (count < value) {
+                                count += step;
+                                if (count > value) count = value;
+                                number.innerText = Math.floor(count);
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                number.innerText = value;
+                            }
+                        };
+                        
+                        setTimeout(() => {
+                            updateCount();
+                        }, 500);
+                    }
+                });
+                
+                // Animate feed items
+                const feedItems = document.querySelectorAll('.feed-item');
+                feedItems.forEach((item, index) => {
+                    if (isInViewport(item)) {
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateX(0)';
+                        }, 300 + (index * 150));
+                    }
+                });
+            };
+            
+            // Check Gamer Success Hub animations on scroll and initial load
+            window.addEventListener('scroll', animateGamerHub);
+            setTimeout(animateGamerHub, 500);
+            
+            // Simulate new feed items periodically
+            const simulateNewFeedItem = () => {
+                const feedContainer = document.querySelector('.feed-container');
+                if (!feedContainer) return;
+                
+                const items = [
+                    { type: 'order', location: 'United Kingdom' },
+                    { type: 'review', location: 'Australia' },
+                    { type: 'order', location: 'Japan' },
+                    { type: 'review', location: 'Brazil' }
+                ];
+                
+                // Select random item
+                const randomItem = items[Math.floor(Math.random() * items.length)];
+                
+                // Create new feed item
+                const newItem = document.createElement('div');
+                newItem.className = 'feed-item';
+                newItem.style.opacity = '0';
+                newItem.style.transform = 'translateX(-20px)';
+                newItem.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                if (randomItem.type === 'order') {
+                    newItem.innerHTML = `
+                        <div class="feed-icon order-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="feed-content">
+                            <p><strong>New Order</strong> from ${randomItem.location}</p>
+                            <span class="feed-time">Just now</span>
+                        </div>
+                    `;
+                } else {
+                    newItem.innerHTML = `
+                        <div class="feed-icon review-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="feed-content">
+                            <p><strong>5★ Review</strong> from ${randomItem.location}</p>
+                            <span class="feed-time">Just now</span>
+                        </div>
+                    `;
+                }
+                
+                // Add to feed and animate
+                if (feedContainer.children.length >= 5) {
+                    feedContainer.removeChild(feedContainer.lastChild);
+                }
+                
+                feedContainer.insertBefore(newItem, feedContainer.firstChild);
+                
+                setTimeout(() => {
+                    newItem.style.opacity = '1';
+                    newItem.style.transform = 'translateX(0)';
+                }, 100);
+                
+                // Update times for other items
+                const otherItems = feedContainer.querySelectorAll('.feed-item:not(:first-child)');
+                otherItems.forEach(item => {
+                    const timeEl = item.querySelector('.feed-time');
+                    let currentTime = timeEl.textContent;
+                    
+                    if (currentTime === 'Just now') {
+                        timeEl.textContent = '1 min ago';
+                    } else if (currentTime.includes('min')) {
+                        const minutes = parseInt(currentTime);
+                        if (!isNaN(minutes)) {
+                            timeEl.textContent = `${minutes + 1} mins ago`;
+                        }
+                    }
+                });
+            };
+            
+            // Simulate new feed item every 10-20 seconds
+            const startFeedSimulation = () => {
+                const randomInterval = Math.floor(Math.random() * (20000 - 10000 + 1)) + 10000;
+                setTimeout(() => {
+                    simulateNewFeedItem();
+                    startFeedSimulation();
+                }, randomInterval);
+            };
+            
+            // Start simulation after 5 seconds
+            setTimeout(startFeedSimulation, 5000);
+        });
+
+        // Login modal functions
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+        
+        // When user clicks anywhere outside of the modal, close it
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... existing code ...
+            
+            // Add click event for login button to show modal
+            const loginButtons = document.querySelectorAll('.login-btn');
+            loginButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showLoginModal();
+                });
+            });
+            
+            // Update Buy button functionality
+            document.querySelector('.buy-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'https://payhip.com/b/2u0Dk';
+            });
+        });
+
+        // FAQ Accordion functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all FAQ items
+                    faqItems.forEach(faqItem => {
+                        faqItem.classList.remove('active');
+                    });
+                    
+                    // Toggle active state
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <!-- Add the modal/popup for login feature -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">Feature Coming Soon!</h3>
+            <p class="modal-message">We're currently enhancing our login system to provide you with the best experience. This feature will be available shortly.</p>
+            <button class="modal-close" onclick="closeModal()">Got it</button>
+        </div>
+    </div>
+    
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <img src="assets/image-removebg-preview(23).png" alt="Traizer Tweaks" class="footer-logo">
+                <p class="footer-desc">
+                    Traizer Tweaks is dedicated to helping gamers achieve peak performance through advanced optimization techniques. Our one-time purchase tools deliver lasting improvements to your gaming experience.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links-container">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="index.html">Home</a></li>
+                    <li class="footer-link"><a href="pricing.html">Pricing</a></li>
+                    <li class="footer-link"><a href="features.html">Features</a></li>
+                    <li class="footer-link"><a href="download.html">Download</a></li>
+                    <li class="footer-link"><a href="support.html">Support</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links-container">
+                <h3 class="footer-title">Help</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#">FAQ</a></li>
+                    <li class="footer-link"><a href="#">Troubleshooting</a></li>
+                    <li class="footer-link"><a href="#">Privacy Policy</a></li>
+                    <li class="footer-link"><a href="#">Terms of Service</a></li>
+                    <li class="footer-link"><a href="refund-policy.html">Refund Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h3 class="footer-title">Contact Us</h3>
+                <div class="contact-item">
+                    <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+                    <span>support@traizertweaks.com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon"><i class="fab fa-discord"></i></span>
+                    <span>Join our Discord community</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon"><i class="fas fa-globe"></i></span>
+                    <span>Available worldwide</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 Traizer Tweaks. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://payhip.com/embed/payhip.js"></script>
+    <script>
+        // Initialize Payhip embeds
+        window.payhipLink = PayhipLink({
+            "closeButtonColor": "#000000",
+            "width": "800",
+            "height": "600",
+        });
+        
+        // Login modal functions
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+        
+        // When user clicks anywhere outside of the modal, close it
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... existing code ...
+            
+            // Add click event for login button to show modal
+            const loginButtons = document.querySelectorAll('.login-btn');
+            loginButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showLoginModal();
+                });
+            });
+            
+            // Update Buy button functionality
+            document.querySelector('.buy-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'https://payhip.com/b/2u0Dk';
+            });
+        });
+    </script>
+
+    <!-- Script for Premium Features Animation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to check if element is in viewport
+            const isInViewport = (el) => {
+                const rect = el.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+                    rect.bottom >= 100
+                );
+            };
+            
+            // Handle animation for premium feature cards
+            const premiumFeatureCards = document.querySelectorAll('.premium-feature-card');
+            
+            const checkPremiumFeatures = () => {
+                premiumFeatureCards.forEach((card) => {
+                    if (isInViewport(card)) {
+                        const delay = card.getAttribute('data-aos-delay') || 0;
+                        setTimeout(() => {
+                            card.classList.add('aos-animate');
+                        }, delay);
+                    }
+                });
+            };
+            
+            // Check on scroll
+            window.addEventListener('scroll', checkPremiumFeatures);
+            
+            // Initial check
+            setTimeout(checkPremiumFeatures, 300);
+            
+            // Stats counter animation
+            const statsCounters = document.querySelectorAll('.stats-showcase-section .stats-number');
+            let statsCounterStarted = false;
+            
+            const animateStatsCounter = (counter) => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                let count = 0;
+                const duration = 2000; // Animation duration in ms
+                const step = Math.max(1, Math.floor(target / (duration / 16))); // 16ms is approx one frame at 60fps
+                
+                // For different counter types
+                const suffix = counter.closest('.stats-card') && 
+                              counter.closest('.stats-card').querySelector('.stats-label').innerText.includes('Satisfaction') ? '%' : 
+                              counter.closest('.stats-card').querySelector('.stats-label').innerText.includes('Reviews') ? '+' :
+                              counter.closest('.stats-card').querySelector('.stats-label').innerText.includes('Orders') ? '+' :
+                              counter.closest('.stats-card').querySelector('.stats-label').innerText.includes('Hours') ? '/7' : '';
+                
+                const updateCount = () => {
+                    if (count < target) {
+                        count += step;
+                        if (count > target) count = target;
+                        counter.innerText = Math.floor(count) + suffix;
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        counter.innerText = target + suffix;
+                    }
+                };
+                
+                updateCount();
+            };
+            
+            // Check and animate stats counters
+            const checkStatsCounters = () => {
+                const statsSection = document.querySelector('.stats-showcase-section');
+                if (statsSection && isInViewport(statsSection) && !statsCounterStarted) {
+                    statsCounterStarted = true;
+                    
+                    // Add staggered animation for each counter
+                    statsCounters.forEach((counter, index) => {
+                        setTimeout(() => {
+                            animateStatsCounter(counter);
+                        }, 300 + (index * 150));
+                    });
+                }
+            };
+            
+            // Check on scroll and initial load
+            window.addEventListener('scroll', checkStatsCounters);
+            setTimeout(checkStatsCounters, 500);
+            
+            // Add entrance animation for stats cards
+            const statsCards = document.querySelectorAll('.stats-card');
+            
+            const animateStatsCards = () => {
+                const statsSection = document.querySelector('.stats-showcase-section');
+                if (statsSection && isInViewport(statsSection)) {
+                    statsCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 200 + (index * 150));
+                    });
+                }
+            };
+            
+            // Set initial state for stats cards
+            statsCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+            
+            // Check on scroll and initial load
+            window.addEventListener('scroll', animateStatsCards);
+            setTimeout(animateStatsCards, 500);
+        });
+    </script>
+
+    <!-- Sliding Reviews Section -->
+    <section class="sliding-reviews-section">
+        <div class="sliding-reviews-container">
+            <div class="sliding-reviews-track">
+                <!-- First set of reviews -->
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"great customer service fixed my problem quick an easy testing tweaks now"</p>
+                    <div class="sliding-reviewer">Goji</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"+rep great customer service 10/10"</p>
+                    <div class="sliding-reviewer">Deleted User</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"great tweaks and services 10/10 you guys should use it"</p>
+                    <div class="sliding-reviewer">lucassupon7</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"w tweaks"</p>
+                    <div class="sliding-reviewer">MC_Ad</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"w fps boost using tweaks"</p>
+                    <div class="sliding-reviewer">アレックス</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"w tweaks w man"</p>
+                    <div class="sliding-reviewer">Asto</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"Amazing performance boost, my game is butter smooth now!"</p>
+                    <div class="sliding-reviewer">RapidFire</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"Ping dropped by 30ms, no more lag spikes!"</p>
+                    <div class="sliding-reviewer">ShadowGamer</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"Best optimization tool I've ever used, 10/10"</p>
+                    <div class="sliding-reviewer">VelocityX</div>
+                </div>
+                
+                <!-- Duplicate reviews for continuous scrolling effect -->
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"great customer service fixed my problem quick an easy testing tweaks now"</p>
+                    <div class="sliding-reviewer">Goji</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"+rep great customer service 10/10"</p>
+                    <div class="sliding-reviewer">Deleted User</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"great tweaks and services 10/10 you guys should use it"</p>
+                    <div class="sliding-reviewer">lucassupon7</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"Best optimization tool I've ever used, 10/10"</p>
+                    <div class="sliding-reviewer">VelocityX</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"+rep really good 80 more fps and 0 delay on my 1660 ti and i7 11th gen"</p>
+                    <div class="sliding-reviewer">YENO</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"9/10 paid tweaks. 100+ fps and zero delay"</p>
+                    <div class="sliding-reviewer">VTP kyinofv</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"+rep the tweaks are so good from 180 fps to 400+ fps"</p>
+                    <div class="sliding-reviewer">Dreww</div>
+                </div>
+                
+                <!-- Duplicate reviews for continuous scrolling effect -->
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"great customer service fixed my problem quick an easy testing tweaks now"</p>
+                    <div class="sliding-reviewer">Goji</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"+rep great customer service 10/10"</p>
+                    <div class="sliding-reviewer">Deleted User</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"great tweaks and services 10/10 you guys should use it"</p>
+                    <div class="sliding-reviewer">lucassupon7</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted Section -->
+</body>
+</html>
+
+
+                                
+                                

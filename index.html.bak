@@ -1,0 +1,1856 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traizer Tweaks - Game Performance Optimizer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+        
+        :root {
+            --primary-color: #3ac5ff;
+            --accent-green: #43FFAD;
+            --dark-bg: #050b1f;
+            --card-bg: rgba(20, 22, 34, 0.6);
+            --text-light: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Add these CSS rules to set initial state for animation elements */
+        .hero-title, .title-text, .gradient-text, .hero-description, .btn-container, .app-showcase {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .app-showcase {
+            transform: translateY(50px);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'SF Pro Display', sans-serif;
+        }
+        
+        @font-face {
+            font-family: 'Helvetica Neue';
+            src: url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.eot');
+            src: url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.eot?#iefix') format('embedded-opentype'),
+                url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.woff2') format('woff2'),
+                url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.woff') format('woff'),
+                url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.ttf') format('truetype'),
+                url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.svg#Helvetica Neue LT Pro 45 Light') format('svg');
+            font-weight: 300;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'SF Pro Display';
+            src: url('https://db.onlinewebfonts.com/t/1c45e28f8e86cc89876f003b953cc3e9.eot');
+            src: url('https://db.onlinewebfonts.com/t/1c45e28f8e86cc89876f003b953cc3e9.eot?#iefix') format('embedded-opentype'),
+                url('https://db.onlinewebfonts.com/t/1c45e28f8e86cc89876f003b953cc3e9.woff2') format('woff2'),
+                url('https://db.onlinewebfonts.com/t/1c45e28f8e86cc89876f003b953cc3e9.woff') format('woff'),
+                url('https://db.onlinewebfonts.com/t/1c45e28f8e86cc89876f003b953cc3e9.ttf') format('truetype'),
+                url('https://db.onlinewebfonts.com/t/1c45e28f8e86cc89876f003b953cc3e9.svg#SF Pro Display') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'SF Pro Display';
+            src: url('https://db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.eot');
+            src: url('https://db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.eot?#iefix') format('embedded-opentype'),
+                url('https://db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.woff2') format('woff2'),
+                url('https://db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.woff') format('woff'),
+                url('https://db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.ttf') format('truetype'),
+                url('https://db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.svg#SF Pro Display Bold') format('svg');
+            font-weight: 700;
+            font-style: normal;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', 'Inter', sans-serif;
+        }
+
+        :root {
+            --neon-green: #3ac5ff;
+            --dark-bg: #0f1a3c;
+            --dark-surface: #162252;
+            --light-text: #ffffff;
+            --accent-green: #3ac5ff;
+            --accent-blue: #3ac5ff;
+            --secondary-green: #2196f3;
+        }
+
+        /* Hide the TRAIZER STANDARD TWEAKING UTILITY section */
+        .tweaking-utility-section {
+            display: none !important;
+        }
+
+        /* Hide the Gaming Success Dashboard section */
+        .gaming-success-dashboard, .gaming-success-dashboard + .gamer-success-hub {
+            display: none !important;
+        }
+
+        /* Hide the Gaming Success Dashboard section */
+        .gaming-success-dashboard {
+            display: none !important;
+        }
+
+        body {
+            background: linear-gradient(135deg, #050b1f 0%, #0f1a3c 50%, #101349 100%);
+            position: relative;
+            color: white;
+            overflow-x: hidden;
+            background-color: #050b1f;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(67, 255, 173, 0.08) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        /* Animated background lines */
+        .bg-lines {
+            display: none; /* Hide the background lines */
+        }
+
+        .bg-line {
+            display: none; /* Hide the individual lines */
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: rgba(15, 26, 60, 0.8);
+            transition: background-color 0.3s ease, padding 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 40px;
+        }
+
+        .nav-links {
+            position: absolute;
+            left: 52%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-item {
+            position: relative;
+            text-decoration: none;
+            color: #f1f1f1;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            padding: 5px 0;
+        }
+
+        .nav-item:hover {
+            color: var(--accent-green);
+        }
+
+        .nav-item.active {
+            color: var(--accent-green);
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -8px;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-green);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .login-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .buy-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            background-color: var(--accent-green);
+            color: #111;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .login-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 20px 60px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 60px;
+        }
+
+        .alpha-tag {
+            background-color: rgba(58, 197, 255, 0.2);
+            color: #3ac5ff;
+            border: 1px solid rgba(58, 197, 255, 0.3);
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .hero-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: 700;
+            font-size: 4.5rem;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            text-align: center;
+            letter-spacing: -1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-title span {
+            display: inline-block;
+        }
+        
+        .title-text {
+            position: relative;
+        }
+        
+        /* Animation keyframes for slide up effect */
+        @keyframes slideUp {
+            0% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #3ac5ff, #2196f3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Disable all other animations */
+        @keyframes titleFadeUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes imgFadeUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInLogo {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes revealTitle {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-description {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .app-showcase {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .app-image {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(58, 197, 255, 0.6);
+            transition: all 0.5s ease;
+            animation: glowPulse 3s infinite alternate;
+            position: relative;
+        }
+        
+        @keyframes glowPulse {
+            0% {
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(58, 197, 255, 0.4);
+            }
+            100% {
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 50px rgba(58, 197, 255, 0.8);
+            }
+        }
+        
+        .app-image:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 70px rgba(58, 197, 255, 0.9);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 16px;
+            font-size: 0.9rem;
+            color: #3ac5ff;
+        }
+    </style>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
+
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyCdfLV7ABb8VtPIdgLOT_2C5cCpWZy8mPw",
+          authDomain: "traizer-tweaks-webite.firebaseapp.com",
+          projectId: "traizer-tweaks-webite",
+          storageBucket: "traizer-tweaks-webite.firebasestorage.app",
+          messagingSenderId: "672494064573",
+          appId: "1:672494064573:web:2768923341590e5ab8b8d4",
+          measurementId: "G-MWLG1YTVS6"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+</head>
+<body>
+    <!-- Pre-Animation Styles to prevent flicker -->
+    <style>
+        /* Initial state for hero elements only */
+        .hero-title, .title-text, .gradient-text, .hero-description, .btn-container, .app-showcase {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .app-showcase {
+            transform: translateY(50px);
+        }
+        
+        /* Don't disable other animations or affect other elements */
+    </style>
+    
+    <!-- Immediate Animation Script -->
+    <script>
+        // Execute immediately, don't wait for DOMContentLoaded
+        (function() {
+            document.addEventListener('DOMContentLoaded', function() {
+                // Set appropriate delays for our elements
+                const animateElements = [
+                    { selector: '.hero-title', delay: 300 },
+                    { selector: '.title-text', delay: 300 },
+                    { selector: '.gradient-text', delay: 800 },
+                    { selector: '.hero-description', delay: 1000 },
+                    { selector: '.btn-container', delay: 1200 },
+                    { selector: '.app-showcase', delay: 1400 }
+                ];
+                
+                // Apply our animations with delay
+                animateElements.forEach(item => {
+                    const element = document.querySelector(item.selector);
+                    if (element) {
+                        setTimeout(() => {
+                            element.style.opacity = '1';
+                            element.style.transform = 'translateY(0)';
+                        }, item.delay);
+                    }
+                });
+            });
+        })();
+    </script>
+    
+    <!-- Background animation lines -->
+    <div class="bg-lines"></div>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="assets/image-removebg-preview(23).png" alt="TRAIZER TWEAKS" class="logo">
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item active">HOME</a>
+            <a href="pricing.html" class="nav-item">PRICING</a>
+            <a href="features.html" class="nav-item">FEATURES</a>
+            <a href="download.html" class="nav-item">DOWNLOAD</a>
+            <a href="support.html" class="nav-item">SUPPORT</a>
+        </div>
+        <div class="nav-buttons">
+            <button class="login-btn">LOGIN</button>
+            <a href="pricing.html" class="buy-btn">BUY NOW</a>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="alpha-tag" style="font-size: 1.2rem; padding: 10px 20px;">Traizer Free V5 is now live</div>
+            <h1 class="hero-title">
+                <span class="title-text">Maximize Performance</span><br>
+                <span class="gradient-text">Minimize Hassle</span>
+            </h1>
+            <p class="hero-description">Stop lagging, start winning - optimize your PC now.</p>
+            <div class="btn-container">
+                <a href="download.html" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Download Now
+                </a>
+                <a href="#" class="btn btn-secondary">
+                    <i class="fab fa-discord"></i> Join our Discord
+                </a>
+            </div>
+        </div>
+        <div class="app-showcase">
+            <img src="assets/Control-V(30).png" alt="PC Tweaks Dashboard Interface" class="app-image">
+        </div>
+    </section>
+
+    <!-- Traizer Standard Tweaking Utility Section -->
+    <section class="tweaking-utility-section">
+        <h2 class="utility-title">TRAIZER STANDARD TWEAKING UTILITY</h2>
+        
+        <p class="utility-description">
+            The Traizer standard tweaking utility is our more budget friendly alternative to premium that can easily and effectively
+            optimize your PC for better performance and low latency with a press of a few buttons.
+        </p>
+        
+        <div class="utility-features-top">
+            <div class="utility-feature-box">
+                <p class="feature-category">Experience Up To A</p>
+                <h3 class="feature-value pink">30%</h3>
+                <p class="feature-name">FPS Increase</p>
+            </div>
+            
+            <div class="utility-feature-box">
+                <p class="feature-category">Up To A</p>
+                <h3 class="feature-value blue">200%</h3>
+                <p class="feature-name">Latency Decrease!</p>
+            </div>
+            
+            <div class="utility-feature-box">
+                <p class="feature-category">Over</p>
+                <h3 class="feature-value orange">650</h3>
+                <p class="feature-name">Optimizations</p>
+            </div>
+        </div>
+        
+        <div class="utility-features-bottom">
+            <div class="utility-feature-box">
+                <p class="feature-category">Stop Freezes & Stutters</p>
+                <h3 class="feature-value gradient-gold">Fix FPS Drops</h3>
+                <p class="feature-name">Experience Smoothness</p>
+            </div>
+            
+            <div class="utility-feature-box">
+                <p class="feature-category">Experience A More</p>
+                <h3 class="feature-value gradient-green">Responsive</h3>
+                <p class="feature-name">Gaming Experience</p>
+            </div>
+            
+            <div class="utility-feature-box">
+                <p class="feature-category">Fix Packet Loss</p>
+                <h3 class="feature-value gradient-pink">Reduce Ping</h3>
+                <p class="feature-name">Optimize Your Internet</p>
+            </div>
+        </div>
+        
+        <p class="utility-disclaimer">
+            Statistics measured using latencymon and other benchmarking tools after a clean install of windows. As well as reviews and benchmarks from customers, so the tool
+            has been tested on all sorts of pcs. Keep in mind that results may vary, depending on your specs and how optimized your pc is.
+        </p>
+    </section>
+
+    <!-- Trusted Section -->
+    <section class="trusted-section">
+        <h2 class="trusted-title">Trusted by Many Gamers Worldwide</h2>
+        <div class="game-logos">
+            <div class="game-logo" style="--i: 0">
+                <img src="assets/counter-strike-2-logo-png_seeklogo-477252.png" alt="Counter Strike 2" style="filter: brightness(0) invert(1); max-height: 140px;">
+            </div>
+            <div class="game-logo" style="--i: 1">
+                <img src="assets/Valorant-Symbol.png" alt="Valorant" style="filter: brightness(0) invert(1); max-height: 140px;">
+            </div>
+            <div class="game-logo" style="--i: 2">
+                <img src="assets/Fortnite-Logo-1.png" alt="Fortnite" style="filter: brightness(0) invert(1); max-height: 140px;">
+            </div>
+            <div class="game-logo" style="--i: 3">
+                <img src="assets/grand-theft-auto-v-logo-png-transparent.png" alt="GTA V" style="max-height: 140px;">
+            </div>
+            <div class="game-logo" style="--i: 4">
+                <img src="assets/Apex-Legends-logo.png" alt="Apex Legends" style="filter: brightness(0) invert(1); max-height: 140px;">
+            </div>
+            <div class="game-logo" style="--i: 5">
+                <img src="assets/Call-of-Duty-Logo-2014.png" alt="Call of Duty" style="filter: brightness(0) invert(1); max-height: 140px;">
+            </div>
+        </div>
+        <p class="interface-note">Compatible and optimized for all games - no exceptions</p>
+    </section>
+
+    <!-- Premium Features Section -->
+    <section class="premium-features-section">
+        <h2 class="premium-title"><span class="premium-text">Premium</span> Features</h2>
+        <p class="premium-description">
+            Traizer Tweaks is a powerful Windows optimization utility designed to boost FPS, lower latency, and enhance overall gaming performance. 
+            Trusted by over 1,000 users with excellent feedback,
+             it provides noticeable improvements in games like Fortnite, Warzone, and Valorant.
+              Whether you're chasing smoother gameplay or more responsive controls, 
+              Traizer Tweaks gives your system the competitive edge it deserves.
+        </p>
+        
+        <div class="premium-features-grid">
+            <div class="premium-feature-card" data-aos="fade-up">
+                <div class="feature-icon purple">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <h3 class="feature-title">Drastically Increase FPS</h3>
+                <p class="feature-description">
+                    Push your system to its limits and unlock the smooth, high-FPS gameplay you've
+                    been missing. Experience gaming at its finest.
+                </p>
+            </div>
+            
+            <div class="premium-feature-card" data-aos="fade-up" data-aos-delay="50">
+                <div class="feature-icon blue">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3 class="feature-title">Boost PC Performance</h3>
+                <p class="feature-description">
+                    Eliminate background bottlenecks and optimize your system for maximum speed
+                    and responsiveness across all applications.
+                </p>
+            </div>
+            
+            <div class="premium-feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon green">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="feature-title">Reduce Latency Instantly</h3>
+                <p class="feature-description">
+                    Lower input lag and get a faster, more responsive feel in every match. React
+                    faster than your opponents.
+                </p>
+            </div>
+            
+            <div class="premium-feature-card" data-aos="fade-up" data-aos-delay="150">
+                <div class="feature-icon pink">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h3 class="feature-title">Fix Packet Loss & Decrease Ping</h3>
+                <p class="feature-description">
+                    Stabilize your connection, reduce ping spikes, and dominate with consistent
+                    network performance in competitive gaming.
+                </p>
+            </div>
+            
+            <div class="premium-feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon yellow">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="feature-title">Stop Freezes & Stutters</h3>
+                <p class="feature-description">
+                    Smooth out gameplay by preventing lag spikes, FPS drops, and micro-stuttering for
+                    seamless gaming sessions.
+                </p>
+            </div>
+            
+            <div class="premium-feature-card" data-aos="fade-up" data-aos-delay="250">
+                <div class="feature-icon red">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h3 class="feature-title">Ultra-Quick Setup</h3>
+                <p class="feature-description">
+                    Unlock your PC's full potential in under 10 minutes with our streamlined, automated
+                    setup process.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sliding Reviews Section -->
+    <section class="sliding-reviews-section">
+        <div class="sliding-reviews-container">
+            <div class="sliding-reviews-track">
+                <!-- First set of reviews -->
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"great customer service fixed my problem quick an easy testing tweaks now"</p>
+                    <div class="sliding-reviewer">Goji</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"+rep great customer service 10/10"</p>
+                    <div class="sliding-reviewer">Deleted User</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"great tweaks and services 10/10 you guys should use it"</p>
+                    <div class="sliding-reviewer">lucassupon7</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"w tweaks"</p>
+                    <div class="sliding-reviewer">MC_Ad</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"w fps boost using tweaks"</p>
+                    <div class="sliding-reviewer">ã‚¢ãƒ¬ãƒƒã‚¯ã‚¹</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"w tweaks w man"</p>
+                    <div class="sliding-reviewer">Asto</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"Amazing performance boost! My games run so much smoother now."</p>
+                    <div class="sliding-reviewer">JohnG</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"Ping dropped by 30ms! Totally worth it."</p>
+                    <div class="sliding-reviewer">GamingPro</div>
+                </div>
+                
+                <!-- Duplicate reviews for continuous scrolling effect -->
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"great customer service fixed my problem quick an easy testing tweaks now"</p>
+                    <div class="sliding-reviewer">Goji</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"+rep great customer service 10/10"</p>
+                    <div class="sliding-reviewer">Deleted User</div>
+                </div>
+                <div class="sliding-review">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="sliding-review-text">"great tweaks and services 10/10 you guys should use it"</p>
+                    <div class="sliding-reviewer">lucassupon7</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add the FAQ section before the user-reviews-section -->
+    <div class="faq-section">
+        <h2 class="faq-title">Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    How does Traizer Tweaks improve my gaming performance?
+                    <div class="faq-toggle"></div>
+                </div>
+                <div class="faq-answer">
+                    Traizer Tweaks uses a combination of system-level optimizations, network adjustments, and game-specific tweaks to maximize your PC's performance. We optimize Windows settings, adjust GPU and CPU parameters, and fine-tune network configurations to reduce latency and increase FPS. Our proprietary algorithms identify performance bottlenecks and apply targeted fixes for your specific hardware configuration.
+            </div>
+        </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    Is Traizer Tweaks safe to use on my computer?
+                    <div class="faq-toggle"></div>
+                    </div>
+                <div class="faq-answer">
+                    Absolutely! Traizer Tweaks is designed with safety as a priority. All optimizations are non-destructive and can be easily reverted if needed. We don't modify critical system files or make permanent changes to your hardware. Our software has been tested extensively across thousands of different PC configurations to ensure stability and reliability.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Will Traizer Tweaks work with my specific games?
+                    <div class="faq-toggle"></div>
+                    </div>
+                <div class="faq-answer">
+                    Traizer Tweaks is designed to enhance performance across all games by optimizing your system at a fundamental level. However, we also include game-specific optimizations for popular titles like Fortnite, Valorant, CS2, Apex Legends, Call of Duty, and many others. Our regular updates ensure compatibility with the latest game releases and patches.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Do I need technical knowledge to use Traizer Tweaks?
+                    <div class="faq-toggle"></div>
+                    </div>
+                <div class="faq-answer">
+                    Not at all! Traizer Tweaks is designed with simplicity in mind. Our one-click optimization process handles everything automatically. You don't need any technical expertise to achieve significant performance improvements. For advanced users, we also offer customizable options to fine-tune specific aspects of your system's performance.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    What's the difference between the Free and Premium versions?
+                    <div class="faq-toggle"></div>
+                    </div>
+                <div class="faq-answer">
+                    The Free version provides basic optimizations that can still significantly improve your gaming experience. The Premium version includes advanced features like game-specific optimizations, deeper system tweaks, auto-updates for the latest optimizations, priority support, and custom profiles for different games. Premium users typically see 2-3x better performance improvements compared to the Free version.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    How long do the optimizations last?
+                    <div class="faq-toggle"></div>
+                </div>
+                <div class="faq-answer">
+                    Traizer Tweaks optimizations are permanent until you manually revert them or reinstall your operating system. However, Windows updates and driver changes may occasionally overwrite some tweaks. That's why we recommend running a quick optimization check after major system updates. Premium and Standard users receive automatic update notifications when new optimizations are available.
+            </div>
+                </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Can I use Traizer Tweaks on multiple computers?
+                    <div class="faq-toggle"></div>
+            </div>
+                <div class="faq-answer">
+                    Standard and Premium licenses are tied to one PC at a time. If you need to transfer your license to a new computer, you can deactivate it on your old system through your account. We also offer family plans for households with multiple PCs. Contact our support team for more information on multi-device licensing options.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Will Traizer Tweaks cause conflicts with my antivirus software?
+                    <div class="faq-toggle"></div>
+                </div>
+                <div class="faq-answer">
+                    Traizer Tweaks is designed to work harmoniously with all major antivirus software. Our application is digitally signed and verified, and we maintain a whitelist status with popular security solutions. If your antivirus does flag our software, it's typically a false positive due to the system-level optimizations we perform. We provide detailed instructions for adding exclusions if needed.
+            </div>
+                </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Do you offer refunds if I'm not satisfied?
+                    <div class="faq-toggle"></div>
+            </div>
+                <div class="faq-answer">
+                    Yes! We offer a 30-day money-back guarantee for all paid plans. If you're not completely satisfied with the performance improvements, simply contact our support team within 30 days of purchase for a full refund. We ask that you allow our team one opportunity to help resolve any issues you're experiencing before requesting a refund.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    How often is Traizer Tweaks updated?
+                    <div class="faq-toggle"></div>
+                </div>
+                <div class="faq-answer">
+                    We release updates based on your subscription level: Premium users receive weekly updates with the latest optimizations, Standard users get monthly updates, and Free users receive quarterly updates. Our development team constantly researches new optimization techniques and ensures compatibility with the latest game releases and Windows updates.
+            </div>
+                </div>
+            </div>
+    </div>
+
+    <!-- Add the reviews section before the features section -->
+    <section id="reviews" class="user-reviews-section">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 20px 20px;">
+            <h2 class="section-title" style="text-align: center; font-family: 'Poppins', sans-serif; font-size: 2.8rem; font-weight: 700; margin-bottom: 30px; color: white; position: relative;">
+                Start Optimizing Today
+                <div class="cta-buttons-container" style="display: flex; justify-content: center; gap: 30px; margin-top: 30px;">
+                    <a href="download.html" class="cta-btn primary-btn" style="padding: 18px 35px; border-radius: 50px; font-weight: 600; text-decoration: none; color: #111; background-color: var(--neon-green); font-size: 1.1rem; transition: all 0.3s ease; display: inline-block; text-align: center; box-shadow: 0 10px 20px rgba(67, 255, 173, 0.3);">Try Free Version</a>
+                    <a href="pricing.html" class="cta-btn secondary-btn" style="padding: 18px 35px; border-radius: 50px; font-weight: 600; text-decoration: none; color: white; border: 2px solid var(--neon-green); background-color: transparent; font-size: 1.1rem; transition: all 0.3s ease; display: inline-block; text-align: center;">View All Plans</a>
+                </div>
+            </h2>
+        </div>
+    </section>
+
+    <script>
+        // Navigation bar scroll behavior
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Get all navigation items
+        const navItems = document.querySelectorAll('.nav-item');
+        
+        // Add click event to all navigation items
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items
+                navItems.forEach(nav => nav.classList.remove('active'));
+                
+                // Add active class to the clicked item
+                this.classList.add('active');
+            });
+        });
+        
+        // Performance benefits section animation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add a class to help identify performance benefits cards
+            const performanceBenefits = document.querySelectorAll('.performance-section .benefit-box');
+            
+            // Set initial state for section and elements
+            const performanceSection = document.querySelector('.performance-section');
+            if (performanceSection) {
+                performanceSection.style.opacity = '0';
+                performanceSection.style.transform = 'translateY(30px)';
+                performanceSection.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            }
+            
+            const performanceHeading = document.querySelector('.performance-section .performance-heading');
+            if (performanceHeading) {
+                performanceHeading.style.opacity = '0';
+                performanceHeading.style.transform = 'translateY(30px)';
+                performanceHeading.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            }
+            
+            const performanceTitle = document.querySelector('.performance-section .performance-title');
+            if (performanceTitle) {
+                performanceTitle.style.opacity = '0';
+                performanceTitle.style.transform = 'translateY(30px)';
+                performanceTitle.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            }
+            
+            performanceBenefits.forEach(benefit => {
+                benefit.style.opacity = '0';
+                benefit.style.transform = 'translateY(50px)';
+                benefit.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+            
+            // Function to check if element is in viewport
+            const isInViewport = (elem) => {
+                const rect = elem.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+                    rect.bottom >= 0
+                );
+            };
+            
+            // Function to handle the scroll animation
+            const handleScrollAnimation = () => {
+                if (performanceSection && isInViewport(performanceSection)) {
+                    // Animate the section first
+                    performanceSection.style.opacity = '1';
+                    performanceSection.style.transform = 'translateY(0)';
+                    
+                    // Then animate the title with slight delay
+                    setTimeout(() => {
+                        if (performanceTitle) {
+                            performanceTitle.style.opacity = '1';
+                            performanceTitle.style.transform = 'translateY(0)';
+                        }
+                    }, 200);
+                    
+                    // Then animate the heading with slight delay
+                    setTimeout(() => {
+                        if (performanceHeading) {
+                            performanceHeading.style.opacity = '1';
+                            performanceHeading.style.transform = 'translateY(0)';
+                        }
+                    }, 400);
+                    
+                    // Finally animate each benefit box with staggered delay
+                    performanceBenefits.forEach((benefit, index) => {
+                        setTimeout(() => {
+                            benefit.style.opacity = '1';
+                            benefit.style.transform = 'translateY(0)';
+                        }, 600 + (index * 150)); // Staggered delay for each card
+                    });
+                    
+                    // Remove scroll listener once animation is done
+                    window.removeEventListener('scroll', handleScrollAnimation);
+                }
+            };
+            
+            // Apply initial animation if section is already visible
+            setTimeout(handleScrollAnimation, 500);
+            
+            // Apply animation on scroll
+            window.addEventListener('scroll', handleScrollAnimation);
+            
+            // Gaming Success Dashboard Animations
+            const animateGamingDashboard = () => {
+                const dashboardSection = document.querySelector('.gaming-success-dashboard');
+                if (!dashboardSection) return;
+                
+                // Animate circular progress
+                const progressCircle = document.querySelector('.progress-ring-circle');
+                if (progressCircle && isInViewport(progressCircle)) {
+                    const radius = progressCircle.r.baseVal.value;
+                    const circumference = radius * 2 * Math.PI;
+                    const targetValue = 97; // Customer satisfaction percentage
+                    
+                    progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+                    progressCircle.style.strokeDashoffset = circumference;
+                    
+                    setTimeout(() => {
+                        const offset = circumference - (targetValue / 100) * circumference;
+                        progressCircle.style.strokeDashoffset = offset;
+                    }, 500);
+                }
+                
+                // Animate counters
+                const counters = document.querySelectorAll('.gaming-success-dashboard .counter');
+                counters.forEach(counter => {
+                    if (isInViewport(counter)) {
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        let count = 0;
+                        const duration = 2000; // Animation duration in ms
+                        const step = Math.max(1, Math.floor(target / (duration / 16))); // 16ms is approx one frame at 60fps
+                        
+                        const updateCount = () => {
+                            if (count < target) {
+                                count += step;
+                                if (count > target) count = target;
+                                counter.innerText = Math.floor(count);
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        
+                        setTimeout(() => {
+                            updateCount();
+                        }, 500);
+                    }
+                });
+                
+                // Set bar fill widths
+                const barFills = document.querySelectorAll('.bar-fill');
+                barFills.forEach(fill => {
+                    if (isInViewport(fill)) {
+                        const width = fill.style.width;
+                        fill.style.setProperty('--width', width);
+                    }
+                });
+                
+                // Animate activity feed items
+                const activityItems = document.querySelectorAll('.activity-item');
+                activityItems.forEach((item, index) => {
+                    if (isInViewport(item)) {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateX(-20px)';
+                        item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateX(0)';
+                        }, 300 + (index * 150));
+                    }
+                });
+            };
+            
+            // Check dashboard animations on scroll and initial load
+            window.addEventListener('scroll', animateGamingDashboard);
+            setTimeout(animateGamingDashboard, 500);
+            
+            // Simulate new activity items appearing periodically
+            const simulateNewActivity = () => {
+                const activityFeed = document.querySelector('.activity-feed');
+                if (!activityFeed) return;
+                
+                const activities = [
+                    { type: 'new-order', time: 'Just now', name: 'Chris M.', location: 'Germany', action: 'purchased Premium Package' },
+                    { type: 'new-review', time: 'Just now', name: 'Sophia L.', location: 'France', rating: 5, quote: '"Ping reduced by 40ms in Apex Legends!"' },
+                    { type: 'new-order', time: 'Just now', name: 'Daniel K.', location: 'Brazil', action: 'purchased Standard Package' },
+                    { type: 'new-review', time: 'Just now', name: 'Emma R.', location: 'Sweden', rating: 5, quote: '"Finally no more stuttering in CS2!"' }
+                ];
+                
+                // Select random activity
+                const randomActivity = activities[Math.floor(Math.random() * activities.length)];
+                
+                // Create new activity item
+                const newItem = document.createElement('div');
+                newItem.className = `activity-item ${randomActivity.type}`;
+                newItem.style.opacity = '0';
+                newItem.style.transform = 'translateX(-20px)';
+                newItem.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                if (randomActivity.type === 'new-order') {
+                    newItem.innerHTML = `
+                        <div class="activity-time">${randomActivity.time}</div>
+                        <div class="activity-content">
+                            <div class="activity-icon"><i class="fas fa-shopping-cart"></i></div>
+                            <div class="activity-details">
+                                <p><strong>${randomActivity.name}</strong> from ${randomActivity.location}</p>
+                                <p class="activity-action">${randomActivity.action}</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    let stars = '';
+                    for (let i = 0; i < randomActivity.rating; i++) {
+                        stars += '<i class="fas fa-star"></i>';
+                    }
+                    
+                    newItem.innerHTML = `
+                        <div class="activity-time">${randomActivity.time}</div>
+                        <div class="activity-content">
+                            <div class="activity-icon"><i class="fas fa-star"></i></div>
+                            <div class="activity-details">
+                                <p><strong>${randomActivity.name}</strong> from ${randomActivity.location}</p>
+                                <div class="review-stars">
+                                    ${stars}
+                                </div>
+                                <p class="review-quote">${randomActivity.quote}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                // Add to feed and animate
+                if (activityFeed.children.length >= 6) {
+                    activityFeed.removeChild(activityFeed.lastChild);
+                }
+                
+                activityFeed.insertBefore(newItem, activityFeed.firstChild);
+                
+                setTimeout(() => {
+                    newItem.style.opacity = '1';
+                    newItem.style.transform = 'translateX(0)';
+                }, 100);
+                
+                // Update times for other activities
+                const otherActivities = activityFeed.querySelectorAll('.activity-item:not(:first-child)');
+                otherActivities.forEach(item => {
+                    const timeEl = item.querySelector('.activity-time');
+                    let currentTime = timeEl.textContent;
+                    
+                    if (currentTime === 'Just now') {
+                        timeEl.textContent = '1 min ago';
+                    } else if (currentTime.includes('min')) {
+                        const minutes = parseInt(currentTime);
+                        if (!isNaN(minutes)) {
+                            timeEl.textContent = `${minutes + 1} mins ago`;
+                        }
+                    }
+                });
+            };
+            
+            // Simulate new activity every 8-15 seconds
+            const startActivitySimulation = () => {
+                const randomInterval = Math.floor(Math.random() * (15000 - 8000 + 1)) + 8000;
+                setTimeout(() => {
+                    simulateNewActivity();
+                    startActivitySimulation();
+                }, randomInterval);
+            };
+            
+            // Start simulation after 10 seconds
+            setTimeout(startActivitySimulation, 10000);
+        });
+        
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animations to elements
+            const animateElements = document.querySelectorAll('.hero-title, .hero-subtitle, .btn-container, .hero-img');
+            
+            // Animate hero section elements on page load
+            setTimeout(() => {
+                animateElements.forEach(el => {
+                    el.classList.add('animate');
+                });
+            }, 100);
+
+            // Function to check if element is in viewport
+            const isInViewport = (el) => {
+                const rect = el.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+                    rect.bottom >= 0
+                );
+            };
+
+            // Elements to animate when they come into view
+            const scrollAnimateElements = document.querySelectorAll(
+                '.trusted-title, .game-logo, ' +
+                '.how-title, .step-card, .features-title, .reviews-title, .feature-card, ' + 
+                '.testimonials-title, .testimonial-card, .faq-title, .faq-item'
+            );
+            
+            // Initial check for elements in viewport
+            scrollAnimateElements.forEach(el => {
+                if (isInViewport(el)) {
+                    el.classList.add('animate');
+                    
+                    // Apply staggered animation delays for game logos
+                    if (el.classList.contains('game-logo')) {
+                        const gameLogos = document.querySelectorAll('.game-logo');
+                        const index = Array.from(gameLogos).indexOf(el);
+                        el.style.animationDelay = `${index * 0.05}s`; // Changed from 0.1s to 0.05s
+                    }
+                    
+                    // Apply staggered animation delays for testimonial cards
+                    if (el.classList.contains('testimonial-card')) {
+                        el.style.transitionDelay = `${index * 0.08}s`; // Changed from 0.15s to 0.08s
+                    }
+                    
+                    // Apply staggered animation delays for FAQ items
+                    if (el.classList.contains('faq-item')) {
+                        el.style.transitionDelay = `${index * 0.05}s`; // Changed from 0.1s to 0.05s
+                    }
+                }
+            });
+
+            // Check for elements on scroll
+            window.addEventListener('scroll', () => {
+                scrollAnimateElements.forEach(el => {
+                    if (isInViewport(el) && !el.classList.contains('animate')) {
+                        el.classList.add('animate');
+                        
+                        // Apply staggered animation delays for game logos
+                        if (el.classList.contains('game-logo')) {
+                            const gameLogos = document.querySelectorAll('.game-logo');
+                            const index = Array.from(gameLogos).indexOf(el);
+                            el.style.animationDelay = `${index * 0.05}s`; // Changed from 0.1s to 0.05s
+                        }
+                        
+                        // Apply staggered animation delays for testimonial cards
+                        if (el.classList.contains('testimonial-card')) {
+                            el.style.transitionDelay = `${index * 0.08}s`; // Changed from 0.15s to 0.08s
+                        }
+                        
+                        // Apply staggered animation delays for FAQ items
+                        if (el.classList.contains('faq-item')) {
+                            el.style.transitionDelay = `${index * 0.05}s`; // Changed from 0.1s to 0.05s
+                        }
+                    }
+                });
+                
+                // Animate step cards with delay
+                const stepCards = document.querySelectorAll('.step-card');
+                stepCards.forEach((card, index) => {
+                    if (isInViewport(card) && !card.classList.contains('animate')) {
+                        setTimeout(() => {
+                            card.classList.add('animate');
+                        }, index * 100); // Changed from 200 to 100
+                    }
+                });
+            });
+            
+            // Counter animation function
+            const animateCounter = (counter, target, suffix = '') => {
+                const speed = 200; // Animation speed - lower is faster
+                const inc = target / speed;
+                let currentCount = 0;
+                
+                const updateCount = () => {
+                    if (currentCount < target) {
+                        currentCount += inc;
+                        if (currentCount > target) currentCount = target;
+                        counter.innerText = Math.floor(currentCount);
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                
+                updateCount();
+            };
+            
+            // Animate counters when they come into view
+            const counterElements = document.querySelectorAll('.counter');
+            let counterAnimated = false;
+            
+            // Function to check and start counter animations
+            const checkCounters = () => {
+                const statsSection = document.querySelector('.stats-overview');
+                if (statsSection && isInViewport(statsSection) && !counterAnimated) {
+                    counterAnimated = true;
+                    counterElements.forEach(counter => {
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        counter.innerText = '0';
+                        setTimeout(() => {
+                            animateCounter(counter, target);
+                        }, 400); // Slight delay before starting animation
+                    });
+                }
+            };
+            
+            // Check counters on initial load and scroll
+            checkCounters();
+            window.addEventListener('scroll', checkCounters);
+            
+            // Gamer Success Hub animations
+            const animateGamerHub = () => {
+                const hubSection = document.querySelector('.gamer-success-hub');
+                if (!hubSection) return;
+                
+                // Animate metric numbers
+                const metricNumbers = document.querySelectorAll('.metric-number');
+                metricNumbers.forEach(number => {
+                    if (isInViewport(number)) {
+                        const value = parseInt(number.getAttribute('data-value'));
+                        let count = 0;
+                        const duration = 2000; // Animation duration in ms
+                        const step = Math.max(1, Math.floor(value / (duration / 16))); // 16ms is approx one frame at 60fps
+                        
+                        const updateCount = () => {
+                            if (count < value) {
+                                count += step;
+                                if (count > value) count = value;
+                                number.innerText = Math.floor(count);
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                number.innerText = value;
+                            }
+                        };
+                        
+                        setTimeout(() => {
+                            updateCount();
+                        }, 500);
+                    }
+                });
+                
+                // Animate feed items
+                const feedItems = document.querySelectorAll('.feed-item');
+                feedItems.forEach((item, index) => {
+                    if (isInViewport(item)) {
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateX(0)';
+                        }, 300 + (index * 150));
+                    }
+                });
+            };
+            
+            // Check Gamer Success Hub animations on scroll and initial load
+            window.addEventListener('scroll', animateGamerHub);
+            setTimeout(animateGamerHub, 500);
+            
+            // Simulate new feed item periodically
+            const simulateNewFeedItem = () => {
+                const feedContainer = document.querySelector('.feed-container');
+                if (!feedContainer) return;
+                
+                const items = [
+                    { type: 'order', location: 'United Kingdom' },
+                    { type: 'review', location: 'Australia' },
+                    { type: 'order', location: 'Japan' },
+                    { type: 'review', location: 'Brazil' }
+                ];
+                
+                // Select random item
+                const randomItem = items[Math.floor(Math.random() * items.length)];
+                
+                // Create new feed item
+                const newItem = document.createElement('div');
+                newItem.className = 'feed-item';
+                newItem.style.opacity = '0';
+                newItem.style.transform = 'translateX(-20px)';
+                newItem.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                if (randomItem.type === 'order') {
+                    newItem.innerHTML = `
+                        <div class="feed-icon order-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="feed-content">
+                            <p><strong>New Order</strong> from ${randomItem.location}</p>
+                            <span class="feed-time">Just now</span>
+                        </div>
+                    `;
+                } else {
+                    newItem.innerHTML = `
+                        <div class="feed-icon review-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="feed-content">
+                            <p><strong>5â˜… Review</strong> from ${randomItem.location}</p>
+                            <span class="feed-time">Just now</span>
+                        </div>
+                    `;
+                }
+                
+                // Add to feed and animate
+                if (feedContainer.children.length >= 5) {
+                    feedContainer.removeChild(feedContainer.lastChild);
+                }
+                
+                feedContainer.insertBefore(newItem, feedContainer.firstChild);
+                
+                setTimeout(() => {
+                    newItem.style.opacity = '1';
+                    newItem.style.transform = 'translateX(0)';
+                }, 100);
+                
+                // Update times for other items
+                const otherItems = feedContainer.querySelectorAll('.feed-item:not(:first-child)');
+                otherItems.forEach(item => {
+                    const timeEl = item.querySelector('.feed-time');
+                    let currentTime = timeEl.textContent;
+                    
+                    if (currentTime === 'Just now') {
+                        timeEl.textContent = '1 min ago';
+                    } else if (currentTime.includes('min')) {
+                        const minutes = parseInt(currentTime);
+                        if (!isNaN(minutes)) {
+                            timeEl.textContent = `${minutes + 1} mins ago`;
+                        }
+                    }
+                });
+            };
+            
+            // Simulate new feed item every 10-20 seconds
+            const startFeedSimulation = () => {
+                const randomInterval = Math.floor(Math.random() * (20000 - 10000 + 1)) + 10000;
+                setTimeout(() => {
+                    simulateNewFeedItem();
+                    startFeedSimulation();
+                }, randomInterval);
+            };
+            
+            // Start simulation after 5 seconds
+            setTimeout(startFeedSimulation, 5000);
+        });
+
+        // Login modal functions
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+        
+        // When user clicks anywhere outside of the modal, close it
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... existing code ...
+            
+            // Add click event for login button to show modal
+            const loginButtons = document.querySelectorAll('.login-btn');
+            loginButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showLoginModal();
+                });
+            });
+            
+            // Update Buy button functionality
+            document.querySelector('.buy-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'pricing.html';
+            });
+        });
+
+        // FAQ Accordion functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all FAQ items
+                    faqItems.forEach(faqItem => {
+                        faqItem.classList.remove('active');
+                    });
+                    
+                    // Toggle active state
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <!-- Add the modal/popup for login feature -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">Feature Coming Soon!</h3>
+            <p class="modal-message">We're currently enhancing our login system to provide you with the best experience. This feature will be available shortly.</p>
+            <button class="modal-close" onclick="closeModal()">Got it</button>
+        </div>
+    </div>
+    
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <img src="assets/image-removebg-preview(23).png" alt="Traizer Tweaks" class="footer-logo" style="max-height: 40px; width: auto;">
+                <p class="footer-desc">
+                    Traizer Tweaks is dedicated to helping gamers achieve peak performance through advanced optimization techniques. Our one-time purchase tools deliver lasting improvements to your gaming experience.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links-container">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="index.html">Home</a></li>
+                    <li class="footer-link"><a href="pricing.html">Pricing</a></li>
+                    <li class="footer-link"><a href="features.html">Features</a></li>
+                    <li class="footer-link"><a href="download.html">Download</a></li>
+                    <li class="footer-link"><a href="support.html">Support</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links-container">
+                <h3 class="footer-title">Help</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#">FAQ</a></li>
+                    <li class="footer-link"><a href="#">Troubleshooting</a></li>
+                    <li class="footer-link"><a href="#">Privacy Policy</a></li>
+                    <li class="footer-link"><a href="#">Terms of Service</a></li>
+                    <li class="footer-link"><a href="refund-policy.html">Refund Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h3 class="footer-title">Contact Us</h3>
+                <div class="contact-item">
+                    <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+                    <span>support@traizertweaks.com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon"><i class="fab fa-discord"></i></span>
+                    <span>Join our Discord community</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon"><i class="fas fa-globe"></i></span>
+                    <span>Available worldwide</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 Traizer Tweaks. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://payhip.com/embed/payhip.js"></script>
+    <script>
+        // Initialize Payhip embeds
+        window.payhipLink = PayhipLink({
+            "closeButtonColor": "#000000",
+            "width": "800",
+            "height": "600",
+        });
+        
+        // Login modal functions
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+        
+        // When user clicks anywhere outside of the modal, close it
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... existing code ...
+            
+            // Add click event for login button to show modal
+            const loginButtons = document.querySelectorAll('.login-btn');
+            loginButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showLoginModal();
+                });
+            });
+            
+            // Update Buy button functionality
+            document.querySelector('.buy-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'pricing.html';
+            });
+        });
+    </script>
+
+    <!-- Script for Premium Features Animation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to check if element is in viewport
+            const isInViewport = (el) => {
+                const rect = el.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+                    rect.bottom >= 100
+                );
+            };
+            
+            // Handle animation for premium feature cards
+            const premiumFeatureCards = document.querySelectorAll('.premium-feature-card');
+            
+            const checkPremiumFeatures = () => {
+                premiumFeatureCards.forEach((card) => {
+                    if (isInViewport(card)) {
+                        const delay = card.getAttribute('data-aos-delay') || 0;
+                        setTimeout(() => {
+                            card.classList.add('aos-animate');
+                        }, delay);
+                    }
+                });
+            };
+            
+            // Check on scroll
+            window.addEventListener('scroll', checkPremiumFeatures);
+            
+            // Initial check
+            setTimeout(checkPremiumFeatures, 300);
+            
+            // Stats counter animation
+            const statsCounters = document.querySelectorAll('.stats-showcase-section .stats-number');
+            let statsCounterStarted = false;
+            
+            const animateStatsCounter = (counter) => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                let count = 0;
+                const duration = 2000; // Animation duration in ms
+                const step = Math.max(1, Math.floor(target / (duration / 16))); // 16ms is approx one frame at 60fps
+                
+                // For different counter types
+                const suffix = counter.closest('.stats-card') && 
+                              counter.closest('.stats-card').querySelector('.stats-label').innerText.includes('Satisfaction') ? '%' : 
+                              counter.closest('.stats-card').querySelector('.stats-label').innerText.includes('Reviews') ? '+' :
+                              counter.closest('.stats-card').querySelector('.stats-label').innerText.includes('Orders') ? '+' :
+                              counter.closest('.stats-card').querySelector('.stats-label').innerText.includes('Hours') ? '/7' : '';
+                
+                const updateCount = () => {
+                    if (count < target) {
+                        count += step;
+                        if (count > target) count = target;
+                        counter.innerText = Math.floor(count) + suffix;
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        counter.innerText = target + suffix;
+                    }
+                };
+                
+                updateCount();
+            };
+            
+            // Check and animate stats counters
+            const checkStatsCounters = () => {
+                const statsSection = document.querySelector('.stats-showcase-section');
+                if (statsSection && isInViewport(statsSection) && !statsCounterStarted) {
+                    statsCounterStarted = true;
+                    
+                    // Add staggered animation for each counter
+                    statsCounters.forEach((counter, index) => {
+                        setTimeout(() => {
+                            animateStatsCounter(counter);
+                        }, 300 + (index * 150));
+                    });
+                }
+            };
+            
+            // Check on scroll and initial load
+            window.addEventListener('scroll', checkStatsCounters);
+            setTimeout(checkStatsCounters, 500);
+            
+            // Add entrance animation for stats cards
+            const statsCards = document.querySelectorAll('.stats-card');
+            
+            const animateStatsCards = () => {
+                const statsSection = document.querySelector('.stats-showcase-section');
+                if (statsSection && isInViewport(statsSection)) {
+                    statsCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 200 + (index * 150));
+                    });
+                }
+            };
+            
+            // Set initial state for stats cards
+            statsCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+            
+            // Check on scroll and initial load
+            window.addEventListener('scroll', animateStatsCards);
+            setTimeout(animateStatsCards, 500);
+        });
+    </script>
+
+    <!-- Slide-up Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Remove any other animation scripts that might be running
+            const disableOtherAnimations = function() {
+                const allAnimatedElements = document.querySelectorAll('[data-aos], .animated, .animate, .fade-up, .fade-in');
+                allAnimatedElements.forEach(el => {
+                    el.classList.remove('aos-animate', 'animated', 'animate', 'fade-up', 'fade-in');
+                    el.removeAttribute('data-aos');
+                    el.removeAttribute('data-aos-delay');
+                });
+            };
+            
+            disableOtherAnimations();
+            
+            // Add slide-up animation classes to hero elements
+            const animateElements = [
+                { selector: '.hero-title', delay: 300 },
+                { selector: '.title-text', delay: 300 },
+                { selector: '.gradient-text', delay: 800 },
+                { selector: '.hero-description', delay: 1000 },
+                { selector: '.btn-container', delay: 1200 },
+                { selector: '.app-showcase', delay: 1400 }
+            ];
+            
+            // Apply animation with delay (elements are already set to opacity:0 in CSS)
+            animateElements.forEach(item => {
+                const element = document.querySelector(item.selector);
+                if (element) {
+                    setTimeout(() => {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }, item.delay);
+                }
+            });
+            
+            // Stop all other animations
+            const stopAnimations = function() {
+                const styleSheet = document.createElement('style');
+                styleSheet.innerText = `
+                    @keyframes none {
+                        0% { }
+                        100% { }
+                    }
+                    
+                    .premium-feature-card, [data-aos], .animated, .fade-in, .fade-up, .slide-left, .slide-right, .zoom-in,
+                    .trusted-title, .game-logo, .performance-title, .performance-heading, .benefit-box,
+                    .testimonials-title, .testimonial-card, .faq-title, .faq-item,
+                    .premium-title, .premium-description, .premium-feature-card {
+                        animation: none !important;
+                        opacity: 1 !important;
+                        transform: none !important;
+                        transition: none !important;
+                    }
+                `;
+                document.head.appendChild(styleSheet);
+            };
+            
+            // Stop other animations after our main animations complete
+            setTimeout(stopAnimations, 2000);
+        });
+    </script>
+</body>
+</html>
+
+
+                                
+                                

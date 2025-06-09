@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Traizer Tweaks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'SF Pro Display', sans-serif;
+        }
+
+        :root {
+            --neon-green: #3ac5ff;
+            --dark-bg: #050b1f;
+            --card-bg: #162252;
+            --card-hover: #1b2c5a;
+            --text-light: rgba(255, 255, 255, 0.7);
+            --premium-gradient: linear-gradient(135deg, #3ac5ff, #2196f3);
+            --premium-glow: 0 0 25px rgba(58, 197, 255, 0.2);
+            --border-light: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            background: linear-gradient(135deg, #050b1f 0%, #0f1a3c 50%, #101349 100%);
+            position: relative;
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-top: 80px;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #050b1f;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(58, 197, 255, 0.08) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: rgba(15, 26, 60, 0.8);
+            transition: background-color 0.3s ease, padding 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 42px;
+            filter: drop-shadow(0 0 8px rgba(67, 255, 173, 0.3));
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            filter: drop-shadow(0 0 12px rgba(67, 255, 173, 0.5));
+            transform: scale(1.05);
+        }
+
+        .thank-you-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px;
+            background: rgba(16, 19, 26, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-light);
+            text-align: center;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .thank-you-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--premium-gradient);
+            box-shadow: var(--premium-glow);
+        }
+
+        .thank-you-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: var(--premium-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+            padding: 0 15px;
+            text-shadow: var(--premium-glow);
+        }
+
+        .thank-you-message {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            color: var(--neon-green);
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .key-container {
+            background: rgba(10, 12, 18, 0.6);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 1px solid rgba(67, 255, 173, 0.3);
+            box-shadow: 0 0 20px rgba(67, 255, 173, 0.1);
+        }
+
+        .key-label {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .license-key {
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+            background: rgba(16, 19, 26, 0.8);
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: var(--neon-green);
+            text-shadow: 0 0 10px rgba(67, 255, 173, 0.3);
+        }
+
+        .copy-btn {
+            background: rgba(67, 255, 173, 0.1);
+            border: 1px solid rgba(67, 255, 173, 0.3);
+            color: var(--neon-green);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .copy-btn:hover {
+            background: rgba(67, 255, 173, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .copy-btn i {
+            margin-right: 8px;
+        }
+
+        .next-steps {
+            margin-top: 30px;
+        }
+
+        .next-steps h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .steps-list {
+            list-style: none;
+            text-align: left;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .steps-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background: var(--premium-gradient);
+            color: #111;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            color: var(--text-light);
+        }
+
+        .download-btn {
+            background: var(--premium-gradient);
+            color: #111;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 113, 112, 0.2);
+        }
+
+        .download-btn i {
+            margin-right: 10px;
+        }
+
+        .support-link {
+            margin-top: 30px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .support-link:hover {
+            color: var(--neon-green);
+        }
+
+        .support-link i {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473336/image-removebg-preview_23_ww5uf8.png" alt="Traizer Tweaks" class="logo">
+            </a>
+        </div>
+    </nav>
+
+    <div class="thank-you-container">
+        <i class="fas fa-check-circle success-icon"></i>
+        <h1 class="thank-you-title">Thank You for Your Purchase!</h1>
+        <p class="thank-you-message">Your payment was successful. Below is your premium license key.</p>
+
+        <div class="key-container">
+            <p class="key-label">Your Premium License Key:</p>
+            <div class="license-key" id="licenseKey">TRAIZER-PREM-<span id="uniqueKey"></span></div>
+            <button class="copy-btn" id="copyBtn"><i class="fas fa-copy"></i> Copy Key</button>
+        </div>
+
+        <div class="next-steps">
+            <h3>Next Steps:</h3>
+            <ul class="steps-list">
+                <li>
+                    <div class="step-number">1</div>
+                    <div class="step-text">Download Traizer Tweaks Premium using the button below</div>
+                </li>
+                <li>
+                    <div class="step-number">2</div>
+                    <div class="step-text">Install the software following the installation instructions</div>
+                </li>
+                <li>
+                    <div class="step-number">3</div>
+                    <div class="step-text">When prompted, enter your license key to activate your premium features</div>
+                </li>
+                <li>
+                    <div class="step-number">4</div>
+                    <div class="step-text">Enjoy enhanced gaming performance with Traizer Tweaks Premium!</div>
+                </li>
+            </ul>
+        </div>
+
+        <a href="download.html" class="download-btn"><i class="fas fa-download"></i> Download Now</a>
+
+        <a href="support.html" class="support-link"><i class="fas fa-headset"></i> Need help? Contact our support team</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate a unique license key
+            function generateUniqueKey() {
+                const characters = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                let result = '';
+                for (let i = 0; i < 16; i++) {
+                    if (i > 0 && i % 4 === 0) result += '-';
+                    result += characters.charAt(Math.floor(Math.random() * characters.length));
+                }
+                return result;
+            }
+            
+            // Set the unique key
+            document.getElementById('uniqueKey').textContent = generateUniqueKey();
+            
+            // Copy key functionality
+            document.getElementById('copyBtn').addEventListener('click', function() {
+                const licenseKey = document.getElementById('licenseKey').innerText;
+                navigator.clipboard.writeText(licenseKey).then(() => {
+                    this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-copy"></i> Copy Key';
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

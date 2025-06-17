@@ -1188,7 +1188,7 @@
     <div class="sale-banner">
         <div class="sale-banner-item">SALE NOW!</div>
         <div class="sale-banner-item">LIMITED TIME OFFER</div>
-        <div class="sale-banner-item">33% OFF</div>
+        <div class="sale-banner-item">50% OFF</div>
     </div>
     <div class="main-container">
         <div class="checkout-header">
@@ -1269,9 +1269,9 @@
                     <h2 class="plan-name">Standard Plan</h2>
                     <div class="pricing-container">
                         <span class="original-price">$14.99</span>
-                        <span class="current-price">$9.99 <span class="sale-tag">33% off</span></span>
+                        <span class="current-price">$6.99 <span class="sale-tag">50% off</span></span>
                     </div>
-                    <span class="limited-offer"><i class="fas fa-clock"></i> Limited Time Offer - 33% OFF</span>
+                    <span class="limited-offer"><i class="fas fa-clock"></i> Limited Time Offer - 50% OFF</span>
                     
                     <div class="plan-includes">
                         <h3 class="plan-includes-title"><i class="fas fa-check-circle"></i> This plan includes:</h3>
@@ -1304,8 +1304,8 @@
                     </div>
                 </div>
                 
-                <a href="https://payhip.com/b/pJwSI" class="payhip-buy-button buy-button" data-theme="blue" data-product="pJwSI">
-                    <i class="fas fa-lock"></i> Buy Now - $9.99
+                <a href="https://payhip.com/b/9Vdq6" class="payhip-buy-button buy-button" data-theme="blue" data-product="9Vdq6">
+                    <i class="fas fa-lock"></i> Buy Now - $6.99
                 </a>
                 
                 <div class="guarantee">
@@ -1375,7 +1375,7 @@
                 <option value="KWD">KWD (Kuwaiti Dinar)</option>
                 <option value="BHD">BHD (Bahraini Dinar)</option>
             </select>
-            <div class="result">$9.99 USD = <span id="converted-amount">$9.99 USD</span></div>
+            <div class="result">$6.99 USD = <span id="converted-amount">$6.99 USD</span></div>
         </div>
     </div>
 
@@ -1403,7 +1403,7 @@
         // Currency converter
         const currencySelect = document.getElementById('currency-select');
         const convertedAmount = document.getElementById('converted-amount');
-        const basePrice = 9.99;
+        const basePrice = 6.99;
         
         // Exchange rates (approximate)
         const exchangeRates = {
@@ -1491,17 +1491,17 @@
             
             if (currentPrice) {
                 if (selectedCurrency === 'USD') {
-                    currentPrice.innerHTML = `${currencySymbol}9.99 <span class="sale-tag">33% off</span>`;
+                    currentPrice.innerHTML = `${currencySymbol}6.99 <span class="sale-tag">50% off</span>`;
                     if (originalPriceElement) {
                         originalPriceElement.textContent = `${currencySymbol}14.99`;
                     }
                 } else if (selectedCurrency === 'EUR' || selectedCurrency === 'GBP' || selectedCurrency === 'JPY') {
-                    currentPrice.innerHTML = `${currencySymbol}${displayPrice} <span class="sale-tag">33% off</span>`;
+                    currentPrice.innerHTML = `${currencySymbol}${displayPrice} <span class="sale-tag">50% off</span>`;
                     if (originalPriceElement) {
                         originalPriceElement.textContent = `${currencySymbol}${displayOriginalPrice}`;
                     }
                 } else {
-                    currentPrice.innerHTML = `${currencySymbol}${displayPrice} ${selectedCurrency} <span class="sale-tag">33% off</span>`;
+                    currentPrice.innerHTML = `${currencySymbol}${displayPrice} ${selectedCurrency} <span class="sale-tag">50% off</span>`;
                     if (originalPriceElement) {
                         originalPriceElement.textContent = `${currencySymbol}${displayOriginalPrice} ${selectedCurrency}`;
                     }

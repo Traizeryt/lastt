@@ -1188,7 +1188,7 @@
     <div class="sale-banner">
         <div class="sale-banner-item">SALE NOW!</div>
         <div class="sale-banner-item">LIMITED TIME OFFER</div>
-        <div class="sale-banner-item">33% OFF</div>
+        <div class="sale-banner-item">50% OFF</div>
     </div>
     <nav class="navbar">
         <div class="logo-container">
@@ -1271,8 +1271,8 @@
                 <div class="pricing-badge premium-badge">Premium</div>
                 <div class="price-container">
                     <div class="price premium-price">
-                        <span class="currency">$</span>19.99
-                        <span class="sale-tag">33% OFF</span>
+                        <span class="currency">$</span>14.99
+                        <span class="sale-tag">50% OFF</span>
                     </div>
                     <div class="price-period">One-time</div>
                 </div>
@@ -1330,8 +1330,8 @@
                 <div class="pricing-badge standard-badge">Standard</div>
                 <div class="price-container">
                     <div class="price standard-price">
-                        <span class="currency">$</span>9.99
-                        <span class="sale-tag">33% OFF</span>
+                        <span class="currency">$</span>6.99
+                        <span class="sale-tag">50% OFF</span>
                     </div>
                     <div class="price-period">One-time</div>
                 </div>
@@ -1623,8 +1623,8 @@
                 <option value="KWD">KWD (Kuwaiti Dinar)</option>
                 <option value="BHD">BHD (Bahraini Dinar)</option>
             </select>
-            <div class="result">Standard: <span id="standard-amount">$9.99 USD</span></div>
-            <div class="result">Premium: <span id="premium-amount">$19.99 USD</span></div>
+            <div class="result">Standard: <span id="standard-amount">$6.99 USD</span></div>
+            <div class="result">Premium: <span id="premium-amount">$14.99 USD</span></div>
         </div>
     </div>
 
@@ -1831,8 +1831,8 @@
         const currencySelect = document.getElementById('currency-select');
         const standardAmount = document.getElementById('standard-amount');
         const premiumAmount = document.getElementById('premium-amount');
-        const standardPrice = 9.99;
-        const premiumPrice = 19.99;
+        const standardPrice = 6.99;
+        const premiumPrice = 14.99;
         
         // Update displayed currency in pricing cards when converter changes
         function updateDisplayedPrices(currency, standardVal, premiumVal) {
@@ -1857,11 +1857,11 @@
                 }
                 
                 if (currency === 'USD' || currency === 'EUR' || currency === 'GBP' || currency === 'JPY') {
-                    standardPriceDisplay.innerHTML = `<span class="currency">${currencySymbol}</span>${formattedStandardVal}<span class="sale-tag">33% OFF</span>`;
-                    premiumPriceDisplay.innerHTML = `<span class="currency">${currencySymbol}</span>${formattedPremiumVal}<span class="sale-tag">33% OFF</span>`;
+                    standardPriceDisplay.innerHTML = `<span class="currency">${currencySymbol}</span>${formattedStandardVal}<span class="sale-tag">50% OFF</span>`;
+                    premiumPriceDisplay.innerHTML = `<span class="currency">${currencySymbol}</span>${formattedPremiumVal}<span class="sale-tag">50% OFF</span>`;
                 } else {
-                    standardPriceDisplay.innerHTML = `<span class="currency">${currencySymbol}</span>${formattedStandardVal} ${currency}<span class="sale-tag">33% OFF</span>`;
-                    premiumPriceDisplay.innerHTML = `<span class="currency">${currencySymbol}</span>${formattedPremiumVal} ${currency}<span class="sale-tag">33% OFF</span>`;
+                    standardPriceDisplay.innerHTML = `<span class="currency">${currencySymbol}</span>${formattedStandardVal} ${currency}<span class="sale-tag">50% OFF</span>`;
+                    premiumPriceDisplay.innerHTML = `<span class="currency">${currencySymbol}</span>${formattedPremiumVal} ${currency}<span class="sale-tag">50% OFF</span>`;
                 }
             }
         }
@@ -1919,8 +1919,8 @@
         function updateConversion() {
             const selectedCurrency = currencySelect.value;
             const rate = exchangeRates[selectedCurrency];
-            const convertedStandardPrice = (standardPrice * rate).toFixed(2);
-            const convertedPremiumPrice = (premiumPrice * rate).toFixed(2);
+            const convertedStandardPrice = (6.99 * rate).toFixed(2);
+            const convertedPremiumPrice = (14.99 * rate).toFixed(2);
             
             // Format based on currency
             let formattedStandardPrice, formattedPremiumPrice;

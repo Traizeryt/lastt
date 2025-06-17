@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Checkout - Traizer Tweaks</title>
+    <title>Premium Checkout - Traizer Premium Utility</title>
     <script type="text/javascript" src="https://payhip.com/payhip.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'SF Pro Display', sans-serif;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
@@ -31,14 +31,16 @@
             --premium-gradient: linear-gradient(135deg, #ff7170, #ffe57f);
             --premium-glow: 0 0 25px rgba(255, 113, 112, 0.2);
             --border-light: rgba(255, 255, 255, 0.08);
+            --primary-color: #ff7170;
+            --primary-dark: #e55a59;
+            --accent-color: #8a4fff;
         }
 
         body {
-            background: radial-gradient(circle at center, #1a1426 0%, #080a10 100%);
+            background: linear-gradient(135deg, #050b1f 0%, #0f1a3c 50%, #101349 100%);
             color: white;
             overflow-x: hidden;
             min-height: 100vh;
-            padding-top: 80px;
             line-height: 1.6;
         }
 
@@ -61,125 +63,42 @@
             background: #ff7170;
         }
 
-        /* Navigation Bar Styles */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 40px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background-color: rgba(15, 26, 60, 0.8);
-            transition: background-color 0.3s ease, padding 0.3s ease;
-            backdrop-filter: blur(10px);
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
         }
 
-        .navbar.scrolled {
-            background-color: rgba(18, 18, 18, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 10px 40px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .logo {
-            height: 40px;
-            filter: drop-shadow(0 0 8px rgba(58, 197, 255, 0.3));
-            transition: all 0.3s ease;
-        }
-        
-        .logo:hover {
-            filter: drop-shadow(0 0 12px rgba(58, 197, 255, 0.5));
-            transform: scale(1.05);
-        }
-
-        .nav-links {
-            position: absolute;
-            left: 52%; 
-            transform: translateX(-50%);
-            display: flex;
-            gap: 40px;
-        }
-
-        .nav-item {
-            position: relative;
-            text-decoration: none;
-            color: #f1f1f1;
-            font-size: 14px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
-            padding: 5px 0;
-        }
-
-        .nav-item:hover {
-            color: #3ac5ff;
-        }
-
-        .nav-item.active {
-            color: #3ac5ff;
-        }
-
-        .nav-item.active::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: -8px;
-            transform: translateX(-50%);
-            width: 6px;
-            height: 6px;
-            background-color: #3ac5ff;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #3ac5ff;
-        }
-
-        /* Main container */
-        .checkout-container {
-            max-width: 1240px;
-            margin: 30px auto 60px;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-        }
-
-        /* Page header */
         .checkout-header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 60px;
             position: relative;
-            padding-bottom: 30px;
         }
 
         .checkout-title {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 20px;
-            background: var(--premium-gradient);
+            color: white;
+            background: linear-gradient(135deg, #ffffff, #ff7170);
             -webkit-background-clip: text;
             background-clip: text;
-            color: transparent;
+            -webkit-text-fill-color: transparent;
             position: relative;
             display: inline-block;
-            padding: 0 15px;
-            text-shadow: var(--premium-glow);
         }
 
         .checkout-title::after {
             content: '';
             position: absolute;
+            bottom: -10px;
             left: 50%;
-            bottom: -15px;
-            width: 100px;
-            height: 3px;
-            background: var(--premium-gradient);
             transform: translateX(-50%);
-            border-radius: 3px;
-            box-shadow: var(--premium-glow);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff7170, #ffe57f);
+            border-radius: 2px;
         }
 
         .checkout-subtitle {
@@ -188,1321 +107,1417 @@
             max-width: 700px;
             margin: 0 auto;
             font-weight: 300;
-        }
-
-        /* Glassy card styling for all sections */
-        .glass-card {
-            background: rgba(16, 19, 26, 0.7);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-            border: 1px solid var(--border-light);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-top: 20px;
         }
         
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--premium-gradient);
-            box-shadow: var(--premium-glow);
-        }
-        
-        .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 113, 112, 0.2);
-        }
-
-        /* Section titles */
-        .section-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 30px;
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
             position: relative;
-            display: inline-block;
-            background: linear-gradient(to right, #ffffff, #ffd0d0);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
         }
 
-        .section-title::after {
+        .checkout-grid::before {
             content: '';
             position: absolute;
-            left: 0;
-            bottom: -10px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 60px;
-            height: 3px;
-            background: var(--neon-green);
-            border-radius: 3px;
-            box-shadow: 0 0 10px rgba(67, 255, 173, 0.4);
-        }
-
-        /* Premium package badge */
-        .package-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--premium-gradient);
-            color: #111;
-            font-weight: 700;
-            font-size: 0.95rem;
-            padding: 8px 20px;
-            border-radius: 30px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(255, 113, 112, 0.25);
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .package-badge i {
-            margin-right: 10px;
-            font-size: 1.1rem;
-            color: #111;
-        }
-
-        /* Stats boxes */
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-            margin: 40px 0;
-        }
-
-        .stat-box {
-            background: rgba(16, 23, 36, 0.6);
-            border-radius: 16px;
-            padding: 30px 20px;
-            position: relative;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid var(--border-light);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        
-        .stat-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 113, 112, 0.1), transparent);
-            transition: 0.6s;
-            z-index: 1;
-        }
-        
-        .stat-box:hover::before {
-            left: 100%;
-        }
-        
-        .stat-box:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255, 113, 112, 0.2);
-            background: rgba(22, 30, 45, 0.8);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25), 0 0 20px rgba(255, 113, 112, 0.15);
-        }
-
-        .stat-icon {
-            width: 70px;
-            height: 70px;
+            height: 60px;
+            background-color: rgba(16, 19, 26, 0.8);
             border-radius: 50%;
-            margin: 0 auto 20px;
+            z-index: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 113, 112, 0.15);
-            box-shadow: 0 0 20px rgba(255, 113, 112, 0.2);
-            position: relative;
-            z-index: 2;
-            transition: all 0.3s ease;
-        }
-        
-        .stat-box:hover .stat-icon {
-            transform: scale(1.1);
-            background: rgba(255, 113, 112, 0.25);
             box-shadow: 0 0 30px rgba(255, 113, 112, 0.3);
+            border: 2px solid rgba(255, 113, 112, 0.3);
         }
 
-        .stat-icon svg {
-            width: 30px;
-            height: 30px;
-            stroke: #ff7170;
-            transition: all 0.3s ease;
-        }
-        
-        .stat-box:hover .stat-icon svg {
-            transform: scale(1.1);
-            stroke: #ffffff;
-        }
-
-        .stat-value {
-            font-family: 'Poppins', sans-serif;
-            font-size: 3.8rem;
-            font-weight: 800;
-            margin-bottom: 5px;
-            color: white;
-            position: relative;
-            z-index: 2;
-            transition: all 0.3s ease;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-        }
-        
-        .stat-box:hover .stat-value {
-            transform: scale(1.05);
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-        }
-
-        .stat-label {
-            color: var(--text-light);
-            font-size: 1.05rem;
-            font-weight: 500;
-            position: relative;
-            z-index: 2;
-            transition: all 0.3s ease;
-        }
-        
-        .stat-box:hover .stat-label {
-            color: #ffffff;
-        }
-
-        /* Buy button and price display */
-        .cta-container {
-            margin-top: 50px;
-            text-align: center;
-            position: relative;
-            padding: 20px;
-        }
-
-        .price-display {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 25px;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .original-price {
-            color: var(--text-light);
-            text-decoration: line-through;
-            font-size: 2rem;
-            font-weight: 400;
-            opacity: 0.7;
-            position: relative;
-        }
-
-        .current-price {
-            background: var(--premium-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: var(--premium-glow);
-            position: relative;
-        }
-        
-        .price-tag {
-            position: relative;
-            display: inline-block;
-        }
-        
-        /* Removing the LIMITED OFFER text
-        .price-tag::before {
-            content: 'LIMITED OFFER';
+        .checkout-grid::after {
+            content: '→';
             position: absolute;
-            top: -20px;
-            right: -30px;
-            background: var(--premium-gradient);
-            color: #111;
-            font-size: 0.7rem;
-            font-weight: 800;
-            padding: 3px 10px;
-            border-radius: 20px;
-            transform: rotate(5deg);
-            box-shadow: 0 5px 15px rgba(255, 113, 112, 0.25);
-            animation: pulse 2s infinite;
-            letter-spacing: 0.5px;
-        }
-        */
-        
-        @keyframes pulse {
-            0% {
-                transform: rotate(5deg) scale(1);
-            }
-            50% {
-                transform: rotate(5deg) scale(1.1);
-            }
-            100% {
-                transform: rotate(5deg) scale(1);
-            }
-        }
-
-        .buy-button {
-            background: var(--premium-gradient);
-            color: #111;
-            border: none;
-            width: 100%;
-            max-width: 400px;
-            padding: 20px 30px;
-            border-radius: 16px;
-            font-weight: 700;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            margin: 0 auto;
-            box-shadow: 0 10px 30px rgba(255, 113, 112, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .buy-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: 0.5s;
-        }
-        
-        .buy-button::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 80%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .buy-button:hover::before {
-            left: 100%;
-        }
-        
-        .buy-button:hover::after {
-            opacity: 1;
-        }
-        
-        .buy-button:hover {
-            transform: translateY(-7px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(255, 113, 112, 0.4);
-            letter-spacing: 2px;
-        }
-        
-        .buy-button i {
-            margin-right: 10px;
-            transition: transform 0.3s ease;
-        }
-        
-        .buy-button:hover i {
-            transform: translateX(5px);
-        }
-
-        .payment-icons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .payment-icons img {
-            height: 20px;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
-
-        .payment-icons:hover img {
-            opacity: 1;
-        }
-
-        /* More premium styles will follow... */
-        
-        /* Product features styling */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            margin: 40px 0;
-        }
-
-        .feature-box {
-            background: rgba(16, 23, 36, 0.4);
-            border-radius: 16px;
-            padding: 30px 25px;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid var(--border-light);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-        }
-        
-        .feature-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--premium-gradient);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-        }
-        
-        .feature-box:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .feature-box:hover {
-            transform: translateY(-10px);
-            background: rgba(22, 30, 45, 0.5);
-            border-color: rgba(255, 113, 112, 0.15);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        }
-
-        .feature-category {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        .feature-value {
-            font-size: 3.2rem;
-            font-weight: 800;
-            margin: 15px 0;
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.1;
-            transition: all 0.3s ease;
-        }
-        
-        .feature-value i {
-            font-size: 2.5rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             color: #ff7170;
-            transition: all 0.3s ease;
-        }
-        
-        .feature-box:hover .feature-value {
-            transform: scale(1.1);
-        }
-        
-        .feature-box:hover .feature-value i {
-            color: #ffe57f;
-            transform: scale(1.1) rotate(5deg);
+            font-size: 24px;
+            font-weight: bold;
+            z-index: 2;
         }
 
-        .feature-name {
-            font-size: 1.05rem;
-            color: var(--text-light);
-            margin-top: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .feature-box:hover .feature-name {
-            color: #ffffff;
-        }
-
-        /* Benefit boxes styling */
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            margin: 50px 0;
-        }
-        
-        .benefit-box {
-            background: rgba(16, 24, 31, 0.5);
-            border-radius: 18px;
-            padding: 35px 25px;
-            text-align: center;
-            transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
-            border: 1px solid rgba(26, 37, 48, 0.7);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-            position: relative;
-            overflow: hidden;
-            transform: translateY(50px);
-            opacity: 0;
-            animation: fadeInUp 0.8s forwards;
-            height: 100%;
+        .app-preview {
+            background: rgba(16, 19, 26, 0.6);
+            border-radius: 20px;
+            padding: 40px 30px;
+            border: 1px solid rgba(255, 113, 112, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
-        .benefit-box::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, transparent, rgba(255, 113, 112, 0.3), transparent);
-            border-radius: 20px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.5s ease;
+
+        .app-preview:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 113, 112, 0.2);
         }
-        
-        .benefit-box::after {
+
+        .app-preview::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at center, rgba(255, 113, 112, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: all 0.4s ease;
+            background: radial-gradient(circle at center, rgba(255, 113, 112, 0.08) 0%, transparent 70%);
+            z-index: 0;
         }
-        
-        .benefit-box:hover {
-            transform: translateY(-15px) scale(1.03);
-            border-color: rgba(255, 113, 112, 0.4);
-            background: rgba(22, 28, 37, 0.9);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2), 0 5px 20px rgba(255, 113, 112, 0.15);
-            z-index: 5;
+
+        /* Performance Visualization */
+        .performance-showcase {
+            width: 100%;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
         }
-        
-        .benefit-box:hover::before {
-            opacity: 1;
-            animation: rotateBorder 3s linear infinite;
+
+        .performance-header {
+            text-align: center;
+            margin-bottom: 20px;
         }
-        
-        .benefit-box:hover::after {
-            opacity: 1;
-            animation: pulseGlow 2s ease-in-out infinite;
-        }
-        
-        @keyframes rotateBorder {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-        
-        @keyframes pulseGlow {
-            0% {
-                opacity: 0.2;
-            }
-            50% {
-                opacity: 0.6;
-            }
-            100% {
-                opacity: 0.2;
-            }
-        }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .benefit-box:nth-child(1) { animation-delay: 0.1s; }
-        .benefit-box:nth-child(2) { animation-delay: 0.2s; }
-        .benefit-box:nth-child(3) { animation-delay: 0.3s; }
-        .benefit-box:nth-child(4) { animation-delay: 0.4s; }
-        .benefit-box:nth-child(5) { animation-delay: 0.5s; }
-        .benefit-box:nth-child(6) { animation-delay: 0.6s; }
-        
-        .benefit-label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
+
+        .performance-title {
+            font-size: 1.8rem;
+            font-weight: 700;
             margin-bottom: 10px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-        
-        .benefit-box:hover .benefit-label {
-            color: rgba(255, 255, 255, 0.9);
-        }
-        
-        .benefit-title {
-            font-size: 2.5rem;
-            margin: 10px 0;
-            font-weight: 700;
-            line-height: 1.2;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s ease;
-        }
-        
-        .benefit-box:hover .benefit-title {
-            transform: scale(1.1);
-            filter: brightness(1.2);
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-        }
-        
-        .benefit-description {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-top: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .benefit-box:hover .benefit-description {
-            color: rgba(255, 255, 255, 0.9);
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 113, 112, 0.3);
         }
 
-        /* Color styles */
-        .purple { color: #a679ff; }
-        .cyan { color: #4bdbff; }
-        .orange { color: #ff8147; }
-        .green { color: #43ffad; }
-        .pink { color: #ff6b9d; }
-        
-        .gradient-gold {
-            background: linear-gradient(135deg, #ffd100, #ff9d17);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .gradient-green {
-            background: linear-gradient(135deg, #43ffad, #00d085);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .gradient-blue {
-            background: linear-gradient(135deg, #3d91ff, #4bdbff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .gradient-pink {
-            background: linear-gradient(135deg, #ff6b9d, #e45c94);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Order summary section */
-        .summary-box {
-            padding: 25px;
-            border-radius: 16px;
-            background: rgba(22, 28, 37, 0.5);
-            border: 1px solid var(--border-light);
-            margin: 30px 0;
-        }
-        
-        .price-summary {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 20px;
-            margin-top: 20px;
-        }
-        
-        .price-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            font-size: 1.05rem;
-        }
-        
-        .price-label {
+        .performance-subtitle {
             color: var(--text-light);
-        }
-        
-        .price-value {
-            font-weight: 600;
-        }
-        
-        .total-row {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
 
-        /* Security badge */
-        .secure-badge {
+        .fps-comparison {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .fps-card {
+            width: 48%;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .fps-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 113, 112, 0.3);
+        }
+
+        .fps-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .fps-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .fps-before .fps-value {
+            color: #ff5252;
+        }
+
+        .fps-after .fps-value {
+            color: #43FFAD;
+            position: relative;
+        }
+
+        .fps-after .fps-value::after {
+            content: '+250%';
+            position: absolute;
+            top: -10px;
+            right: -20px;
+            font-size: 0.8rem;
+            background: #43FFAD;
+            color: #111;
+            padding: 2px 8px;
+            border-radius: 20px;
+            transform: rotate(15deg);
+        }
+
+        .fps-unit {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-left: 5px;
+        }
+
+        .performance-meter {
+            width: 100%;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff5252, #ff7170, #43FFAD);
+            border-radius: 15px;
+            width: 85%;
+            animation: fillMeter 2s ease-out forwards;
+        }
+
+        @keyframes fillMeter {
+            from { width: 20%; }
+            to { width: 85%; }
+        }
+
+        .meter-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: 600;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            font-size: 0.9rem;
+        }
+
+        .game-icons {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+
+        .game-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 30px;
-            color: var(--text-light);
-            font-size: 1rem;
-            padding: 10px 20px;
-            border-radius: 30px;
-            background: rgba(22, 28, 37, 0.3);
-            border: 1px solid var(--border-light);
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 1.5rem;
+            color: white;
             transition: all 0.3s ease;
         }
-        
-        .secure-badge:hover {
-            background: rgba(255, 113, 112, 0.1);
-            border-color: rgba(255, 113, 112, 0.3);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .secure-badge i {
-            margin-right: 10px;
-            color: var(--neon-green);
+
+        .game-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(255, 113, 112, 0.3);
         }
 
-        /* Description box */
-        .description-box {
-            margin: 40px auto;
-            background: rgba(22, 28, 37, 0.4);
-            border-radius: 16px;
-            padding: 30px;
-            border: 1px solid var(--border-light);
-            width: 100%;
-            max-width: 800px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            text-align: center;
+        .app-logo-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 113, 112, 0.2), rgba(255, 229, 127, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
             position: relative;
-            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 0 30px rgba(255, 113, 112, 0.3);
+            border: 2px solid rgba(255, 113, 112, 0.3);
+        }
+
+        .app-logo-icon {
+            font-size: 50px;
+            color: var(--primary-color);
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .app-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 113, 112, 0.3);
+        }
+
+        .app-description {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--text-light);
+            position: relative;
+            z-index: 1;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .key-features {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .key-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            background: rgba(255, 113, 112, 0.05);
+            border-radius: 10px;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .key-feature:hover {
+            transform: translateX(5px);
+            background: rgba(255, 113, 112, 0.1);
+        }
+
+        .key-feature i {
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .key-feature span {
+            font-weight: 500;
+        }
+
+        .checkout-panel {
+            background: rgba(16, 19, 26, 0.6);
+            border-radius: 20px;
+            padding: 40px 30px;
+            border: 1px solid rgba(255, 113, 112, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .checkout-panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 113, 112, 0.2);
+        }
+
+        .plan-details {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .plan-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff7170, #ffe57f);
+            color: #111;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            box-shadow: 0 0 15px rgba(255, 113, 112, 0.3);
+        }
+
+        .plan-name {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 113, 112, 0.3);
+        }
+
+        .pricing-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .original-price {
+            color: var(--text-light);
+            text-decoration: line-through;
+            font-size: 1.5rem;
+            font-weight: 400;
+            opacity: 0.7;
+        }
+
+        .current-price {
+            color: #43FFAD;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(67, 255, 173, 0.3);
+        }
+
+        .limited-offer {
+            display: inline-block;
+            background: rgba(67, 255, 173, 0.1);
+            color: #43FFAD;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(67, 255, 173, 0.2);
+        }
+
+        .limited-offer i {
+            margin-right: 6px;
+        }
+
+        .plan-includes {
+            margin-bottom: 25px;
+        }
+
+        .plan-includes-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: white;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .plan-includes-title i {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+
+        .includes-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 20px;
+        }
+
+        .includes-item {
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .includes-item i {
+            color: var(--primary-color);
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+
+        .payment-options {
+            margin-bottom: 30px;
+        }
+
+        .payment-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: white;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .payment-title i {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .payment-method {
+            flex: 1;
+            min-width: 100px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover:not(.disabled) {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .payment-method.active {
+            background: rgba(255, 113, 112, 0.1);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(255, 113, 112, 0.2);
+        }
+
+        .payment-method img {
+            height: 30px;
+            object-fit: contain;
         }
         
-        .description-box::before {
+        .payment-method.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            position: relative;
+        }
+        
+        .payment-method.disabled::after {
+            content: 'Coming Soon';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: var(--text-light);
+            white-space: nowrap;
+        }
+
+        .buy-button {
+            background: linear-gradient(135deg, #ff7170, #ffe57f);
+            color: #111;
+            border: none;
+            width: 100%;
+            padding: 18px 25px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(255, 113, 112, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .buy-button:before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--premium-gradient);
-            box-shadow: var(--premium-glow);
-        }
-        
-        .description-text {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: var(--text-light);
-            margin-bottom: 0;
-        }
-
-        /* Disclaimer text */
-        .disclaimer-text {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.5);
-            max-width: 900px;
-            margin: 40px auto 0;
-            line-height: 1.6;
-            text-align: center;
-        }
-        
-        /* Section dividers */
-        .section-divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
-            margin: 60px 0;
-            position: relative;
-        }
-        
-        .section-divider::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            background: var(--card-bg);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--border-light);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
-        
-        .section-divider::after {
-            content: '✦';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #ff7170;
-            font-size: 1.2rem;
-            z-index: 2;
-        }
-
-        /* Media queries */
-        @media (max-width: 1200px) {
-            .stats-container, .features-grid, .benefits-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .checkout-title {
-                font-size: 3rem;
-            }
-            
-            .glass-card {
-                padding: 30px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .checkout-title {
-                font-size: 2.5rem;
-            }
-            
-            .stats-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-            
-            .glass-card {
-                padding: 25px;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .stat-value {
-                font-size: 3rem;
-            }
-            
-            .benefit-title {
-                font-size: 2rem;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .stats-container, .features-grid, .benefits-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .checkout-title {
-                font-size: 2.2rem;
-            }
-            
-            .navbar {
-                padding: 15px 20px;
-            }
-            
-            .checkout-container {
-                padding: 0 15px;
-            }
-            
-            .glass-card {
-                padding: 20px;
-                border-radius: 20px;
-            }
-            
-            .benefit-box, .feature-box, .stat-box {
-                padding: 25px 15px;
-            }
-        }
-
-        /* Custom modal styling for SellSN */
-        .sellsn-modal {
-            width: 800px !important;
-            max-width: 95vw !important;
-            height: auto !important;
-            border-radius: 20px !important;
-            overflow: hidden !important;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3) !important;
-            border: 1px solid rgba(255, 113, 112, 0.2) !important;
-        }
-        
-        .sellsn-modal .sellsn-iframe {
-            height: 600px !important;
-        }
-
-        /* Modern Stats Showcase */
-        .stats-showcase {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 25px;
-            margin: 40px 0;
-        }
-
-        .stat-card {
-            background: rgba(18, 21, 30, 0.7);
-            border-radius: 20px;
-            padding: 30px;
-            width: 220px;
-            min-height: 220px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
-            border: 1px solid rgba(255, 113, 112, 0.05);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
-            transform: translateY(30px);
-            opacity: 0;
-            animation: fadeInStats 0.8s forwards;
-        }
-
-        .stat-card:nth-child(1) { animation-delay: 0.1s; }
-        .stat-card:nth-child(2) { animation-delay: 0.2s; }
-        .stat-card:nth-child(3) { animation-delay: 0.3s; }
-        .stat-card:nth-child(4) { animation-delay: 0.4s; }
-
-        @keyframes fadeInStats {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(255, 113, 112, 0.08) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-15px) scale(1.05);
-            border-color: rgba(255, 113, 112, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 30px rgba(255, 113, 112, 0.15);
-            z-index: 5;
-        }
-
-        .stat-card:hover::before {
-            opacity: 1;
-            animation: pulseStat 2s ease-in-out infinite;
-        }
-
-        @keyframes pulseStat {
-            0% { opacity: 0.2; }
-            50% { opacity: 0.6; }
-            100% { opacity: 0.2; }
-        }
-
-        .stat-card .stat-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(255, 113, 112, 0.1), rgba(255, 229, 127, 0.1));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 10px 25px rgba(255, 113, 112, 0.12);
-            transition: all 0.5s ease;
-        }
-
-        .stat-card:hover .stat-icon {
-            transform: scale(1.15);
-            background: linear-gradient(135deg, rgba(255, 113, 112, 0.15), rgba(255, 229, 127, 0.15));
-            box-shadow: 0 15px 35px rgba(255, 113, 112, 0.15);
-        }
-
-        .stat-card .stat-icon i {
-            font-size: 2.5rem;
-            background: var(--premium-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            filter: drop-shadow(0 2px 4px rgba(255, 113, 112, 0.3));
-            transition: all 0.5s ease;
-        }
-
-        .stat-card:hover .stat-icon i {
-            transform: scale(1.1);
-            filter: drop-shadow(0 5px 10px rgba(255, 113, 112, 0.4));
-        }
-
-        .stat-card .stat-value {
-            font-size: 3.5rem;
-            font-weight: 800;
-            font-family: 'Poppins', sans-serif;
-            background: var(--premium-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin: 10px 0;
-            transition: all 0.5s ease;
-            position: relative;
-            z-index: 2;
-            text-shadow: var(--premium-glow);
-        }
-
-        .stat-card:hover .stat-value {
-            transform: scale(1.1);
-            filter: brightness(1.2);
-        }
-
-        .stat-card .stat-label {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            margin-top: 5px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 2;
-        }
-
-        .stat-card:hover .stat-label {
-            color: #ffffff;
-        }
-
-        /* Counter animation */
-        @keyframes counterAnimation {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Media queries for the stats showcase */
-        @media (max-width: 992px) {
-            .stats-showcase {
-                gap: 20px;
-            }
-            
-            .stat-card {
-                width: calc(50% - 10px);
-                min-height: 200px;
-                padding: 25px 15px;
-            }
-            
-            .stat-card .stat-value {
-                font-size: 3rem;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .stats-showcase {
-                gap: 15px;
-            }
-            
-            .stat-card {
-                width: 100%;
-                padding: 25px 20px;
-            }
-        }
-
-        /* Product Showcase Styles */
-        .product-showcase {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin: 40px 0;
-            align-items: center;
-        }
-        
-        .showcase-images {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .showcase-image-container {
-            background: rgba(16, 19, 26, 0.6);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 113, 112, 0.1);
-            transition: all 0.4s ease;
-        }
-        
-        .showcase-image-container:hover {
-            transform: scale(1.02);
-            border-color: rgba(255, 113, 112, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 113, 112, 0.15);
-        }
-        
-        .showcase-image {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        .showcase-thumbs {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-        
-        .thumb-container {
-            width: 80px;
-            height: 60px;
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-            opacity: 0.6;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-        
-        .thumb-container:hover {
-            opacity: 0.9;
-            transform: translateY(-3px);
-        }
-        
-        .thumb-container.active {
-            opacity: 1;
-            border-color: var(--premium-gradient);
-            box-shadow: 0 5px 15px rgba(255, 113, 112, 0.3);
-        }
-        
-        .thumb-image {
+            left: -100%;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
         }
         
-        .showcase-features {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
+        .buy-button:hover:before {
+            left: 100%;
         }
-        
-        .feature-item {
-            display: flex;
-            gap: 20px;
-            background: rgba(16, 19, 26, 0.5);
-            border-radius: 16px;
-            padding: 25px;
-            border: 1px solid rgba(255, 113, 112, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .feature-item:hover {
+
+        .buy-button:hover {
             transform: translateY(-5px);
-            background: rgba(22, 27, 39, 0.7);
-            border-color: rgba(255, 113, 112, 0.2);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15), 0 0 15px rgba(255, 113, 112, 0.1);
+            box-shadow: 0 12px 30px rgba(255, 113, 112, 0.4);
         }
         
-        .feature-icon {
-            flex-shrink: 0;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--premium-gradient);
+        .buy-button i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .guarantee {
             display: flex;
             align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 20px rgba(255, 113, 112, 0.3);
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(67, 255, 173, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(67, 255, 173, 0.1);
+            transition: all 0.3s ease;
         }
-        
-        .feature-icon i {
-            font-size: 1.5rem;
-            color: #111;
+
+        .guarantee:hover {
+            background: rgba(67, 255, 173, 0.08);
+            border-color: rgba(67, 255, 173, 0.2);
         }
-        
-        .feature-content {
-            flex-grow: 1;
+
+        .guarantee-icon {
+            color: #43FFAD;
+            font-size: 1.8rem;
+            margin-right: 15px;
         }
-        
-        .feature-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: white;
-        }
-        
-        .feature-desc {
+
+        .guarantee-text {
             font-size: 0.95rem;
             color: var(--text-light);
             line-height: 1.5;
         }
+
+        .premium-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ff7170, #ffe57f);
+            color: #111;
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 8px 20px;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(255, 113, 112, 0.4);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .premium-badge i {
+            font-size: 1rem;
+        }
         
-        @media (max-width: 992px) {
-            .product-showcase {
+        .premium-badge::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #43FFAD;
+            color: #111;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
+            box-shadow: 0 3px 10px rgba(67, 255, 173, 0.3);
+        }
+        
+        .viewers-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(16, 19, 26, 0.9);
+            border: 1px solid rgba(255, 113, 112, 0.3);
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            color: white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            animation: fadeInUp 0.5s ease-out forwards;
+            backdrop-filter: blur(10px);
+        }
+        
+        .viewers-popup i {
+            color: var(--primary-color);
+            margin-right: 8px;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .back-to-pricing {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-pricing i {
+            margin-right: 6px;
+        }
+
+        .back-to-pricing:hover {
+            color: var(--primary-color);
+            transform: translateX(-3px);
+        }
+
+        .premium-features-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff7170, #ffe57f);
+            color: #111;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        /* Reviews Button Styles */
+        .reviews-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(16, 19, 26, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 113, 112, 0.3);
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            color: white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            animation: fadeInUp 0.5s ease-out forwards;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .reviews-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 113, 112, 0.2);
+            border-color: rgba(255, 113, 112, 0.4);
+        }
+        
+        .reviews-button i {
+            color: var(--primary-color);
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* Discord note style */
+        .discord-note {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        .discord-note a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .discord-note a:hover {
+            color: var(--neon-green);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1100px) {
+            .includes-list {
                 grid-template-columns: 1fr;
             }
         }
-        
-        @media (max-width: 768px) {
-            .showcase-thumbs {
-                justify-content: flex-start;
+
+        @media (max-width: 900px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .checkout-grid::before,
+            .checkout-grid::after {
+                display: none;
+            }
+
+            .checkout-title {
+                font-size: 2.8rem;
             }
         }
 
-        /* Ensure images are not pixelated */
-        img {
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            transform: translateZ(0);
-            backface-visibility: hidden;
+        @media (max-width: 600px) {
+            .checkout-title {
+                font-size: 2.2rem;
+            }
+
+            .app-logo-container {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        /* Sale Banner */
+        .sale-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, #19B5B5, #46D8AD, #29E4A0);
+            color: white;
+            text-align: center;
+            padding: 8px 20px;
+            font-weight: 600;
+            z-index: 1001;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 10px rgba(41, 228, 160, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .sale-banner-item {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-weight: 700;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .sale-banner-item:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* Adjust navbar position when sale banner is active */
+        .sale-active .navbar {
+            top: 40px;
+        }
+        
+        .sale-active {
+            padding-top: 40px;
+        }
+
+        /* Price sale indicator */
+        .sale-tag {
+            display: inline-block;
+            background: #43FFAD;
+            color: #111;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Customer Reviews Styles */
+        .checkout-reviews {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            max-width: 350px;
+            background: rgba(16, 19, 26, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 113, 112, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .checkout-reviews:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 113, 112, 0.2);
+            border-color: rgba(255, 113, 112, 0.4);
+        }
+        
+        .reviews-heading {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .reviews-heading i {
+            color: var(--primary-color);
+            margin-right: 8px;
+        }
+        
+        .reviews-slider {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .review-slide {
+            padding: 10px 0;
+            animation: slideReviews 15s infinite linear;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        
+        .review-slide:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .review-slide:nth-child(2) {
+            animation-delay: 5s;
+        }
+        
+        .review-slide:nth-child(3) {
+            animation-delay: 10s;
+        }
+        
+        @keyframes slideReviews {
+            0%, 28% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            33%, 62% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            67%, 100% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+        
+        .stars {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .review-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+        
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .author-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: rgba(255, 113, 112, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        
+        .author-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        /* Currency converter */
+        .currency-converter {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(16, 19, 26, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(67, 255, 173, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            transition: all 0.3s ease;
+            max-width: 300px;
+            width: 100%;
+        }
+        
+        .currency-converter:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(67, 255, 173, 0.2);
+            border-color: rgba(67, 255, 173, 0.4);
+        }
+
+        .currency-converter h3 {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .currency-converter h3 i {
+            color: var(--neon-green);
+            margin-right: 8px;
+        }
+
+        .converter-form select {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            margin-bottom: 15px;
+            font-family: 'SF Pro Display', sans-serif;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .converter-form select:hover, .converter-form select:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: var(--neon-green);
+            outline: none;
+        }
+
+        .converter-form select option {
+            background-color: #10131a;
+            color: white;
+        }
+
+        .result {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .result span {
+            color: var(--neon-green);
+            font-weight: 600;
+        }
+        
+        @keyframes highlightValue {
+            0% { color: white; }
+            50% { color: var(--neon-green); }
+            100% { color: var(--neon-green); }
+        }
+
+        /* Download button animation */
+        .download-button {
+            background: linear-gradient(135deg, #3ac5ff, #0078d7);
+                color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(58, 197, 255, 0.3);
+            z-index: 1;
+        }
+
+        .download-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.6s;
+            z-index: -1;
+        }
+
+        .download-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(58, 197, 255, 0.4);
+        }
+
+        .download-button:hover:before {
+            left: 100%;
+        }
+
+        .download-button i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .download-button .version {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            font-weight: 700;
+        }
+
+        .download-container {
+            text-align: center;
+            margin: 20px 0;
+            animation: fadeInUp 0.8s ease-out forwards;
         }
     </style>
 </head>
-<body>
-    <div style="padding: 20px; text-align: left;">
-        <a href="index.html" class="return-btn" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: white; font-weight: 500; padding: 10px 20px; background: rgba(16, 19, 26, 0.7); border-radius: 30px; border: 1px solid rgba(255, 113, 112, 0.2); transition: all 0.3s ease;">
-            <i class="fas fa-arrow-left"></i> Return to Homepage
-        </a>
+<body class="sale-active">
+    <div class="sale-banner">
+        <div class="sale-banner-item">SALE NOW!</div>
+        <div class="sale-banner-item">LIMITED TIME OFFER</div>
+        <div class="sale-banner-item">33% OFF</div>
     </div>
-
-    <div class="checkout-container">
+    <div class="main-container">
         <div class="checkout-header">
-            <h1 class="checkout-title">Premium Checkout</h1>
-            <p class="checkout-subtitle">You're just a step away from unlocking the ultimate gaming performance</p>
+            <a href="pricing.html" class="back-to-pricing">
+                <i class="fas fa-arrow-left"></i> Back to Pricing
+            </a>
+            <h1 class="checkout-title">Premium Plan Checkout</h1>
+            <p class="checkout-subtitle">Unlock the full potential of Traizer Tweaks with our Premium Plan</p>
         </div>
 
-        <!-- Premium package information section -->
-        <div class="glass-card">
-            <div class="package-badge">
-                <i class="fas fa-crown"></i> PREMIUM PACKAGE
+        <div class="checkout-grid">
+            <div class="app-preview">
+                <div class="performance-showcase">
+                    <div class="performance-header">
+                        <h2 class="performance-title">Traizer Premium Utility</h2>
+                        <p class="performance-subtitle">Experience the difference with our advanced optimization</p>
+                </div>
+                    
+                    <div class="fps-comparison">
+                        <div class="fps-card fps-before">
+                            <div class="fps-label">Before Optimization</div>
+                            <div class="fps-value">180<span class="fps-unit">FPS</span></div>
+                        </div>
+                        <div class="fps-card fps-after">
+                            <div class="fps-label">After Premium Optimization</div>
+                            <div class="fps-value">650<span class="fps-unit">FPS</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="performance-meter">
+                        <div class="meter-fill"></div>
+                        <div class="meter-label">Performance Boost: 250%</div>
+                        </div>
+                    
+                    <div class="game-icons">
+                        <div class="game-icon"><i class="fas fa-gamepad"></i></div>
+                        <div class="game-icon"><i class="fas fa-crosshairs"></i></div>
+                        <div class="game-icon"><i class="fas fa-trophy"></i></div>
+                        <div class="game-icon"><i class="fas fa-headset"></i></div>
+                        </div>
+                    </div>
+                    
+                <div class="app-logo-container">
+                    <i class="fas fa-rocket app-logo-icon"></i>
+                        </div>
+                <h2 class="app-name">Benefits</h2>
+                <p class="app-description">The ultimate performance optimization suite for professional gamers who demand maximum performance.</p>
+                
+                <div class="key-features">
+                    <div class="key-feature">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Complete System Overhaul</span>
+                        </div>
+                    <div class="key-feature">
+                        <i class="fas fa-microchip"></i>
+                        <span>Advanced CPU & GPU Optimization</span>
+                        </div>
+                    <div class="key-feature">
+                        <i class="fas fa-network-wired"></i>
+                        <span>Network Packet Priority System</span>
+                    </div>
+                    <div class="key-feature">
+                        <i class="fas fa-headset"></i>
+                        <span>24/7 Priority Discord Support</span>
+                    </div>
+                </div>
             </div>
-            <h2 class="section-title">TRAIZER PREMIUM TWEAKING UTILITY</h2>
-            <p style="text-align: center; margin-bottom: 30px; color: var(--text-light); max-width: 900px; margin-left: auto; margin-right: auto; font-size: 1.1rem;">
-                Our premium optimization package with advanced features designed to maximize your gaming performance, reduce latency, and provide the smoothest possible experience.
-            </p>
             
-            <!-- Add app showcase section -->
-            <div class="product-showcase">
-                <div class="showcase-images">
-                    <div class="showcase-image-container main-image">
-                        <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473327/Control-V_30_mbpj05.png" alt="Traizer Premium Dashboard" class="showcase-image">
+            <div class="checkout-panel">
+                <div class="plan-details">
+                    <div class="plan-badge">PREMIUM PLAN</div>
+                    <h2 class="plan-name">Premium Plan</h2>
+                    <div class="pricing-container">
+                        <span class="original-price">$29.99</span>
+                        <span class="current-price">$19.99 <span class="sale-tag">33% off</span></span>
                     </div>
-                    <div class="showcase-thumbs">
-                        <div class="thumb-container active">
-                            <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473327/Control-V_30_mbpj05.png" alt="Traizer Premium Dashboard" class="thumb-image">
-                        </div>
-                        <div class="thumb-container">
-                            <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473327/Control-V_32_oxff1w.png" alt="Traizer Premium Settings" class="thumb-image">
-                        </div>
-                        <div class="thumb-container">
-                            <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473327/Control-V_32_oxff1w.png" alt="Traizer Premium Optimizer" class="thumb-image">
-                        </div>
+                    <span class="limited-offer"><i class="fas fa-clock"></i> Limited Time Offer - 33% OFF</span>
+                    
+                    <div class="plan-includes">
+                        <h3 class="plan-includes-title"><i class="fas fa-check-circle"></i> This plan includes:</h3>
+                        <ul class="includes-list">
+                            <li class="includes-item"><i class="fas fa-check-circle"></i> 10,000+ Performance Tweaks</li>
+                            <li class="includes-item"><i class="fas fa-check-circle"></i> Complete System Overhaul</li>
+                            <li class="includes-item"><i class="fas fa-check-circle"></i> Advanced Registry Optimization</li>
+                            <li class="includes-item"><i class="fas fa-check-circle"></i> Extreme CPU Frequency Tuning</li>
+                            <li class="includes-item"><i class="fas fa-check-circle"></i> Ultra GPU Memory Management</li>
+                            <li class="includes-item"><i class="fas fa-check-circle"></i> Network Packet Priority System</li>
+                            <li class="includes-item"><i class="fas fa-check-circle"></i> Memory I/O Performance Boost</li>
+                            <li class="includes-item"><i class="fas fa-check-circle"></i> Exclusive Game Boosters <span class="premium-features-badge">PREMIUM</span></li>
+                            <li class="includes-item"><i class="fas fa-check-circle"></i> 24/7 Priority Discord Support <span class="premium-features-badge">PREMIUM</span></li>
+                        </ul>
                     </div>
-                    <div class="interface-note" style="text-align: center; margin: 5px auto; width: 100%; font-size: 0.85rem; color: rgba(255,255,255,0.7);">Actual interface of the app</div>
                 </div>
                 
-                <div class="showcase-features">
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-tachometer-alt"></i>
+                <div class="payment-options">
+                    <h3 class="payment-title"><i class="fas fa-credit-card"></i> Select Payment Method</h3>
+                    <div class="payment-methods">
+                        <div class="payment-method active">
+                            <i class="fas fa-credit-card"></i> Credit Card
                         </div>
-                        <div class="feature-content">
-                            <h3 class="feature-title">Comprehensive System Optimization</h3>
-                            <p class="feature-desc">Automatically tune your entire system for peak gaming performance with our advanced optimization algorithms.</p>
+                        <div class="payment-method">
+                            <i class="fab fa-paypal"></i> PayPal
                         </div>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h3 class="feature-title">Network Latency Reduction</h3>
-                            <p class="feature-desc">Enjoy lower ping and more stable connections with our proprietary network optimization technology.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-gamepad"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h3 class="feature-title">Game-Specific Tweaks</h3>
-                            <p class="feature-desc">Get tailored optimizations for your favorite games to maximize FPS and minimize stuttering.</p>
+                        <div class="payment-method disabled">
+                            <i class="fab fa-bitcoin"></i> Crypto
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Buy now section in product showcase -->
-        <div class="cta-container">
-            <div class="price-display">
-                <span class="price-tag">
-                        <span class="current-price">$19.99</span>
-                </span>
-            </div>
+                
                 <a href="https://payhip.com/b/9Vdq6" class="payhip-buy-button buy-button" data-theme="blue" data-product="9Vdq6">
-                    <i class="fas fa-crown"></i> Buy Now
+                    <i class="fas fa-lock"></i> Buy Now - $19.99
                 </a>
+                
+                <div class="guarantee">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="guarantee-text">
+                        <strong>30-Day Money Back Guarantee</strong> - If you're not satisfied with our product, we offer a full refund within 30 days of purchase.
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    
-    <script>
-        // Thumbnail gallery functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const thumbContainers = document.querySelectorAll('.thumb-container');
-            const mainImage = document.querySelector('.main-image img');
-            
-            thumbContainers.forEach(container => {
-                container.addEventListener('click', function() {
-                    // Update active class
-                    thumbContainers.forEach(thumb => thumb.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Update main image
-                    const thumbImg = this.querySelector('img');
-                    mainImage.src = thumbImg.src;
-                    mainImage.alt = thumbImg.alt;
-                    
-                    // Add a slight animation effect
-                    mainImage.style.opacity = '0';
-                    setTimeout(() => {
-                        mainImage.style.opacity = '1';
-                    }, 100);
-                });
-            });
-        });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const returnBtn = document.querySelector('.return-btn');
-            returnBtn.addEventListener('mouseover', function() {
-                this.style.background = 'rgba(22, 25, 34, 0.9)';
-                this.style.transform = 'translateY(-3px)';
-                this.style.boxShadow = '0 5px 15px rgba(255, 113, 112, 0.3)';
-            });
-            returnBtn.addEventListener('mouseout', function() {
-                this.style.background = 'rgba(16, 19, 26, 0.7)';
-                this.style.transform = 'translateY(0)';
-                this.style.boxShadow = 'none';
+    <a href="reviews.html" class="reviews-button">
+        <i class="fas fa-star"></i> Read Customer Reviews
+    </a>
+
+    <div class="currency-converter">
+        <h3><i class="fas fa-dollar-sign"></i> Currency Converter</h3>
+        <div class="converter-form">
+            <select id="currency-select">
+                <option value="USD">USD (US Dollar)</option>
+                <option value="EUR">EUR (Euro)</option>
+                <option value="GBP">GBP (British Pound)</option>
+                <option value="CAD">CAD (Canadian Dollar)</option>
+                <option value="AUD">AUD (Australian Dollar)</option>
+                <option value="JPY">JPY (Japanese Yen)</option>
+                <option value="CNY">CNY (Chinese Yuan)</option>
+                <option value="INR">INR (Indian Rupee)</option>
+                <option value="BRL">BRL (Brazilian Real)</option>
+                <option value="RUB">RUB (Russian Ruble)</option>
+                <option value="KRW">KRW (South Korean Won)</option>
+                <option value="CHF">CHF (Swiss Franc)</option>
+                <option value="MXN">MXN (Mexican Peso)</option>
+                <option value="SGD">SGD (Singapore Dollar)</option>
+                <option value="NZD">NZD (New Zealand Dollar)</option>
+                <option value="HKD">HKD (Hong Kong Dollar)</option>
+                <option value="SEK">SEK (Swedish Krona)</option>
+                <option value="NOK">NOK (Norwegian Krone)</option>
+                <option value="DKK">DKK (Danish Krone)</option>
+                <option value="PLN">PLN (Polish Złoty)</option>
+                <option value="ZAR">ZAR (South African Rand)</option>
+                <option value="AED">AED (UAE Dirham)</option>
+                <option value="SAR">SAR (Saudi Riyal)</option>
+                <option value="THB">THB (Thai Baht)</option>
+                <option value="TRY">TRY (Turkish Lira)</option>
+                <option value="ILS">ILS (Israeli Shekel)</option>
+                <option value="PHP">PHP (Philippine Peso)</option>
+                <option value="MYR">MYR (Malaysian Ringgit)</option>
+                <option value="IDR">IDR (Indonesian Rupiah)</option>
+                <option value="CZK">CZK (Czech Koruna)</option>
+                <option value="HUF">HUF (Hungarian Forint)</option>
+                <option value="CLP">CLP (Chilean Peso)</option>
+                <option value="PKR">PKR (Pakistani Rupee)</option>
+                <option value="ARS">ARS (Argentine Peso)</option>
+                <option value="COP">COP (Colombian Peso)</option>
+                <option value="PEN">PEN (Peruvian Sol)</option>
+                <option value="VND">VND (Vietnamese Dong)</option>
+                <option value="UAH">UAH (Ukrainian Hryvnia)</option>
+                <option value="EGP">EGP (Egyptian Pound)</option>
+                <option value="NGN">NGN (Nigerian Naira)</option>
+                <option value="KES">KES (Kenyan Shilling)</option>
+                <option value="MAD">MAD (Moroccan Dirham)</option>
+                <option value="QAR">QAR (Qatari Riyal)</option>
+                <option value="KWD">KWD (Kuwaiti Dinar)</option>
+                <option value="BHD">BHD (Bahraini Dinar)</option>
+            </select>
+            <div class="result">$19.99 USD = <span id="converted-amount">$19.99 USD</span></div>
+        </div>
+    </div>
+
+    <script>
+        // Payment method selection
+        const paymentMethods = document.querySelectorAll('.payment-method:not(.disabled)');
+        
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', () => {
+                // Remove active class from all methods
+                paymentMethods.forEach(m => m.classList.remove('active'));
+                
+                // Add active class to clicked method
+                method.classList.add('active');
             });
         });
+        
+        // Redirect sale banner clicks to pricing
+        document.querySelectorAll('.sale-banner-item').forEach(item => {
+            item.addEventListener('click', () => {
+                window.location.href = 'pricing.html';
+            });
+        });
+        
+        // Currency converter
+        const currencySelect = document.getElementById('currency-select');
+        const convertedAmount = document.getElementById('converted-amount');
+        const basePrice = 19.99;
+        
+        // Exchange rates (approximate)
+        const exchangeRates = {
+            USD: 1,
+            EUR: 0.91,
+            GBP: 0.78,
+            CAD: 1.36,
+            AUD: 1.51,
+            JPY: 149.51,
+            CNY: 7.18,
+            INR: 83.42,
+            BRL: 5.04,
+            RUB: 91.23,
+            KRW: 1338.76,
+            CHF: 0.88,
+            MXN: 16.74,
+            SGD: 1.34,
+            NZD: 1.64,
+            HKD: 7.81,
+            SEK: 10.38,
+            NOK: 10.58,
+            DKK: 6.79,
+            PLN: 3.91,
+            ZAR: 18.42,
+            AED: 3.67,
+            SAR: 3.75,
+            THB: 35.78,
+            TRY: 32.15,
+            ILS: 3.63,
+            PHP: 56.21,
+            MYR: 4.65,
+            IDR: 15680.35,
+            CZK: 22.87,
+            HUF: 354.72,
+            CLP: 926.84,
+            PKR: 278.65,
+            ARS: 869.42,
+            COP: 3942.57,
+            PEN: 3.71,
+            VND: 24950.75,
+            UAH: 39.52,
+            EGP: 48.29,
+            NGN: 1456.82,
+            KES: 131.45,
+            MAD: 9.87,
+            QAR: 3.64,
+            KWD: 0.31,
+            BHD: 0.38
+        };
+        
+        // Update currency conversion
+        function updateConversion() {
+            const selectedCurrency = currencySelect.value;
+            const rate = exchangeRates[selectedCurrency];
+            const convertedPrice = (basePrice * rate).toFixed(2);
+            const originalPrice = (29.99 * rate).toFixed(2);
+            
+            // Format based on currency
+            let formattedPrice;
+            let currencySymbol = '$';
+            let displayPrice = convertedPrice;
+            let displayOriginalPrice = originalPrice;
+            
+            if (selectedCurrency === 'EUR') {
+                currencySymbol = '€';
+                formattedPrice = `${currencySymbol}${convertedPrice}`;
+            } else if (selectedCurrency === 'GBP') {
+                currencySymbol = '£';
+                formattedPrice = `${currencySymbol}${convertedPrice}`;
+            } else if (selectedCurrency === 'JPY') {
+                currencySymbol = '¥';
+                displayPrice = Math.round(convertedPrice);
+                displayOriginalPrice = Math.round(originalPrice);
+                formattedPrice = `${currencySymbol}${displayPrice}`;
+            } else {
+                formattedPrice = `${currencySymbol}${convertedPrice} ${selectedCurrency}`;
+            }
+            
+            // Update the converter display
+            convertedAmount.textContent = formattedPrice;
+            
+            // Update the price display in the checkout section
+            const currentPrice = document.querySelector('.current-price');
+            const originalPriceElement = document.querySelector('.original-price');
+            
+            if (currentPrice) {
+                if (selectedCurrency === 'USD') {
+                    currentPrice.innerHTML = `${currencySymbol}19.99 <span class="sale-tag">33% off</span>`;
+                    if (originalPriceElement) {
+                        originalPriceElement.textContent = `${currencySymbol}29.99`;
+                    }
+                } else if (selectedCurrency === 'EUR' || selectedCurrency === 'GBP' || selectedCurrency === 'JPY') {
+                    currentPrice.innerHTML = `${currencySymbol}${displayPrice} <span class="sale-tag">33% off</span>`;
+                    if (originalPriceElement) {
+                        originalPriceElement.textContent = `${currencySymbol}${displayOriginalPrice}`;
+                    }
+                } else {
+                    currentPrice.innerHTML = `${currencySymbol}${displayPrice} ${selectedCurrency} <span class="sale-tag">33% off</span>`;
+                    if (originalPriceElement) {
+                        originalPriceElement.textContent = `${currencySymbol}${displayOriginalPrice} ${selectedCurrency}`;
+                    }
+                }
+            }
+            
+            // Trigger animation by removing and re-adding the class
+            convertedAmount.style.animation = 'none';
+            
+            setTimeout(() => {
+                convertedAmount.style.animation = 'highlightValue 0.5s ease';
+            }, 10);
+        }
+        
+        // Initialize and add listener
+        updateConversion();
+        currencySelect.addEventListener('change', updateConversion);
     </script>
 </body>
 </html> 

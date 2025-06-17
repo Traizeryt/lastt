@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews - Traizer Tweaks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        :root {
+            --primary-color: #3ac5ff;
+            --accent-green: #43FFAD;
+            --dark-bg: #050b1f;
+            --card-bg: rgba(20, 22, 34, 0.6);
+            --text-light: rgba(255, 255, 255, 0.7);
+        }
+
+        body {
+            background: linear-gradient(135deg, #050b1f 0%, #0f1a3c 50%, #101349 100%);
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #0a0c12;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #2e3442;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3ac5ff;
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: rgba(15, 26, 60, 0.8);
+            transition: background-color 0.3s ease, padding 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 40px;
+        }
+
+        .nav-links {
+            position: absolute;
+            left: 52%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-item {
+            position: relative;
+            text-decoration: none;
+            color: #f1f1f1;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            padding: 5px 0;
+        }
+
+        .nav-item:hover {
+            color: var(--accent-green);
+        }
+
+        .nav-item.active {
+            color: var(--accent-green);
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -8px;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-green);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .login-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .buy-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            background-color: var(--accent-green);
+            color: #111;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .login-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        /* Reviews Section Styles */
+        .reviews-section {
+            padding: 120px 20px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .reviews-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+            background: linear-gradient(135deg, #ffffff, #3ac5ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        .reviews-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #3ac5ff, #43FFAD);
+            border-radius: 2px;
+        }
+
+        .reviews-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+        }
+
+        .discord-note {
+            text-align: center;
+            margin: 30px auto;
+            padding: 15px;
+            max-width: 600px;
+            background: rgba(88, 101, 242, 0.1);
+            border: 1px solid rgba(88, 101, 242, 0.3);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .discord-note a {
+            color: #5865F2;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .discord-note a:hover {
+            color: #43FFAD;
+            text-decoration: underline;
+        }
+
+        .discord-note i {
+            color: #5865F2;
+            margin-right: 6px;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .review-card {
+            background: rgba(16, 19, 26, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(58, 197, 255, 0.1);
+            animation: fadeInUp 0.6s forwards;
+            animation-delay: calc(var(--order) * 0.1s);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .review-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            background: rgba(22, 27, 39, 0.7);
+            border-color: rgba(58, 197, 255, 0.3);
+        }
+
+        .review-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(58, 197, 255, 0.5), transparent);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .review-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .stars {
+            color: #3ac5ff;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .review-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+            font-style: italic;
+            min-height: 60px;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(58, 197, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .author-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        /* Footer Section Styles */
+        .footer {
+            background-color: rgba(10, 12, 18, 0.8);
+            padding: 60px 0 20px;
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            margin-top: 80px;
+            border-top: 1px solid rgba(58, 197, 255, 0.3);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-about {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-desc {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(58, 197, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: #3ac5ff;
+            color: #050b1f;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(58, 197, 255, 0.3);
+        }
+
+        .footer-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+        }
+
+        .footer-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 2px;
+            background: #3ac5ff;
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 12px;
+        }
+
+        .footer-link a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .footer-link a:hover {
+            color: #3ac5ff;
+            padding-left: 5px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .contact-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(58, 197, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: #3ac5ff;
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 20px 0 0;
+            margin-top: 40px;
+            border-top: 1px solid rgba(58, 197, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+
+        /* Modal/Popup styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #14151F;
+            border-radius: 15px;
+            padding: 40px;
+            width: 450px;
+            max-width: 90%;
+            border: 1px solid rgba(67, 255, 173, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(67, 255, 173, 0.15);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: modalFadeIn 0.4s forwards;
+        }
+
+        @keyframes modalFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-family: 'SF Pro Display', sans-serif;
+        }
+
+        .modal-message {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .modal-close {
+            padding: 10px 25px;
+            background-color: var(--primary-color);
+            color: #111;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(58, 197, 255, 0.3);
+        }
+
+        @media (max-width: 968px) {
+            .reviews-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473336/image-removebg-preview_23_ww5uf8.png" alt="TRAIZER TWEAKS" class="logo">
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item">HOME</a>
+            <a href="pricing.html" class="nav-item">PRICING</a>
+            <a href="features.html" class="nav-item">FEATURES</a>
+            <a href="download.html" class="nav-item">DOWNLOAD</a>
+            <a href="support.html" class="nav-item">SUPPORT</a>
+        </div>
+        <div class="nav-buttons">
+            <button class="login-btn">LOGIN</button>
+            <a href="checkout-premium.html" class="buy-btn"><i class="fas fa-crown" style="margin-right: 5px;"></i> BUY NOW</a>
+        </div>
+    </nav>
+
+    <section class="reviews-section">
+        <h1 class="reviews-title">Customer Reviews</h1>
+        <p class="reviews-subtitle">See what our users have to say about Traizer Tweaks</p>
+        
+        <div class="discord-note">
+            <i class="fab fa-discord"></i> Find even more reviews and join our community on <a href="https://discord.com/invite/G39CRawZp5" target="_blank">Discord</a>. Share your experience and connect with other users!
+        </div>
+        
+        <div class="reviews-grid">
+            <div class="review-card" style="--order:1;">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"great customer service fixed my problem quick an easy testing tweaks now"</p>
+                <div class="review-author">
+                    <div class="author-avatar">G</div>
+                    <div class="author-name">Goji</div>
+                </div>
+            </div>
+            
+            <div class="review-card" style="--order:2;">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"++rep great customer service 10/10"</p>
+                <div class="review-author">
+                    <div class="author-avatar">D</div>
+                    <div class="author-name">Deleted User</div>
+                </div>
+            </div>
+            
+            <div class="review-card" style="--order:3;">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"great tweaks and services 10/10 you guys should use it"</p>
+                <div class="review-author">
+                    <div class="author-avatar">L</div>
+                    <div class="author-name">lucassupon7</div>
+                </div>
+            </div>
+            
+            <div class="review-card" style="--order:4;">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"w tweaks"</p>
+                <div class="review-author">
+                    <div class="author-avatar">M</div>
+                    <div class="author-name">MC_Ad</div>
+                </div>
+            </div>
+            
+            <div class="review-card" style="--order:5;">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"w fps boost using tweaks"</p>
+                <div class="review-author">
+                    <div class="author-avatar">ア</div>
+                    <div class="author-name">アレックス</div>
+                </div>
+            </div>
+            
+            <div class="review-card" style="--order:6;">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"w tweaks w man"</p>
+                <div class="review-author">
+                    <div class="author-avatar">A</div>
+                    <div class="author-name">Asto</div>
+                </div>
+            </div>
+
+            <div class="review-card" style="--order:7;">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"The FPS boost is insane! My games run so much smoother now."</p>
+                <div class="review-author">
+                    <div class="author-avatar">J</div>
+                    <div class="author-name">JasonGamer</div>
+                </div>
+            </div>
+            
+            <div class="review-card" style="--order:8;">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Premium package was worth every penny. My PC feels like a completely different machine."</p>
+                <div class="review-author">
+                    <div class="author-avatar">K</div>
+                    <div class="author-name">KingSlayer</div>
+                </div>
+            </div>
+            
+            <div class="review-card" style="--order:9;">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Reduced my ping by almost 40%. Amazing network optimization!"</p>
+                <div class="review-author">
+                    <div class="author-avatar">R</div>
+                    <div class="author-name">RapidFire</div>
+                </div>
+            </div>
+            
+            <!-- New reviews added below -->
+            <div class="review-card" style="--order:10;">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"very good tweaks 400fps to 650 FPS"</p>
+                <div class="review-author">
+                    <div class="author-avatar">P</div>
+                    <div class="author-name">Pnyx</div>
+                </div>
+            </div>
+            
+            <div class="review-card" style="--order:11;">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Got More Fps I Got A RTX 4060 And My Avg Fps Was 500 Now I'M Getting 700-800 + this delay is like 0 I love ittt"</p>
+                <div class="review-author">
+                    <div class="author-avatar">D</div>
+                    <div class="author-name">Deleted User</div>
+                </div>
+            </div>
+            
+            <div class="review-card" style="--order:12;">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Support always there and @traizer gave me a new key when I got a new pc because the hardware id didn't even match"</p>
+                <div class="review-author">
+                    <div class="author-avatar">D</div>
+                    <div class="author-name">Deleted User</div>
+                </div>
+            </div>
+            
+            <div class="review-card" style="--order:13;">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Support is 5stars! The tweaks make your game so smooth just looking around makes you want to do a whole edit course lol"</p>
+                <div class="review-author">
+                    <div class="author-avatar">C</div>
+                    <div class="author-name">cinslast</div>
+                </div>
+            </div>
+            
+            <div class="review-card" style="--order:14;">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Boosted fps in fortnite very well from 180 to 430 highly recommend"</p>
+                <div class="review-author">
+                    <div class="author-avatar">F</div>
+                    <div class="author-name">FELLOW</div>
+                </div>
+            </div>
+            
+            <div class="review-card" style="--order:15;">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"The tweaks are so good from 180 fps to 400+ fps"</p>
+                <div class="review-author">
+                    <div class="author-avatar">D</div>
+                    <div class="author-name">Dreww</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">Feature Coming Soon!</h3>
+            <p class="modal-message">We're currently enhancing our login system to provide you with the best experience. This feature will be available shortly.</p>
+            <button class="modal-close" onclick="closeModal()">Got it</button>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <p class="footer-desc">
+                    Traizer Tweaks is dedicated to helping gamers achieve peak performance through advanced optimization techniques. Our one-time purchase tools deliver lasting improvements to your gaming experience.
+                </p>
+                <div class="social-links">
+                    <a href="https://discord.com/invite/G39CRawZp5" class="social-link"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/@traizerYT" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links-container">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="index.html">Home</a></li>
+                    <li class="footer-link"><a href="pricing.html">Pricing</a></li>
+                    <li class="footer-link"><a href="features.html">Features</a></li>
+                    <li class="footer-link"><a href="download.html">Download</a></li>
+                    <li class="footer-link"><a href="support.html">Support</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links-container">
+                <h3 class="footer-title">Help</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#">FAQ</a></li>
+                    <li class="footer-link"><a href="#">Troubleshooting</a></li>
+                    <li class="footer-link"><a href="#">Privacy Policy</a></li>
+                    <li class="footer-link"><a href="#">Terms of Service</a></li>
+                    <li class="footer-link"><a href="refund-policy.html">Refund Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h3 class="footer-title">Contact Us</h3>
+                <div class="contact-item">
+                    <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+                    <span>support@traizertweaks.com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon"><i class="fab fa-discord"></i></span>
+                    <span><a href="https://discord.com/invite/G39CRawZp5" style="color: inherit; text-decoration: none;">Join our Discord community</a></span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon"><i class="fas fa-globe"></i></span>
+                    <span>Available worldwide</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 Traizer Tweaks. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Navigation bar scroll behavior
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Login modal functions
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        // When user clicks anywhere outside of the modal, close it
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        });
+
+        // Add click event for login button to show modal
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginButtons = document.querySelectorAll('.login-btn');
+            loginButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showLoginModal();
+                });
+            });
+
+            // Animate review cards when they come into view
+            const reviewCards = document.querySelectorAll('.review-card');
+            
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+                    rect.bottom >= 0
+                );
+            }
+            
+            function animateReviews() {
+                reviewCards.forEach((card, index) => {
+                    if (isInViewport(card) && !card.classList.contains('animated')) {
+                        setTimeout(() => {
+                            card.classList.add('animated');
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 100 * index);
+                    }
+                });
+            }
+            
+            // Check on scroll and initial load
+            window.addEventListener('scroll', animateReviews);
+            setTimeout(animateReviews, 300);
+        });
+    </script>
+</body>
+</html> 

@@ -699,9 +699,62 @@
                 font-size: 2rem;
             }
         }
+
+        /* Sale Banner */
+        .sale-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, #19B5B5, #46D8AD, #29E4A0);
+            color: white;
+            text-align: center;
+            padding: 8px 20px;
+            font-weight: 600;
+            z-index: 1001;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 10px rgba(41, 228, 160, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .sale-banner-item {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-weight: 700;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .sale-banner-item:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* Adjust navbar position when sale banner is active */
+        .sale-active .navbar {
+            top: 40px;
+        }
+        
+        .sale-active {
+            padding-top: 40px;
+        }
     </style>
 </head>
-<body>
+<body class="sale-active">
+    <div class="sale-banner">
+        <div class="sale-banner-item">SALE NOW!</div>
+        <div class="sale-banner-item">LIMITED TIME OFFER</div>
+        <div class="sale-banner-item">33% OFF</div>
+    </div>
     <nav class="navbar">
         <div class="logo-container">
             <a href="index.html">
@@ -797,126 +850,16 @@
     </section>
 
     <script>
-        // Handle active state on donation amounts
-        const donationAmounts = document.querySelectorAll('.donation-amount');
-        
-        donationAmounts.forEach(amount => {
-            amount.addEventListener('click', function() {
-                // Remove active class from all amounts
-                donationAmounts.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked amount
-                this.classList.add('active');
-                // Clear custom amount field
-                document.getElementById('customAmount').value = '';
-            });
-        });
-        
-        // Handle custom amount input
-        const customAmountInput = document.getElementById('customAmount');
-        
-        customAmountInput.addEventListener('input', function() {
-            if (this.value) {
-                // Remove active class from predefined amounts
-                donationAmounts.forEach(btn => btn.classList.remove('active'));
-            } else {
-                // If field is empty, set $20 as active
-                donationAmounts[2].classList.add('active');
-            }
-        });
-        
-        // Handle form submission
-        const contactForm = document.getElementById('contactForm');
-        
-        contactForm.addEventListener('submit', function(event) {
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
             event.preventDefault();
-            
-            // Get form data
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-            
-            // Here you would normally send this data to your server
-            // For this demo, we'll just show an alert
-            alert(`Thank you for your message, ${name}! We'll get back to you at ${email} as soon as possible.`);
-            
-            // Reset form
-            contactForm.reset();
+            alert('Thank you for your message! Our support team will get back to you shortly.');
+            this.reset();
         });
         
-        // Handle animation on scroll
-        function isInViewport(el) {
-            const rect = el.getBoundingClientRect();
-            return (
-                rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.75 &&
-                rect.bottom >= 0
-            );
-        }
-        
-        function animateOnScroll() {
-            const elements = document.querySelectorAll('.contact-form, .donation-section');
-            
-            elements.forEach(el => {
-                if (isInViewport(el) && !el.classList.contains('animated')) {
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
-                    el.classList.add('animated');
-                }
-            });
-        }
-        
-        // Check on load and scroll
-        document.addEventListener('DOMContentLoaded', animateOnScroll);
-        window.addEventListener('scroll', animateOnScroll);
-
-        // Navigation bar scroll behavior
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-        
-        // Get all navigation items
-        const navItems = document.querySelectorAll('.nav-item');
-        
-        // Add click event to all navigation items
-        navItems.forEach(item => {
-            item.addEventListener('click', function() {
-                // Remove active class from all items
-                navItems.forEach(nav => nav.classList.remove('active'));
-                // Add active class to the clicked item
-                this.classList.add('active');
-            });
-        });
-
-        // Check if an element is in the viewport
-        function isInViewport(element) {
-            const rect = element.getBoundingClientRect();
-            return (
-                rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
-                rect.bottom >= 0
-            );
-        }
-
-        // Elements to animate
-        const elementsToAnimate = document.querySelectorAll('.support-section > *');
-
-        // Initial check
-        elementsToAnimate.forEach(el => {
-            if (isInViewport(el) && !el.classList.contains('animated')) {
-                el.classList.add('animated');
-            }
-        });
-
-        // Check on scroll
-        window.addEventListener('scroll', () => {
-            elementsToAnimate.forEach(el => {
-                if (isInViewport(el) && !el.classList.contains('animated')) {
-                    el.classList.add('animated');
-                }
+        // Sale banner redirection
+        document.querySelectorAll('.sale-banner-item').forEach(item => {
+            item.addEventListener('click', () => {
+                window.location.href = 'pricing.html';
             });
         });
     </script>

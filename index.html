@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <style>
         @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
         
@@ -149,60 +150,14 @@
             backdrop-filter: blur(10px);
         }
 
-        /* Sale Banner */
-        .sale-banner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(90deg, #19B5B5, #46D8AD, #29E4A0);
-            color: white;
-            text-align: center;
-            padding: 8px 20px;
-            font-weight: 600;
-            z-index: 1001;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 2px 10px rgba(41, 228, 160, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .sale-banner-item {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px 12px;
-            border-radius: 4px;
-            font-weight: 700;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .sale-banner-item:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        /* Adjust navbar position when sale banner is active */
-        .sale-active .navbar {
-            top: 40px;
-        }
-        
-        .sale-active {
-            padding-top: 40px;
-        }
-
         .navbar.scrolled {
             background-color: rgba(18, 18, 18, 0.95);
             backdrop-filter: blur(10px);
             padding: 10px 40px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
+        
+
 
         .logo-container {
             display: flex;
@@ -234,11 +189,11 @@
         }
 
         .nav-item:hover {
-            color: var(--accent-green);
+            color: var(--neon-green);
         }
 
         .nav-item.active {
-            color: var(--accent-green);
+            color: var(--neon-green);
         }
 
         .nav-item.active::after {
@@ -249,9 +204,9 @@
             transform: translateX(-50%);
             width: 6px;
             height: 6px;
-            background-color: var(--accent-green);
+            background-color: var(--neon-green);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-green);
+            box-shadow: 0 0 10px var(--neon-green);
         }
 
         .nav-buttons {
@@ -271,17 +226,19 @@
             transition: all 0.3s ease;
         }
 
+        /* Improved Buy Now button */
         .buy-btn {
-            padding: 8px 20px;
+            padding: 10px 24px;
             border-radius: 30px;
-            background-color: var(--accent-green);
-            color: #111;
+            background: linear-gradient(135deg, #3ac5ff, #2196f3);
+            color: #fff;
             border: none;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
+            box-shadow: 0 4px 12px rgba(58, 197, 255, 0.3);
         }
 
         .login-btn:hover {
@@ -290,27 +247,313 @@
 
         .buy-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+            box-shadow: 0 6px 15px rgba(58, 197, 255, 0.5);
+            background: linear-gradient(135deg, #2196f3, #3ac5ff);
         }
 
+        /* Mobile optimization for navbar and banner */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 20px;
+                top: 35px; /* Slightly reduced for mobile */
+            }
+            
+            .navbar.scrolled {
+                padding: 8px 20px;
+            }
+            
+            .logo {
+                height: 30px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .nav-buttons {
+                margin-left: auto;
+            }
+            
+            .login-btn {
+                padding: 6px 15px;
+                font-size: 12px;
+            }
+            
+            .buy-btn {
+                padding: 8px 18px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar {
+                padding: 8px 15px;
+            }
+            
+            .logo {
+                height: 25px;
+            }
+            
+            .login-btn {
+                padding: 5px 12px;
+                font-size: 11px;
+            }
+            
+            .buy-btn {
+                padding: 7px 15px;
+                font-size: 11px;
+            }
+        }
+
+        /* Hero Section Styles */
         .hero-section {
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            flex-direction: row; /* Changed from column to row */
             align-items: center;
-            justify-content: center;
-            padding: 120px 20px 60px;
+            justify-content: space-between; /* Changed from center to space-between */
+            padding: 160px 40px 60px; /* Increased top padding to account for navbar + banner */
             position: relative;
             overflow: hidden;
-            text-align: center;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .hero-content {
-            max-width: 800px;
+            max-width: 600px; /* Reduced from 800px */
             position: relative;
             z-index: 2;
-            margin-bottom: 60px;
+            margin-bottom: 0; /* Changed from 60px to 0 */
+            flex: 1; /* Added flex: 1 */
+            text-align: left; /* Align text to left */
         }
+
+        .app-showcase {
+            width: 100%;
+            max-width: 650px; /* Reduced from 900px */
+            flex: 1; /* Added flex: 1 */
+        }
+        
+        .app-image {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 40px rgba(58, 197, 255, 0.8);
+            transition: all 0.5s ease;
+            animation: glowPulse 3s infinite alternate;
+            position: relative;
+        }
+        
+        @keyframes glowPulse {
+            0% {
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(58, 197, 255, 0.6);
+            }
+            100% {
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 70px rgba(58, 197, 255, 1);
+            }
+        }
+        
+        .app-image:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 90px rgba(58, 197, 255, 1);
+        }
+        
+        /* Media queries for responsiveness */
+        @media (max-width: 992px) {
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 160px 20px 60px;
+            }
+            
+            .hero-content {
+                margin-bottom: 40px;
+                text-align: center;
+            }
+            
+            .hero-title {
+                text-align: center;
+                font-size: 3.5rem;
+            }
+            
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .btn-container {
+                justify-content: center;
+            }
+            
+            .alpha-tag {
+                margin: 0 auto 30px;
+            }
+        }
+        
+        /* Performance Comparison Section */
+        .performance-comparison-section {
+            padding: 60px 20px;
+            position: relative;
+            background: rgba(15, 26, 60, 0.3);
+        }
+        
+        .comparison-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .comparison-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+        }
+        
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .toggle-label {
+            font-size: 0.9rem;
+            color: #fff;
+            margin: 0 12px;
+        }
+        
+        /* Toggle Switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: .4s;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+        }
+        
+        input:checked + .slider {
+            background-color: #3ac5ff;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .slider.round {
+            border-radius: 34px;
+        }
+        
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        /* FPS Display */
+        .fps-display-container {
+            background: rgba(22, 28, 37, 0.7);
+            border-radius: 14px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 25px rgba(58, 197, 255, 0.3);
+            border: 1px solid rgba(58, 197, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .fps-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        
+        .fps-label {
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.7);
+            margin-right: 15px;
+        }
+        
+        .fps-counter {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #3ac5ff;
+            font-family: 'SF Pro Display', sans-serif;
+            min-width: 130px;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+        
+        .fps-counter.high {
+            color: #43FFAD;
+        }
+        
+        .fps-graph-container {
+            width: 100%;
+            height: 80px;
+            position: relative;
+        }
+        
+
+
+        .hero-title {
+            font-family: 'SF Pro Display', sans-serif;
+            font-weight: 700;
+            font-size: 4.5rem;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            text-align: left;
+            letter-spacing: -1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-description {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: 0;
+            margin-right: auto;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            justify-content: flex-start;
+            margin-top: 20px;
+        }
+
+
 
         .alpha-tag {
             background-color: rgba(58, 197, 255, 0.2);
@@ -321,21 +564,8 @@
             font-size: 14px;
             font-weight: 600;
             display: inline-block;
-            margin-bottom: 30px;
-        }
-
-        .hero-title {
-            font-family: 'SF Pro Display', sans-serif;
-            font-weight: 700;
-            font-size: 4.5rem;
-            color: white;
-            line-height: 1.1;
-            margin-bottom: 25px;
+            margin: 0 0 30px 0;
             text-align: center;
-            letter-spacing: -1px;
-            position: relative;
-            overflow: hidden;
-            /* Remove default animations - we'll use slide-up only */
         }
         
         .hero-title span {
@@ -379,54 +609,6 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-
-        .hero-description {
-            font-family: 'SF Pro Display', sans-serif;
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            /* No animation - handled by JS */
-        }
-
-        .btn-container {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 20px;
-            /* No animation - handled by JS */
-        }
-
-        .app-showcase {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            /* No animation - handled by JS */
-        }
-
-        .app-image {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(58, 197, 255, 0.6);
-            transition: all 0.5s ease;
-            animation: glowPulse 3s infinite alternate;
-            position: relative;
-        }
-        
-        @keyframes glowPulse {
-            0% {
-                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(58, 197, 255, 0.4);
-            }
-            100% {
-                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 50px rgba(58, 197, 255, 0.8);
-            }
-        }
-        
-        .app-image:hover {
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 70px rgba(58, 197, 255, 0.9);
         }
 
         .btn {
@@ -1458,16 +1640,27 @@
             
             .premium-description {
                 font-size: 1rem;
+                padding: 0 15px;
+            }
+            
+            .premium-features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 0 15px;
             }
         }
 
         @media (max-width: 576px) {
             .premium-features-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
             
             .premium-title {
                 font-size: 2rem;
+            }
+            
+            .premium-feature-card {
+                padding: 30px 20px;
             }
         }
 
@@ -1950,7 +2143,7 @@
         .metric-card:hover {
             transform: translateY(-5px);
             border-color: rgba(58, 197, 255, 0.4);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(58, 197, 255, 0.1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(58, 197, 255, 0.2);
         }
 
         .metric-header {
@@ -2517,7 +2710,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 24px;
             color: white;
             font-weight: 700;
         }
@@ -2967,12 +3160,7 @@
         const analytics = getAnalytics(app);
     </script>
 </head>
-<body class="sale-active">
-    <div class="sale-banner">
-        <div class="sale-banner-item">SALE NOW!</div>
-        <div class="sale-banner-item">LIMITED TIME OFFER</div>
-        <div class="sale-banner-item">50% OFF</div>
-    </div>
+<body>
     <nav class="navbar">
         <div class="logo-container">
             <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473336/image-removebg-preview_23_ww5uf8.png" alt="TRAIZER TWEAKS" class="logo">
@@ -2986,17 +3174,15 @@
         </div>
         <div class="nav-buttons">
             <button class="login-btn">LOGIN</button>
-            <a href="checkout-premium.html" class="buy-btn"><i class="fas fa-crown" style="margin-right: 5px;"></i> BUY NOW</a>
+            <a href="pricing.html" class="buy-btn">BUY NOW</a>
         </div>
     </nav>
-
+    
     <section class="hero-section">
         <div class="hero-content">
-            <div class="alpha-tag" style="font-size: 1.2rem; padding: 10px 20px;">Traizer Free V5 is now live</div>
             <h1 class="hero-title">
                 <span class="title-text">Smooth Gaming</span><br>
                 <span class="gradient-text">Starts Here</span><br>
-
             </h1>
             <p class="hero-description">Win More. Lag Less. Optimize Now.</p>
             <div class="btn-container">
@@ -3014,6 +3200,8 @@
             </div>
         </div>
     </section>
+
+
 
     <!-- Traizer Standard Tweaking Utility Section -->
     <section class="tweaking-utility-section">
@@ -3069,6 +3257,188 @@
             has been tested on all sorts of pcs. Keep in mind that results may vary, depending on your specs and how optimized your pc is.
         </p>
     </section>
+
+    <!-- Traizer Tweaks Performance Comparison Section -->
+    <section class="performance-comparison-section">
+        <div class="comparison-container">
+            <h2 class="comparison-title">Experience the Difference</h2>
+            <div class="toggle-container">
+                <div class="toggle-label">With Traizer Tweaks Off</div>
+                <label class="switch">
+                    <input type="checkbox" id="performanceToggle">
+                    <span class="slider round"></span>
+                </label>
+                <div class="toggle-label">With Traizer Tweaks On</div>
+            </div>
+            
+            <div class="fps-display-container">
+                <div class="fps-display">
+                    <div class="fps-label">FPS</div>
+                    <div class="fps-counter" id="fpsCounter">78</div>
+                </div>
+                <div class="fps-graph-container">
+                    <canvas id="fpsGraph" width="500" height="80"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // FPS Toggle and Animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const performanceToggle = document.getElementById('performanceToggle');
+            const fpsCounter = document.getElementById('fpsCounter');
+            const fpsGraph = document.getElementById('fpsGraph');
+            const ctx = fpsGraph.getContext('2d');
+            
+            // Graph settings
+            const graphWidth = fpsGraph.width;
+            const graphHeight = fpsGraph.height;
+            let fpsData = [];
+            const maxDataPoints = 50;
+            
+            // Initialize with low FPS data
+            for (let i = 0; i < maxDataPoints; i++) {
+                fpsData.push(Math.floor(Math.random() * 22) + 78); // 78-100 range
+            }
+            
+            // Function to update FPS counter
+            function updateFpsCounter(isOn) {
+                if (isOn) {
+                    // High stable FPS (234-240)
+                    const fps = Math.floor(Math.random() * 7) + 234;
+                    fpsCounter.textContent = fps;
+                    fpsCounter.classList.add('high');
+                    return fps;
+                } else {
+                    // Low fluctuating FPS (78-100)
+                    const fps = Math.floor(Math.random() * 22) + 78;
+                    fpsCounter.textContent = fps;
+                    fpsCounter.classList.remove('high');
+                    return fps;
+                }
+            }
+            
+            // Function to draw the FPS graph
+            function drawFpsGraph() {
+                // Clear the canvas
+                ctx.clearRect(0, 0, graphWidth, graphHeight);
+                
+                // Draw background
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+                ctx.fillRect(0, 0, graphWidth, graphHeight);
+                
+                // Draw grid lines
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                ctx.lineWidth = 1;
+                
+                // Horizontal grid lines
+                for (let i = 0; i < 5; i++) {
+                    const y = i * (graphHeight / 4);
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(graphWidth, y);
+                    ctx.stroke();
+                }
+                
+                // Vertical grid lines
+                for (let i = 0; i < 10; i++) {
+                    const x = i * (graphWidth / 9);
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, graphHeight);
+                    ctx.stroke();
+                }
+                
+                // Draw FPS line
+                const isOn = performanceToggle.checked;
+                const maxFps = isOn ? 250 : 120;
+                
+                ctx.beginPath();
+                ctx.lineWidth = 2;
+                
+                // Create gradient for the line
+                const gradient = ctx.createLinearGradient(0, 0, graphWidth, 0);
+                if (isOn) {
+                    gradient.addColorStop(0, '#3ac5ff');
+                    gradient.addColorStop(1, '#43FFAD');
+                    ctx.strokeStyle = gradient;
+                } else {
+                    gradient.addColorStop(0, '#ff5e5e');
+                    gradient.addColorStop(1, '#ff9d5e');
+                    ctx.strokeStyle = gradient;
+                }
+                
+                // Draw the line
+                for (let i = 0; i < fpsData.length; i++) {
+                    const x = (i / (maxDataPoints - 1)) * graphWidth;
+                    const y = graphHeight - (fpsData[i] / maxFps) * graphHeight;
+                    
+                    if (i === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                ctx.stroke();
+                
+                // Fill area under the line
+                ctx.lineTo(graphWidth, graphHeight);
+                ctx.lineTo(0, graphHeight);
+                ctx.closePath();
+                ctx.fillStyle = isOn ? 'rgba(58, 197, 255, 0.1)' : 'rgba(255, 94, 94, 0.1)';
+                ctx.fill();
+            }
+            
+            // Function to update the graph data
+            function updateGraphData() {
+                const fps = updateFpsCounter(performanceToggle.checked);
+                fpsData.push(fps);
+                if (fpsData.length > maxDataPoints) {
+                    fpsData.shift();
+                }
+                drawFpsGraph();
+            }
+            
+            // Initial draw
+            drawFpsGraph();
+            
+            // Update FPS counter and graph every 100ms
+            let fpsInterval = setInterval(updateGraphData, 100);
+            
+            // Toggle between low and high FPS
+            performanceToggle.addEventListener('change', function() {
+                clearInterval(fpsInterval);
+                
+                // Reset FPS data when toggling
+                fpsData = [];
+                
+                if (this.checked) {
+                    // High stable FPS (234-240)
+                    for (let i = 0; i < maxDataPoints; i++) {
+                        fpsData.push(Math.floor(Math.random() * 7) + 234);
+                    }
+                } else {
+                    // Low fluctuating FPS (78-100)
+                    for (let i = 0; i < maxDataPoints; i++) {
+                        fpsData.push(Math.floor(Math.random() * 22) + 78);
+                    }
+                }
+                
+                // Update immediately
+                updateFpsCounter(this.checked);
+                drawFpsGraph();
+                
+                // Restart interval
+                fpsInterval = setInterval(updateGraphData, 100);
+            });
+            
+            // Resize canvas when window resizes
+            window.addEventListener('resize', function() {
+                drawFpsGraph();
+            });
+        });
+    </script>
 
     <!-- Trusted Section -->
     <section class="trusted-section">
@@ -3471,13 +3841,25 @@
 
     <script>
         // Navigation bar scroll behavior
+        let lastScrollTop = 0;
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Add scrolled class for background change
+            if (scrollTop > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
+            
+            // Hide navbar when scrolling down, show when scrolling up
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                navbar.classList.add('hidden');
+            } else {
+                navbar.classList.remove('hidden');
+            }
+            lastScrollTop = scrollTop;
         });
 
         // Get all navigation items
@@ -3858,7 +4240,7 @@
                 updateCount();
             };
             
-            // Animate counters when they come into view
+            // Check and animate stats counters
             const counterElements = document.querySelectorAll('.counter');
             let counterAnimated = false;
             
@@ -3877,7 +4259,7 @@
                 }
             };
             
-            // Check counters on initial load and scroll
+            // Check on initial load and scroll
             checkCounters();
             window.addEventListener('scroll', checkCounters);
             
@@ -4013,7 +4395,7 @@
             // Start simulation after 5 seconds
             setTimeout(startFeedSimulation, 5000);
         });
-
+        
         // Login modal functions
         function showLoginModal() {
             document.getElementById('loginModal').style.display = 'flex';
@@ -4115,7 +4497,7 @@
                     <li class="footer-link"><a href="#">FAQ</a></li>
                     <li class="footer-link"><a href="#">Troubleshooting</a></li>
                     <li class="footer-link"><a href="#">Privacy Policy</a></li>
-                    <li class="footer-link"><a href="#">Terms of Service</a></li>
+                    <li class="footer-link"><a href="terms-of-service.html">Terms of Service</a></li>
                     <li class="footer-link"><a href="refund-policy.html">Refund Policy</a></li>
                 </ul>
             </div>
@@ -4142,8 +4524,17 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://payhip.com/embed/payhip.js"></script>
     <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease',
+            once: true,
+            offset: 100
+        });
+        
         // Initialize Payhip embeds
         window.payhipLink = PayhipLink({
             "closeButtonColor": "#000000",
@@ -4186,294 +4577,42 @@
                 window.location.href = 'pricing.html';
             });
         });
-    </script>
 
-    <!-- Script for Premium Features Animation -->
-    <script>
+        // FAQ Accordion functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Function to check if element is in viewport
-            const isInViewport = (el) => {
-                const rect = el.getBoundingClientRect();
-                return (
-                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
-                    rect.bottom >= 100
-                );
-            };
+            const faqItems = document.querySelectorAll('.faq-item');
             
-            // Handle animation for premium feature cards
-            const premiumFeatureCards = document.querySelectorAll('.premium-feature-card');
-            
-            const checkPremiumFeatures = () => {
-                premiumFeatureCards.forEach((card) => {
-                    if (isInViewport(card)) {
-                        const delay = card.getAttribute('data-aos-delay') || 0;
-                        setTimeout(() => {
-                            card.classList.add('aos-animate');
-                        }, delay);
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all FAQ items
+                    faqItems.forEach(faqItem => {
+                        faqItem.classList.remove('active');
+                    });
+                    
+                    // Toggle active state
+                    if (!isActive) {
+                        item.classList.add('active');
                     }
                 });
-            };
-            
-            // Check on scroll
-            window.addEventListener('scroll', checkPremiumFeatures);
-            
-            // Initial check
-            setTimeout(checkPremiumFeatures, 300);
-            
-            // Stats counter animation
-            const statsCounters = document.querySelectorAll('.stats-showcase-section .stats-number');
-            let statsCounterStarted = false;
-            
-            const animateStatsCounter = (counter) => {
-                const target = parseInt(counter.getAttribute('data-target'));
-                let count = 0;
-                const duration = 2000; // Animation duration in ms
-                const step = Math.max(1, Math.floor(target / (duration / 16))); // 16ms is approx one frame at 60fps
-                
-                // For different counter types
-                const suffix = counter.closest('.stats-card') && 
-                              counter.closest('.stats-card').querySelector('.stats-label').innerText.includes('Satisfaction') ? '%' : 
-                              counter.closest('.stats-card').querySelector('.stats-label').innerText.includes('Reviews') ? '+' :
-                              counter.closest('.stats-card').querySelector('.stats-label').innerText.includes('Orders') ? '+' :
-                              counter.closest('.stats-card').querySelector('.stats-label').innerText.includes('Hours') ? '/7' : '';
-                
-                const updateCount = () => {
-                    if (count < target) {
-                        count += step;
-                        if (count > target) count = target;
-                        counter.innerText = Math.floor(count) + suffix;
-                        requestAnimationFrame(updateCount);
-                    } else {
-                        counter.innerText = target + suffix;
-                    }
-                };
-                
-                updateCount();
-            };
-            
-            // Check and animate stats counters
-            const checkStatsCounters = () => {
-                const statsSection = document.querySelector('.stats-showcase-section');
-                if (statsSection && isInViewport(statsSection) && !statsCounterStarted) {
-                    statsCounterStarted = true;
-                    
-                    // Add staggered animation for each counter
-                    statsCounters.forEach((counter, index) => {
-                        setTimeout(() => {
-                            animateStatsCounter(counter);
-                        }, 300 + (index * 150));
-                    });
-                }
-            };
-            
-            // Check on scroll and initial load
-            window.addEventListener('scroll', checkStatsCounters);
-            setTimeout(checkStatsCounters, 500);
-            
-            // Add entrance animation for stats cards
-            const statsCards = document.querySelectorAll('.stats-card');
-            
-            const animateStatsCards = () => {
-                const statsSection = document.querySelector('.stats-showcase-section');
-                if (statsSection && isInViewport(statsSection)) {
-                    statsCards.forEach((card, index) => {
-                        setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, 200 + (index * 150));
-                    });
-                }
-            };
-            
-            // Set initial state for stats cards
-            statsCards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            });
-            
-            // Check on scroll and initial load
-            window.addEventListener('scroll', animateStatsCards);
-            setTimeout(animateStatsCards, 500);
-        });
-    </script>
-
-    <!-- Slide-up Animation Script -->
-    <script>
-        // Hide elements immediately to prevent flash of unstyled content
-        document.addEventListener('DOMContentLoaded', function() {
-            const animateElements = [
-                { selector: '.hero-title', delay: 300 },
-                { selector: '.title-text', delay: 300 },
-                { selector: '.gradient-text', delay: 800 },
-                { selector: '.hero-description', delay: 1000 },
-                { selector: '.btn-container', delay: 1200 },
-                { selector: '.app-showcase', delay: 1400 }
-            ];
-            
-            // First set all elements to hidden state
-            animateElements.forEach(item => {
-                const element = document.querySelector(item.selector);
-                if (element) {
-                    // Set initial styles inline to guarantee they're applied before render
-                    element.style.opacity = '0';
-                    element.style.transform = item.selector === '.app-showcase' ? 'translateY(50px)' : 'translateY(30px)';
-                    element.style.transition = 'none'; // Disable transitions initially
-                }
-            });
-            
-            // Force browser to process the above style changes
-            window.getComputedStyle(document.querySelector('.hero-title')).opacity;
-            
-            // Now enable transitions and animate elements with delay
-            animateElements.forEach(item => {
-                const element = document.querySelector(item.selector);
-                if (element) {
-                    element.style.transition = `opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)`;
-                    
-                    setTimeout(() => {
-                        element.style.opacity = '1';
-                        element.style.transform = 'translateY(0)';
-                    }, item.delay);
-                }
             });
         });
     </script>
     
-    <!-- Smooth Scroll Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create container for smooth scrolling
-            const body = document.body;
-            const content = document.createElement('div');
-            content.className = 'smooth-scroll-container';
-            
-            // Move all body content to the container
-            while (body.firstChild) {
-                content.appendChild(body.firstChild);
-            }
-            
-            // Add the container back to body
-            body.appendChild(content);
-            
-            // Variables for smooth scrolling
-            let currentY = 0;
-            let targetY = 0;
-            let ease = 0.05; // Increased from 0.03 for a bit faster but still smooth scrolling
-            let rafId = null;
-            let isManualScrolling = false;
-            
-            // Calculate document height and set body height
-            function setBodyHeight() {
-                body.style.height = content.scrollHeight + 'px';
-            }
-            
-            // Update scroll position with smooth animation
-            function smoothScroll() {
-                // Calculate distance to target
-                const diff = targetY - currentY;
-                
-                // Stop if we're close enough
-                if (Math.abs(diff) < 0.1) {
-                    currentY = targetY;
-                    window.cancelAnimationFrame(rafId);
-                    rafId = null;
-                    return;
-                }
-                
-                // Ease towards target
-                currentY += diff * ease;
-                
-                // Apply transform
-                content.style.transform = `translateY(${-currentY}px)`;
-                
-                // Continue animation
-                rafId = window.requestAnimationFrame(smoothScroll);
-            }
-            
-            // Handle scroll events
-            window.addEventListener('scroll', function() {
-                targetY = window.scrollY;
-                
-                // Start animation if not already running
-                if (!rafId) {
-                    rafId = window.requestAnimationFrame(smoothScroll);
-                }
-            }, { passive: true });
-            
-            // Handle resize
-            window.addEventListener('resize', setBodyHeight);
-            
-            // Initial setup
-            setBodyHeight();
-            
-            // Fix for links and manual scrolling
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetElement = document.querySelector(this.getAttribute('href'));
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
-
-    <script>
-        /* Existing Scripts */
-        
-        // Sale countdown timer
-        function updateSaleCountdown() {
-            const countdownEl = document.getElementById('sale-countdown');
-            
-            // Set end date to 48 hours from now for demonstration
-            const now = new Date();
-            const endDate = new Date(now.getTime() + (48 * 60 * 60 * 1000)); // 48 hours
-            
-            // Update the countdown every second
-            setInterval(() => {
-                const currentTime = new Date();
-                const timeDiff = endDate - currentTime;
-                
-                // Calculate hours, minutes, seconds
-                const hours = Math.floor(timeDiff / (1000 * 60 * 60));
-                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-                
-                // Format the time as HH:MM:SS
-                const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                
-                // Update the countdown display
-                countdownEl.textContent = formattedTime;
-                
-                // If the countdown is over
-                if (timeDiff <= 0) {
-                    countdownEl.textContent = "Sale Ended";
-                }
-            }, 1000);
-        }
-        
-        // Initialize the countdown
-        updateSaleCountdown();
-    </script>
-
-    <script>
-        /* Existing Scripts */
-        
-        // Redirect sale banner clicks to pricing
-        document.querySelectorAll('.sale-banner-item').forEach(item => {
-            item.addEventListener('click', () => {
-                window.location.href = 'pricing.html';
-            });
-        });
-    </script>
+    <!-- Add the modal/popup for login feature -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">Feature Coming Soon!</h3>
+            <p class="modal-message">We're currently enhancing our login system to provide you with the best experience. This feature will be available shortly.</p>
+            <button class="modal-close" onclick="closeModal()">Got it</button>
+        </div>
+    </div>
 </body>
 </html>
 
 
-                                
-                                
+
+

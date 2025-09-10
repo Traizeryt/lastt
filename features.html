@@ -130,16 +130,17 @@
         }
 
         .buy-btn {
-            padding: 8px 20px;
+            padding: 10px 24px;
             border-radius: 30px;
-            background-color: #3ac5ff;
-            color: #111;
+            background: linear-gradient(135deg, #3ac5ff, #2196f3);
+            color: #fff;
             border: none;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
+            box-shadow: 0 4px 12px rgba(58, 197, 255, 0.3);
         }
 
         .login-btn:hover {
@@ -148,7 +149,8 @@
 
         .buy-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(58, 197, 255, 0.3);
+            box-shadow: 0 6px 15px rgba(58, 197, 255, 0.5);
+            background: linear-gradient(135deg, #2196f3, #3ac5ff);
         }
 
         .content {
@@ -758,62 +760,9 @@
             transform: translateZ(0);
             backface-visibility: hidden;
         }
-
-        /* Sale Banner */
-        .sale-banner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(90deg, #19B5B5, #46D8AD, #29E4A0);
-            color: white;
-            text-align: center;
-            padding: 8px 20px;
-            font-weight: 600;
-            z-index: 1001;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 2px 10px rgba(41, 228, 160, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .sale-banner-item {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px 12px;
-            border-radius: 4px;
-            font-weight: 700;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .sale-banner-item:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        /* Adjust navbar position when sale banner is active */
-        .sale-active .navbar {
-            top: 40px;
-        }
-        
-        .sale-active {
-            padding-top: 40px;
-        }
     </style>
 </head>
-<body class="sale-active">
-    <div class="sale-banner">
-        <div class="sale-banner-item">SALE NOW!</div>
-        <div class="sale-banner-item">LIMITED TIME OFFER</div>
-        <div class="sale-banner-item">50% OFF</div>
-    </div>
+<body>
     <nav class="navbar">
         <div class="logo-container">
             <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473336/image-removebg-preview_23_ww5uf8.png" alt="TRAIZER TWEAKS" class="logo">
@@ -1260,13 +1209,6 @@
                 });
             });
         });
-
-        // Sale banner redirection
-        document.querySelectorAll('.sale-banner-item').forEach(item => {
-            item.addEventListener('click', () => {
-                window.location.href = 'pricing.html';
-            });
-        });
     </script>
 </body>
-</html> 
+</html>

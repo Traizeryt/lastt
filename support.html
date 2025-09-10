@@ -132,16 +132,17 @@
         }
 
         .buy-btn {
-            padding: 8px 20px;
+            padding: 10px 24px;
             border-radius: 30px;
-            background-color: var(--neon-green);
-            color: #111;
+            background: linear-gradient(135deg, #3ac5ff, #2196f3);
+            color: #fff;
             border: none;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
+            box-shadow: 0 4px 12px rgba(58, 197, 255, 0.3);
         }
 
         .login-btn:hover {
@@ -150,7 +151,8 @@
 
         .buy-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
+            box-shadow: 0 6px 15px rgba(58, 197, 255, 0.5);
+            background: linear-gradient(135deg, #2196f3, #3ac5ff);
         }
 
         .support-section {
@@ -700,61 +702,22 @@
             }
         }
 
-        /* Sale Banner */
+        /* Sale Banner - removed */
         .sale-banner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(90deg, #19B5B5, #46D8AD, #29E4A0);
-            color: white;
-            text-align: center;
-            padding: 8px 20px;
-            font-weight: 600;
-            z-index: 1001;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 2px 10px rgba(41, 228, 160, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
+            display: none; /* Hide the sale banner */
         }
         
-        .sale-banner-item {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px 12px;
-            border-radius: 4px;
-            font-weight: 700;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .sale-banner-item:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        /* Adjust navbar position when sale banner is active */
+        /* Remove the adjustment for navbar when sale banner is active */
         .sale-active .navbar {
-            top: 40px;
+            top: 0; /* Reset to default position */
         }
         
         .sale-active {
-            padding-top: 40px;
+            padding-top: 0; /* Reset to default padding */
         }
     </style>
 </head>
 <body class="sale-active">
-    <div class="sale-banner">
-        <div class="sale-banner-item">SALE NOW!</div>
-        <div class="sale-banner-item">LIMITED TIME OFFER</div>
-        <div class="sale-banner-item">50% OFF</div>
-    </div>
     <nav class="navbar">
         <div class="logo-container">
             <a href="index.html">
@@ -904,7 +867,7 @@
                     How much FPS improvement can I expect? <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
-                    Results vary depending on your hardware configuration, but our users typically see 20-40% improvement in FPS and significant reductions in latency. Premium users often experience even greater performance gains.
+                    While our software is designed to optimize your system for gaming performance, actual FPS improvements depend on your specific hardware configuration and whether you've applied other optimization tweaks previously. Most users experience significant performance gains, but individual results may vary. Our optimizations focus on reducing system overhead, improving resource allocation, and fine-tuning game-specific settings.
                 </div>
             </div>
             
@@ -1031,7 +994,16 @@
                     Do you offer refunds? <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
-                    We operate under a no-refund policy for all purchases due to the digital nature of our software. However, we may consider refunds in exceptional circumstances such as critical software malfunctions or unresolvable compatibility issues. Please refer to our <a href="refund-policy.html" style="color: var(--neon-green); text-decoration: none;">Refund Policy</a> for more details.
+                    We operate under a strict no-refund policy for all purchases due to the digital nature of our software. Refunds are only considered for verified technical issues that our support team cannot resolve after reasonable troubleshooting efforts. Please refer to our <a href="refund-policy.html" style="color: var(--neon-green); text-decoration: none;">Refund Policy</a> for more details.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Can I use my purchase on multiple computers? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Each purchase grants you one activation key for a single computer. If you need to use the software on additional computers, you can purchase additional licenses at a 50% discount. Please contact our support team to arrange this after your initial purchase.
                 </div>
             </div>
         </div>
@@ -1078,7 +1050,7 @@
                     <li class="footer-link"><a href="#">FAQ</a></li>
                     <li class="footer-link"><a href="#">Troubleshooting</a></li>
                     <li class="footer-link"><a href="#">Privacy Policy</a></li>
-                    <li class="footer-link"><a href="#">Terms of Service</a></li>
+                    <li class="footer-link"><a href="terms-of-service.html">Terms of Service</a></li>
                     <li class="footer-link"><a href="refund-policy.html">Refund Policy</a></li>
                 </ul>
             </div>
@@ -1112,17 +1084,32 @@
             
             faqItems.forEach(item => {
                 const question = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                
+                // Initialize answers to be closed
+                answer.style.height = '0';
+                answer.style.overflow = 'hidden';
+                answer.style.transition = 'height 0.3s ease';
                 
                 question.addEventListener('click', function() {
                     // Toggle current item
-                    item.classList.toggle('active');
-                    
-                    // Optional: Close other items when opening one
+                    if (item.classList.contains('active')) {
+                        // Close this FAQ
+                        item.classList.remove('active');
+                        answer.style.height = '0';
+                    } else {
+                        // Close other items when opening one
                     faqItems.forEach(otherItem => {
                         if (otherItem !== item && otherItem.classList.contains('active')) {
                             otherItem.classList.remove('active');
+                                otherItem.querySelector('.faq-answer').style.height = '0';
                         }
                     });
+                        
+                        // Open this FAQ
+                        item.classList.add('active');
+                        answer.style.height = answer.scrollHeight + 'px';
+                    }
                 });
             });
 
@@ -1154,4 +1141,4 @@
         });
     </script>
 </body>
-</html> 
+</html>

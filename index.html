@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -696,7 +696,23 @@
             transform: scale(0.9);
         }
 
-        /* Animation classes that will be added by JS */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .side-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        .side-reveal.animate {
+            animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
         .animate {
             transition: opacity 0.8s ease, transform 0.8s ease;
             opacity: 1;
@@ -3119,7 +3135,9 @@
             color: #3ac5ff;
         }
         
-        /* Smooth scroll effect */
+html {
+    scroll-behavior: smooth;
+}
         html {
             scroll-behavior: smooth;
         }
@@ -3180,17 +3198,20 @@
     
     <section class="hero-section">
         <div class="hero-content">
-            <h1 class="hero-title">
+            <h1 class="hero-title side-reveal">
                 <span class="title-text">Smooth Gaming</span><br>
                 <span class="gradient-text">Starts Here</span><br>
             </h1>
-            <p class="hero-description">Win More. Lag Less. Optimize Now.</p>
-            <div class="btn-container">
+            <p class="hero-description side-reveal">Win More. Lag Less. Optimize Now.</p>
+            <div class="btn-container side-reveal">
                 <a href="download.html" class="btn btn-primary">
                     <i class="fas fa-download"></i> Download Now
                 </a>
                 <a href="pricing.html" class="btn btn-secondary">
                     <i class="fas fa-tag"></i> View Pricing
+                </a>
+                <a href="reviews.html" class="btn btn-secondary">
+                    <i class="fas fa-star"></i> Reviews
                 </a>
             </div>
         </div>
@@ -3841,25 +3862,13 @@
 
     <script>
         // Navigation bar scroll behavior
-        let lastScrollTop = 0;
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // Add scrolled class for background change
-            if (scrollTop > 50) {
+            if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
-            
-            // Hide navbar when scrolling down, show when scrolling up
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                navbar.classList.add('hidden');
-            } else {
-                navbar.classList.remove('hidden');
-            }
-            lastScrollTop = scrollTop;
         });
 
         // Get all navigation items
@@ -4132,8 +4141,34 @@
             setTimeout(startActivitySimulation, 10000);
         });
         
-        // Animation on scroll
+        // Hero side-reveal animation on scroll
         document.addEventListener('DOMContentLoaded', function() {
+            const heroSection = document.querySelector('.hero-section');
+            const heroReveals = heroSection.querySelectorAll('.side-reveal');
+            const appImage = document.querySelector('.app-image');
+            function isHeroInViewport() {
+                const rect = heroSection.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+                    rect.bottom >= 0
+                );
+            }
+            function revealHero() {
+                if (isHeroInViewport()) {
+                    heroReveals.forEach((el, i) => {
+                        setTimeout(() => {
+                            el.classList.add('animate');
+                        }, i * 120);
+                    });
+                    if (appImage && isInViewport(appImage)) {
+                        appImage.classList.add('animate');
+                    }
+                    window.removeEventListener('scroll', revealHero);
+                }
+            }
+            window.addEventListener('scroll', revealHero);
+            revealHero(); // Initial check
+        });
             // Remove animations from hero elements since we're using slide-up only
             const animateElements = document.querySelectorAll('.hero-title, .hero-subtitle, .btn-container, .hero-img');
             
@@ -4394,6 +4429,10 @@
             
             // Start simulation after 5 seconds
             setTimeout(startFeedSimulation, 5000);
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize smooth scroll
+            const smoothScroll = new SmoothScroll();
+            smoothScroll.init();
         });
         
         // Login modal functions
@@ -4506,7 +4545,7 @@
                 <h3 class="footer-title">Contact Us</h3>
                 <div class="contact-item">
                     <span class="contact-icon"><i class="fas fa-envelope"></i></span>
-                    <span>support@traizertweaks.com</span>
+                    <span>traizerpersonal@gmail.com.com</span>
                 </div>
                 <div class="contact-item">
                     <span class="contact-icon"><i class="fab fa-discord"></i></span>
@@ -4610,6 +4649,57 @@
             <button class="modal-close" onclick="closeModal()">Got it</button>
         </div>
     </div>
+    <script>
+        // Smooth Scroll Script
+        (function() {
+            const body = document.body;
+            const content = document.createElement('div');
+            content.className = 'smooth-scroll-container';
+            while (body.firstChild) {
+                content.appendChild(body.firstChild);
+            }
+            body.appendChild(content);
+            let currentY = 0;
+            let targetY = 0;
+            let ease = 0.03;
+            let rafId = null;
+            function setBodyHeight() {
+                body.style.height = content.scrollHeight + 'px';
+            }
+            function smoothScroll() {
+                const diff = targetY - currentY;
+                if (Math.abs(diff) < 0.1) {
+                    currentY = targetY;
+                    window.cancelAnimationFrame(rafId);
+                    rafId = null;
+                    return;
+                }
+                currentY += diff * ease;
+                content.style.transform = `translateY(${-currentY}px)`;
+                rafId = window.requestAnimationFrame(smoothScroll);
+            }
+            window.addEventListener('scroll', function() {
+                targetY = window.scrollY;
+                if (!rafId) {
+                    rafId = window.requestAnimationFrame(smoothScroll);
+                }
+            }, { passive: true });
+            window.addEventListener('resize', setBodyHeight);
+            setBodyHeight();
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(this.getAttribute('href'));
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        })();
+    </script>
 </body>
 </html>
 

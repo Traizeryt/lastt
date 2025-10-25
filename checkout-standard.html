@@ -1,923 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript" src="https://payhip.com/payhip.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Standard Checkout - Traizer Tweaks</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
-        }
-
-        :root {
-            --neon-green: #43FFAD;
-            --dark-bg: #0a0a0a;
-            --card-bg: #10131a;
-            --card-hover: #161b27;
-            --text-light: rgba(255, 255, 255, 0.7);
-            --standard-gradient: linear-gradient(135deg, #3d91ff, #4bdbff);
-            --standard-glow: 0 0 25px rgba(75, 219, 255, 0.2);
-            --border-light: rgba(255, 255, 255, 0.08);
-            --primary-color: #3d91ff;
-            --primary-dark: #2a7ad9;
-            --accent-color: #8a4fff;
-            --purple-bg: #1a1a2e;
-            --card-purple: #16213e;
-        }
-
-        body {
-            background: var(--purple-bg);
-            color: white;
-            overflow-x: hidden;
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-
-        /* Scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #0a0c12;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: #2e3442;
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3d91ff;
-        }
-
-        /* Currency Converter - Top Right */
-        .currency-converter {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--card-purple);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(61, 145, 255, 0.3);
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            z-index: 100;
-            transition: all 0.3s ease;
-            max-width: 300px;
-            width: 100%;
-        }
-
-        .currency-converter:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(61, 145, 255, 0.2);
-            border-color: rgba(61, 145, 255, 0.4);
-        }
-
-        .currency-converter h3 {
-            font-size: 1rem;
-            margin-bottom: 15px;
-            color: white;
-            display: flex;
+        body { 
+            font-family: Inter, system-ui, -apple-system, sans-serif; 
+            background: #071022; 
+            color: #fff; 
+            margin: 0; 
+            display: flex; 
+            min-height: 100vh; 
+            flex-direction: column; 
             align-items: center;
-            font-weight: 600;
+            justify-content: center;
         }
-
-        .currency-converter h3 i {
-            color: var(--primary-color);
-            margin-right: 8px;
-        }
-
-        .converter-form select {
-            width: 100%;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            color: white;
-            margin-bottom: 15px;
-            font-family: 'SF Pro Display', sans-serif;
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            background-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .converter-form select:hover, .converter-form select:focus {
-            background-color: rgba(255, 255, 255, 0.15);
-            border-color: var(--primary-color);
-            outline: none;
-        }
-
-        .converter-form select option {
-            background-color: var(--card-purple);
-            color: white;
-        }
-
-        .result {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .result span {
-            color: var(--neon-green);
-            font-weight: 600;
-        }
-
-        @keyframes highlightValue {
-            0% { color: white; }
-            50% { color: var(--neon-green); }
-            100% { color: var(--neon-green); }
-        }
-
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 50px 20px;
-        }
-
-        /* Hero Section */
-        .hero-section {
+        .container { 
+            width: 100%; 
+            max-width: 600px; 
+            margin: 40px auto; 
+            padding: 24px; 
             text-align: center;
-            margin-bottom: 60px;
-            position: relative;
         }
-
-        .hero-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, rgba(61, 145, 255, 0.2), rgba(75, 219, 255, 0.2));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            border: 2px solid rgba(61, 145, 255, 0.3);
-        }
-
-        .hero-icon i {
-            font-size: 40px;
-            color: var(--primary-color);
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: white;
-            background: linear-gradient(135deg, #ffffff, #3d91ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-light);
-            max-width: 700px;
-            margin: 0 auto 30px;
-            font-weight: 300;
-        }
-
-        .pricing-hero {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .original-price-hero {
-            color: var(--text-light);
-            text-decoration: line-through;
-            font-size: 1.8rem;
-            font-weight: 400;
-            opacity: 0.7;
-        }
-
-        .current-price-hero {
-            color: #43FFAD;
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(67, 255, 173, 0.3);
-        }
-
-        .limited-offer-hero {
-            display: inline-block;
+        .redirect-message {
             background: rgba(67, 255, 173, 0.1);
-            color: #43FFAD;
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border: 1px solid rgba(67, 255, 173, 0.2);
-        }
-
-        .buy-now-hero {
-            background: linear-gradient(135deg, #3d91ff, #4bdbff);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 8px 20px rgba(61, 145, 255, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .buy-now-hero:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(61, 145, 255, 0.4);
-        }
-
-        /* Feature Cards Row */
-        .feature-cards-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .feature-card {
-            background: var(--card-purple);
-            border-radius: 15px;
-            padding: 30px 25px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, rgba(61, 145, 255, 0.05) 0%, transparent 70%);
-            z-index: 0;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(61, 145, 255, 0.3);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .feature-card-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(61, 145, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .feature-card-icon i {
-            font-size: 24px;
-            color: var(--primary-color);
-        }
-
-        .feature-card-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: white;
-            position: relative;
-            z-index: 1;
-        }
-
-        .feature-card-description {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Main Content Grid */
-        .main-content-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        /* Left Column - Core Features */
-        .core-features {
-            background: var(--card-purple);
+            border: 1px solid rgba(67, 255, 173, 0.3);
             border-radius: 20px;
-            padding: 40px 30px;
-            border: 1px solid rgba(61, 145, 255, 0.2);
-            position: relative;
-        }
-
-        .core-features::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, rgba(61, 145, 255, 0.05) 0%, transparent 70%);
-            z-index: 0;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            font-weight: 700;
+            padding: 40px;
             margin-bottom: 30px;
-            color: white;
-            display: flex;
-            align-items: center;
-            position: relative;
-            z-index: 1;
         }
-
-        .section-title i {
-            color: var(--primary-color);
-            margin-right: 15px;
-            font-size: 1.5rem;
-        }
-
-        .feature-list {
-            position: relative;
-            z-index: 1;
-        }
-
-        .feature-item {
-            margin-bottom: 25px;
-        }
-
-        .feature-main {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: white;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-
-        .feature-main i {
-            color: var(--primary-color);
-            margin-right: 10px;
-        }
-
-        .feature-description {
-            color: var(--text-light);
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
-        .feature-sub-list {
-            list-style: none;
-            padding-left: 20px;
-        }
-
-        .feature-sub-item {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            margin-bottom: 5px;
-            position: relative;
-        }
-
-        .feature-sub-item::before {
-            content: '•';
-            color: var(--primary-color);
-            position: absolute;
-            left: -15px;
-        }
-
-        /* Right Column - Stats and Benefits */
-        .stats-benefits {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        /* Statistics Cards */
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .stat-card {
-            background: var(--card-purple);
-            border-radius: 15px;
-            padding: 25px 20px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(61, 145, 255, 0.3);
-        }
-
-        .stat-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(61, 145, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-        }
-
-        .stat-icon i {
-            font-size: 18px;
-            color: var(--primary-color);
-        }
-
-        .stat-title {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            margin-bottom: 10px;
-        }
-
-        .stat-value {
+        .redirect-title {
             font-size: 2rem;
             font-weight: 700;
-            color: white;
-            margin-bottom: 5px;
+            color: #43FFAD;
+            margin-bottom: 20px;
         }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-light);
-        }
-
-        /* Standard Benefits */
-        .standard-benefits {
-            background: var(--card-purple);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid rgba(61, 145, 255, 0.2);
-        }
-
-        .benefit-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 25px;
-            padding: 20px;
-            background: rgba(61, 145, 255, 0.05);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .benefit-item:hover {
-            background: rgba(61, 145, 255, 0.1);
-            transform: translateX(5px);
-        }
-
-        .benefit-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(61, 145, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-            flex-shrink: 0;
-        }
-
-        .benefit-icon i {
-            font-size: 20px;
-            color: var(--primary-color);
-        }
-
-        .benefit-content h3 {
+        .redirect-text {
             font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .redirect-button {
+            display: inline-block;
+            background: #43FFAD;
+            color: #000;
+            padding: 15px 40px;
+            border-radius: 10px;
+            text-decoration: none;
             font-weight: 600;
-            color: white;
-            margin-bottom: 8px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
-
-        .benefit-content p {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            line-height: 1.5;
+        .redirect-button:hover {
+            background: #38e6a3;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(67, 255, 173, 0.3);
         }
-
-        /* Back to Pricing */
-        .back-to-pricing {
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: flex;
-            align-items: center;
-            color: var(--text-light);
+        .back-link {
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
             font-size: 0.9rem;
-            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            display: inline-block;
         }
-
-        .back-to-pricing i {
-            margin-right: 6px;
+        .back-link:hover {
+            color: #43FFAD;
         }
-
-        .back-to-pricing:hover {
-            color: var(--primary-color);
-            transform: translateX(-3px);
+        .spinner {
+            border: 2px solid rgba(67, 255, 173, 0.3);
+            border-top: 2px solid #43FFAD;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
         }
-
-        /* Responsive Design */
-        @media (max-width: 1100px) {
-            .feature-cards-row {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .stats-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .main-content-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-title {
-                font-size: 2.8rem;
-            }
-            
-            .pricing-hero {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .hero-title {
-                font-size: 2.2rem;
-            }
-            
-            .currency-converter {
-                position: relative;
-                top: auto;
-                right: auto;
-                margin: 20px auto;
-                max-width: 100%;
-            }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
+    <script>
+        // Auto-redirect after 3 seconds
+        setTimeout(function() {
+            window.location.href = 'https://payhip.com/b/pJwSI';
+        }, 3000);
+    </script>
 </head>
 <body>
-    <!-- Currency Converter - Top Right -->
-    <div class="currency-converter">
-        <h3><i class="fas fa-dollar-sign"></i> Currency Converter</h3>
-        <div class="converter-form">
-            <select id="currency-select">
-                <option value="USD">USD (US Dollar)</option>
-                <option value="EUR">EUR (Euro)</option>
-                <option value="GBP">GBP (British Pound)</option>
-                <option value="CAD">CAD (Canadian Dollar)</option>
-                <option value="AUD">AUD (Australian Dollar)</option>
-                <option value="JPY">JPY (Japanese Yen)</option>
-                <option value="CNY">CNY (Chinese Yuan)</option>
-                <option value="INR">INR (Indian Rupee)</option>
-                <option value="BRL">BRL (Brazilian Real)</option>
-                <option value="RUB">RUB (Russian Ruble)</option>
-                <option value="KRW">KRW (South Korean Won)</option>
-                <option value="CHF">CHF (Swiss Franc)</option>
-                <option value="MXN">MXN (Mexican Peso)</option>
-                <option value="SGD">SGD (Singapore Dollar)</option>
-                <option value="NZD">NZD (New Zealand Dollar)</option>
-                <option value="HKD">HKD (Hong Kong Dollar)</option>
-                <option value="SEK">SEK (Swedish Krona)</option>
-                <option value="NOK">NOK (Norwegian Krone)</option>
-                <option value="DKK">DKK (Danish Krone)</option>
-                <option value="PLN">PLN (Polish Złoty)</option>
-                <option value="ZAR">ZAR (South African Rand)</option>
-                <option value="AED">AED (UAE Dirham)</option>
-                <option value="SAR">SAR (Saudi Riyal)</option>
-                <option value="THB">THB (Thai Baht)</option>
-                <option value="TRY">TRY (Turkish Lira)</option>
-                <option value="ILS">ILS (Israeli Shekel)</option>
-                <option value="PHP">PHP (Philippine Peso)</option>
-                <option value="MYR">MYR (Malaysian Ringgit)</option>
-                <option value="IDR">IDR (Indonesian Rupiah)</option>
-                <option value="CZK">CZK (Czech Koruna)</option>
-                <option value="HUF">HUF (Hungarian Forint)</option>
-                <option value="CLP">CLP (Chilean Peso)</option>
-                <option value="PKR">PKR (Pakistani Rupee)</option>
-                <option value="ARS">ARS (Argentine Peso)</option>
-                <option value="COP">COP (Colombian Peso)</option>
-                <option value="PEN">PEN (Peruvian Sol)</option>
-                <option value="VND">VND (Vietnamese Dong)</option>
-                <option value="UAH">UAH (Ukrainian Hryvnia)</option>
-                <option value="EGP">EGP (Egyptian Pound)</option>
-                <option value="NGN">NGN (Nigerian Naira)</option>
-                <option value="KES">KES (Kenyan Shilling)</option>
-                <option value="MAD">MAD (Moroccan Dirham)</option>
-                <option value="QAR">QAR (Qatari Riyal)</option>
-                <option value="KWD">KWD (Kuwaiti Dinar)</option>
-                <option value="BHD">BHD (Bahraini Dinar)</option>
-            </select>
-            <div class="result">$9.99 USD = <span id="converted-amount">$9.99 USD</span></div>
+    <div class="container">
+        <a href="pricing.html" class="back-link">← Back to Pricing</a>
+
+        <div class="redirect-message">
+            <h1 class="redirect-title">Redirecting to Standard Checkout</h1>
+            <p class="redirect-text">
+                You're being redirected to the secure Payhip checkout page for Traizer Standard Utility.
+                <br><br>
+                <span class="spinner"></span>Redirecting in 3 seconds...
+            </p>
+            <a href="https://payhip.com/b/pJwSI" class="redirect-button">Go to Checkout Now</a>
         </div>
     </div>
-
-    <div class="main-container">
-        <!-- Hero Section -->
-        <div class="hero-section">
-            <a href="pricing.html" class="back-to-pricing">
-                <i class="fas fa-arrow-left"></i> Back to Pricing
-            </a>
-            
-            <div class="hero-icon">
-                <i class="fas fa-rocket"></i>
-            </div>
-            
-            <h1 class="hero-title">Traizer Standard Tweaking Utility</h1>
-            <p class="hero-subtitle">Essential optimization tool with core tweaks and reliable support for enhanced performance.</p>
-            
-            <div class="pricing-hero">
-                <span class="original-price-hero">$19.99</span>
-                <span class="current-price-hero">$9.99</span>
-                <span class="limited-offer-hero">Limited Time Offer</span>
-                <a href="https://payhip.com/b/pJwSI" class="payhip-buy-button" data-theme="blue" data-product="pJwSI">Buy Now</a>
-            </div>
-        </div>
-
-        <!-- Feature Cards Row -->
-        <div class="feature-cards-row">
-            <div class="feature-card">
-                <div class="feature-card-icon">
-                    <i class="fas fa-tachometer-alt"></i>
-                </div>
-                <h3 class="feature-card-title">Performance Boost</h3>
-                <p class="feature-card-description">Enhance your system performance with optimized tweaks</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-card-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3 class="feature-card-title">Reliable Support</h3>
-                <p class="feature-card-description">Get help when you need it with our support team</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-card-icon">
-                    <i class="fas fa-sync-alt"></i>
-                </div>
-                <h3 class="feature-card-title">Regular Updates</h3>
-                <p class="feature-card-description">Stay up-to-date with the latest optimizations</p>
-            </div>
-        </div>
-
-        <!-- Main Content Grid -->
-        <div class="main-content-grid">
-            <!-- Left Column - Core Features -->
-            <div class="core-features">
-                <h2 class="section-title">
-                    <i class="fas fa-star"></i> Core Features
-                </h2>
-                
-                <div class="feature-list">
-                    <div class="feature-item">
-                        <div class="feature-main">
-                            <i class="fas fa-check"></i> System Optimization
-                        </div>
-                        <p class="feature-description">Optimize your Windows system:</p>
-                        <ul class="feature-sub-list">
-                            <li class="feature-sub-item">Windows Performance Tweaks</li>
-                            <li class="feature-sub-item">Registry Optimization</li>
-                            <li class="feature-sub-item">System Cleanup Tools</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="feature-main">
-                            <i class="fas fa-check"></i> Hardware Optimization
-                        </div>
-                        <p class="feature-description">Enhance your hardware performance:</p>
-                        <ul class="feature-sub-list">
-                            <li class="feature-sub-item">CPU Power Management</li>
-                            <li class="feature-sub-item">GPU Optimization</li>
-                            <li class="feature-sub-item">Memory Management</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="feature-main">
-                            <i class="fas fa-check"></i> Network Enhancement
-                        </div>
-                        <p class="feature-description">Improve your network performance:</p>
-                        <ul class="feature-sub-list">
-                            <li class="feature-sub-item">Network Optimization</li>
-                            <li class="feature-sub-item">Latency Reduction</li>
-                            <li class="feature-sub-item">Packet Priority</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Column - Stats and Benefits -->
-            <div class="stats-benefits">
-                <!-- Statistics Cards -->
-                <div class="stats-row">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="stat-title">Total</div>
-                        <div class="stat-value">5K</div>
-                        <div class="stat-label">Tweaks</div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
-                        <div class="stat-title">Current</div>
-                        <div class="stat-value">3.5.0</div>
-                        <div class="stat-label">Version</div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-title">Total</div>
-                        <div class="stat-value">202</div>
-                        <div class="stat-label">Customers</div>
-                    </div>
-                </div>
-
-                <!-- Standard Benefits -->
-                <div class="standard-benefits">
-                    <h2 class="section-title">
-                        <i class="fas fa-star"></i> Standard Benefits
-                    </h2>
-                    
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-                        <div class="benefit-content">
-                            <h3>Performance Boost</h3>
-                            <p>Significantly improve your system performance with optimized tweaks.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <i class="fas fa-gamepad"></i>
-                        </div>
-                        <div class="benefit-content">
-                            <h3>Gaming Optimization</h3>
-                            <p>Enhance your gaming experience with game-specific optimizations.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <i class="fas fa-headset"></i>
-                        </div>
-                        <div class="benefit-content">
-                            <h3>Email Support</h3>
-                            <p>Get help when you need it with our responsive email support.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Currency converter
-        const currencySelect = document.getElementById('currency-select');
-        const convertedAmount = document.getElementById('converted-amount');
-        const basePrice = 9.99;
-        
-        // Exchange rates (approximate)
-        const exchangeRates = {
-            USD: 1,
-            EUR: 0.91,
-            GBP: 0.78,
-            CAD: 1.36,
-            AUD: 1.51,
-            JPY: 149.51,
-            CNY: 7.18,
-            INR: 83.42,
-            BRL: 5.04,
-            RUB: 91.23,
-            KRW: 1338.76,
-            CHF: 0.88,
-            MXN: 16.74,
-            SGD: 1.34,
-            NZD: 1.64,
-            HKD: 7.81,
-            SEK: 10.38,
-            NOK: 10.58,
-            DKK: 6.79,
-            PLN: 3.91,
-            ZAR: 18.42,
-            AED: 3.67,
-            SAR: 3.75,
-            THB: 35.78,
-            TRY: 32.15,
-            ILS: 3.63,
-            PHP: 56.21,
-            MYR: 4.65,
-            IDR: 15680.35,
-            CZK: 22.87,
-            HUF: 354.72,
-            CLP: 926.84,
-            PKR: 278.65,
-            ARS: 869.42,
-            COP: 3942.57,
-            PEN: 3.71,
-            VND: 24950.75,
-            UAH: 39.52,
-            EGP: 48.29,
-            NGN: 1456.82,
-            KES: 131.45,
-            MAD: 9.87,
-            QAR: 3.64,
-            KWD: 0.31,
-            BHD: 0.38
-        };
-        
-        // Update currency conversion
-        function updateConversion() {
-            const selectedCurrency = currencySelect.value;
-            const rate = exchangeRates[selectedCurrency];
-            const convertedPrice = (basePrice * rate).toFixed(2);
-            
-            // Format based on currency
-            let formattedPrice;
-            let currencySymbol = '$';
-            let displayPrice = convertedPrice;
-            
-            if (selectedCurrency === 'EUR') {
-                currencySymbol = '€';
-                formattedPrice = `${currencySymbol}${convertedPrice}`;
-            } else if (selectedCurrency === 'GBP') {
-                currencySymbol = '£';
-                formattedPrice = `${currencySymbol}${convertedPrice}`;
-            } else if (selectedCurrency === 'JPY') {
-                currencySymbol = '¥';
-                displayPrice = Math.round(convertedPrice);
-                formattedPrice = `${currencySymbol}${displayPrice}`;
-            } else {
-                formattedPrice = `${currencySymbol}${convertedPrice} ${selectedCurrency}`;
-            }
-            
-            // Update the converter display
-            convertedAmount.textContent = formattedPrice;
-            
-            // Trigger animation by removing and re-adding the class
-            convertedAmount.style.animation = 'none';
-            
-            setTimeout(() => {
-                convertedAmount.style.animation = 'highlightValue 0.5s ease';
-            }, 10);
-        }
-        
-        // Initialize and add listener
-        updateConversion();
-        currencySelect.addEventListener('change', updateConversion);
-    </script>
 </body>
 </html>

@@ -6,60 +6,54 @@
     <title>Features - Traizer Tweaks</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
-        
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --accent: #3ac5ff;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'SF Pro Display', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
         }
 
         body {
-            background: linear-gradient(135deg, #050b1f 0%, #0f1a3c 50%, #101349 100%);
+            background: var(--bg);
             position: relative;
-            color: white;
+            color: var(--text);
             overflow-x: hidden;
-            background-color: #050b1f;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, rgba(58, 197, 255, 0.08) 0%, transparent 70%);
-            z-index: -1;
+            min-height: 100vh;
         }
 
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 40px;
+            padding: 1rem 2rem;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            background-color: rgba(15, 26, 60, 0.8);
-            transition: background-color 0.3s ease, padding 0.3s ease;
-            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 15, 0.85);
+            border-bottom: 1px solid var(--border);
+            transition: background 0.3s ease;
+            backdrop-filter: blur(12px);
         }
 
         .navbar.scrolled {
-            background-color: rgba(18, 18, 18, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 10px 40px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            background: rgba(10, 10, 15, 0.95);
         }
 
         .logo-container {
@@ -73,30 +67,27 @@
 
         .nav-links {
             position: absolute;
-            left: 52%; 
+            left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 40px;
+            gap: 2rem;
         }
 
         .nav-item {
             position: relative;
             text-decoration: none;
-            color: #f1f1f1;
-            font-size: 14px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: color 0.3s ease;
+            transition: color 0.2s ease;
             padding: 5px 0;
         }
 
-        .nav-item:hover {
-            color: #3ac5ff;
-        }
-
+        .nav-item:hover,
         .nav-item.active {
-            color: #3ac5ff;
+            color: var(--accent);
         }
 
         .nav-item.active::after {
@@ -107,9 +98,8 @@
             transform: translateX(-50%);
             width: 6px;
             height: 6px;
-            background-color: #3ac5ff;
+            background: var(--accent);
             border-radius: 50%;
-            box-shadow: 0 0 10px #3ac5ff;
         }
 
         .nav-buttons {
@@ -158,7 +148,7 @@
             justify-content: center;
             align-items: center;
             height: 80vh;
-            font-family: 'SF Pro Display', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 2.5rem;
             font-weight: 300;
             color: rgba(255, 255, 255, 0.5);
@@ -214,7 +204,7 @@
             font-size: 1.8rem;
             margin-bottom: 15px;
             color: #3ac5ff;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         .modal-message {
@@ -381,7 +371,7 @@
         }
         
         .main-title {
-            font-family: 'SF Pro Display', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 4rem;
             font-weight: 700;
             background: linear-gradient(to right, #ffffff, #3ac5ff);
@@ -471,7 +461,7 @@
         }
         
         .section-title {
-            font-family: 'SF Pro Display', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 2.5rem;
             font-weight: 700;
             text-align: center;
@@ -549,7 +539,7 @@
         }
         
         .premium-title {
-            font-family: 'SF Pro Display', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 2.5rem;
             font-weight: 700;
             text-align: center;
@@ -629,7 +619,7 @@
         }
         
         .cta-section h2 {
-            font-family: 'SF Pro Display', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 2.2rem;
             font-weight: 700;
             color: white;
@@ -782,8 +772,8 @@
 
     <div class="features-container">
         <div class="features-header">
-            <h1 class="main-title" style="font-family: 'SF Pro Display', sans-serif; font-weight: 600; letter-spacing: -0.5px;">Key Features</h1>
-            <p class="subtitle" style="font-family: 'SF Pro Display', sans-serif; font-weight: 400;">
+            <h1 class="main-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600; letter-spacing: -0.5px;">Key Features</h1>
+            <p class="subtitle" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400;">
                 Discover the powerful features that make Traizer Tweaks the ultimate optimization solution for gamers.
                 Our tools are designed to enhance your gaming experience with minimal effort.
             </p>
@@ -794,8 +784,8 @@
                 <div class="feature-icon">
                     <i class="fas fa-rocket"></i>
                 </div>
-                <h3 class="feature-title" style="font-family: 'SF Pro Display', sans-serif; font-weight: 600;">Performance Boost</h3>
-                <p class="feature-description" style="font-family: 'SF Pro Display', sans-serif; font-weight: 400;">
+                <h3 class="feature-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600;">Performance Boost</h3>
+                <p class="feature-description" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400;">
                     Experience significant FPS improvements in your favorite games with our optimized system tweaks and advanced performance settings.
                 </p>
             </div>
@@ -804,8 +794,8 @@
                 <div class="feature-icon">
                     <i class="fas fa-bolt"></i>
                 </div>
-                <h3 class="feature-title" style="font-family: 'SF Pro Display', sans-serif; font-weight: 600;">Reduced Latency</h3>
-                <p class="feature-description" style="font-family: 'SF Pro Display', sans-serif; font-weight: 400;">
+                <h3 class="feature-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600;">Reduced Latency</h3>
+                <p class="feature-description" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400;">
                     Enjoy lower ping and more responsive gameplay through our network optimization settings and packet priority system.
                 </p>
             </div>
@@ -814,8 +804,8 @@
                 <div class="feature-icon">
                     <i class="fas fa-microchip"></i>
                 </div>
-                <h3 class="feature-title" style="font-family: 'SF Pro Display', sans-serif; font-weight: 600;">CPU Optimization</h3>
-                <p class="feature-description" style="font-family: 'SF Pro Display', sans-serif; font-weight: 400;">
+                <h3 class="feature-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600;">CPU Optimization</h3>
+                <p class="feature-description" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400;">
                     Unlock your processor's full potential with advanced frequency tuning and power management optimizations.
                 </p>
             </div>
@@ -824,8 +814,8 @@
                 <div class="feature-icon">
                     <i class="fas fa-desktop"></i>
                 </div>
-                <h3 class="feature-title" style="font-family: 'SF Pro Display', sans-serif; font-weight: 600;">GPU Enhancement</h3>
-                <p class="feature-description" style="font-family: 'SF Pro Display', sans-serif; font-weight: 400;">
+                <h3 class="feature-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600;">GPU Enhancement</h3>
+                <p class="feature-description" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400;">
                     Maximize your graphics card performance with memory management tweaks and render path optimizations.
                 </p>
             </div>
@@ -834,8 +824,8 @@
                 <div class="feature-icon">
                     <i class="fas fa-gamepad"></i>
                 </div>
-                <h3 class="feature-title" style="font-family: 'SF Pro Display', sans-serif; font-weight: 600;">Game-Specific Tweaks</h3>
-                <p class="feature-description" style="font-family: 'SF Pro Display', sans-serif; font-weight: 400;">
+                <h3 class="feature-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600;">Game-Specific Tweaks</h3>
+                <p class="feature-description" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400;">
                     Tailored optimizations for popular titles like Fortnite, Valorant, CS2, and many more competitive games.
                 </p>
             </div>
@@ -844,15 +834,15 @@
                 <div class="feature-icon">
                     <i class="fas fa-shield-alt"></i>
                 </div>
-                <h3 class="feature-title" style="font-family: 'SF Pro Display', sans-serif; font-weight: 600;">Safe & Reversible</h3>
-                <p class="feature-description" style="font-family: 'SF Pro Display', sans-serif; font-weight: 400;">
+                <h3 class="feature-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600;">Safe & Reversible</h3>
+                <p class="feature-description" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400;">
                     All optimizations are safe for your system and can be easily reverted if needed, ensuring stability and peace of mind.
                 </p>
             </div>
             </div>
             
         <div class="advanced-features">
-            <h2 class="section-title" style="font-family: 'SF Pro Display', sans-serif; font-weight: 600; letter-spacing: -0.5px;">Advanced Optimizations</h2>
+            <h2 class="section-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600; letter-spacing: -0.5px;">Advanced Optimizations</h2>
             
             <div class="advanced-features-grid">
                 <div class="advanced-feature" style="--index: 0;">
@@ -907,8 +897,8 @@
 
         <div class="premium-features">
             <span class="premium-badge">PREMIUM ONLY</span>
-            <h2 class="premium-title" style="font-family: 'SF Pro Display', sans-serif; font-weight: 600; letter-spacing: -0.5px;">Premium Exclusive Features</h2>
-            <p class="premium-subtitle" style="font-family: 'SF Pro Display', sans-serif; font-weight: 400;">
+            <h2 class="premium-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600; letter-spacing: -0.5px;">Premium Exclusive Features</h2>
+            <p class="premium-subtitle" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400;">
                 Unlock these powerful features with our Premium package for the ultimate gaming advantage.
             </p>
             

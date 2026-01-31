@@ -6,33 +6,37 @@
     <title>Thank You - Traizer Tweaks</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'SF Pro Display', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --accent: #3ac5ff;
             --neon-green: #3ac5ff;
-            --dark-bg: #050b1f;
-            --card-bg: #162252;
-            --card-hover: #1b2c5a;
-            --text-light: rgba(255, 255, 255, 0.7);
+            --dark-bg: #0a0a0f;
+            --card-bg: #12121a;
+            --card-hover: #1a1a24;
+            --text-light: #a1a1aa;
             --premium-gradient: linear-gradient(135deg, #3ac5ff, #2196f3);
             --premium-glow: 0 0 25px rgba(58, 197, 255, 0.2);
             --border-light: rgba(255, 255, 255, 0.08);
         }
 
         body {
-            background: linear-gradient(135deg, #050b1f 0%, #0f1a3c 50%, #101349 100%);
+            background: var(--bg);
             position: relative;
-            color: white;
+            color: var(--text);
             overflow-x: hidden;
             min-height: 100vh;
             padding-top: 80px;
@@ -41,7 +45,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: #050b1f;
+            background-color: var(--bg);
         }
 
         body::before {
@@ -125,7 +129,7 @@
         }
 
         .thank-you-title {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 20px;
@@ -221,7 +225,7 @@
         }
 
         .next-steps h3 {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 1.5rem;
             margin-bottom: 20px;
             color: white;

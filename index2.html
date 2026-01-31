@@ -1,0 +1,699 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traizer Tweaks — Game Performance Optimizer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --accent: #3ac5ff;
+            --accent-dim: rgba(58, 197, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Nav – links in exact center */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            height: 32px;
+        }
+
+        .nav-links {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .btn-ghost {
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+
+        .btn-ghost:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #0a0a0f;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+        }
+
+        /* Sliding-up animation (used across site) */
+        .slide-up {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .slide-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-up-delay-1 { transition-delay: 0.1s; }
+        .slide-up-delay-2 { transition-delay: 0.2s; }
+        .slide-up-delay-3 { transition-delay: 0.3s; }
+        .slide-up-delay-4 { transition-delay: 0.4s; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 1.5rem 4rem;
+        }
+
+        .hero .slide-up {
+            opacity: 0;
+            transform: translateY(24px);
+        }
+
+        .hero .slide-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-tag {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            max-width: 600px;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 440px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .hero-btns .btn {
+            padding: 0.85rem 1.5rem;
+        }
+
+        /* Section common */
+        .section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 5rem 1.5rem;
+        }
+
+        .section .section-title,
+        .section .section-desc,
+        .section .features-grid,
+        .section .testimonials,
+        .section .faq-list {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .section .section-title.visible,
+        .section .section-desc.visible,
+        .section .features-grid.visible,
+        .section .testimonials.visible,
+        .section .faq-list.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section .features-grid .feature-card {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .section .features-grid.visible .feature-card { opacity: 1; transform: translateY(0); }
+        .section .features-grid .feature-card:nth-child(1) { transition-delay: 0.05s; }
+        .section .features-grid .feature-card:nth-child(2) { transition-delay: 0.1s; }
+        .section .features-grid .feature-card:nth-child(3) { transition-delay: 0.15s; }
+        .section .features-grid .feature-card:nth-child(4) { transition-delay: 0.2s; }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: border-color 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(58, 197, 255, 0.25);
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-dim);
+            color: var(--accent);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Games */
+        .games-section {
+            padding: 4rem 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .games-section .section-title,
+        .games-section .games-row {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .games-section .section-title.visible,
+        .games-section .games-row.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .games-section .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .games-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .games-row img {
+            height: 48px;
+            width: auto;
+            opacity: 0.7;
+            filter: brightness(0) invert(1);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .testimonial {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .testimonial p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+            font-style: italic;
+        }
+
+        .testimonial span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            opacity: 0.8;
+        }
+
+        /* FAQ */
+        .faq-list {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-q {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 0;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: left;
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .faq-q:hover {
+            color: var(--accent);
+        }
+
+        .faq-q i {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            transition: transform 0.2s;
+        }
+
+        .faq-item.open .faq-q i {
+            transform: rotate(180deg);
+        }
+
+        .faq-a {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            padding: 0 0 1.25rem 0;
+            display: none;
+        }
+
+        .faq-item.open .faq-a {
+            display: block;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 5rem 1.5rem;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .cta-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-section h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-section p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section .btn {
+            margin: 0 0.35rem;
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 1.5rem 2rem;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            max-width: 280px;
+            line-height: 1.6;
+        }
+
+        .footer-links h4 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: block;
+            padding: 0.25rem 0;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text);
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 600px) {
+            .footer-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .footer-desc { max-width: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">
+            <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473336/image-removebg-preview_23_ww5uf8.png" alt="Traizer Tweaks" class="nav-logo">
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="features.html">Features</a>
+            <a href="download.html">Download</a>
+            <a href="support.html">Support</a>
+        </div>
+        <div class="nav-actions">
+            <a href="login.html" class="btn btn-ghost">Login</a>
+            <a href="pricing.html" class="btn btn-primary">Buy Now</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <p class="hero-tag slide-up">Peak performance. One click.</p>
+        <h1 class="slide-up slide-up-delay-1">Smooth gaming starts here.</h1>
+        <p class="slide-up slide-up-delay-2">Win more. Lag less. Optimize your PC for peak performance in minutes.</p>
+        <div class="hero-btns slide-up slide-up-delay-3">
+            <a href="download.html" class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
+            <a href="pricing.html" class="btn btn-ghost">View Pricing</a>
+            <a href="reviews.html" class="btn btn-ghost">Reviews</a>
+        </div>
+    </header>
+
+    <section class="section">
+        <h2 class="section-title">Why Traizer Tweaks</h2>
+        <p class="section-desc">One-time purchase. Lasting results.</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div>
+                <h3>Boost FPS</h3>
+                <p>Optimized system tweaks for higher frame rates and smoother gameplay.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                <h3>Lower latency</h3>
+                <p>Reduce input lag and ping for a more responsive experience.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-rocket"></i></div>
+                <h3>Fast setup</h3>
+                <p>Guided setup in under 10 minutes. No technical skills required.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-gamepad"></i></div>
+                <h3>All games</h3>
+                <p>Works with every game. Fortnite, Valorant, CS2, and more.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="games-section section">
+        <h2 class="section-title slide-up">Supported by many games</h2>
+        <div class="games-row slide-up">
+            <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473333/counter-strike-2-logo-png_seeklogo-477252_v8zjwa.png" alt="CS2">
+            <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473337/Valorant-Symbol_jlwfln.png" alt="Valorant">
+            <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473334/Fortnite-Logo-1_qtzav9.png" alt="Fortnite">
+            <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473336/grand-theft-auto-v-logo-png-transparent_x0zx6y.png" alt="GTA V" style="filter: none; opacity: 0.8;">
+            <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473327/Apex-Legends-logo_mvcrox.png" alt="Apex">
+            <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473327/Call-of-Duty-Logo-2014_hgs9bx.png" alt="Call of Duty">
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">What people say</h2>
+        <p class="section-desc">Trusted by thousands of gamers.</p>
+        <div class="testimonials">
+            <div class="testimonial">
+                <p>"Great customer service, fixed my problem quick. Testing tweaks now."</p>
+                <span>— Goji</span>
+            </div>
+            <div class="testimonial">
+                <p>"+rep great customer service 10/10"</p>
+                <span>— Deleted User</span>
+            </div>
+            <div class="testimonial">
+                <p>"My FPS in Valorant went from 120 to 180. Best purchase ever."</p>
+                <span>— ValMain42</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">FAQ</h2>
+        <p class="section-desc">Quick answers.</p>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-q" type="button">How does Traizer Tweaks improve performance?<i class="fas fa-chevron-down"></i></button>
+                <div class="faq-a">Traizer Tweaks uses system-level optimizations, network adjustments, and game-specific tweaks to maximize your PC's performance. We optimize Windows settings and fine-tune configurations to reduce latency and increase FPS.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" type="button">Is it safe to use?<i class="fas fa-chevron-down"></i></button>
+                <div class="faq-a">Yes. All optimizations are non-destructive and can be reverted. We don't modify critical system files. The software has been tested across thousands of PC configurations.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" type="button">What's the difference between Free and Premium?<i class="fas fa-chevron-down"></i></button>
+                <div class="faq-a">The Free version includes basic optimizations. Premium adds game-specific tweaks, deeper system optimizations, auto-updates, and priority support. Premium users typically see 2–3x better improvements.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" type="button">Do you offer refunds?<i class="fas fa-chevron-down"></i></button>
+                <div class="faq-a">Yes. We offer a 30-day money-back guarantee. Contact support within 30 days of purchase for a full refund.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section slide-up">
+        <h2>Start optimizing today</h2>
+        <p>Try the free version or go Premium for maximum gains.</p>
+        <a href="download.html" class="btn btn-primary"><i class="fas fa-download"></i> Try Free</a>
+        <a href="pricing.html" class="btn btn-ghost">View Plans</a>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div>
+                <p class="footer-desc">Traizer Tweaks helps gamers achieve peak performance through advanced PC optimization. One-time purchase, lasting results.</p>
+                <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                    <a href="https://discord.com/invite/G39CRawZp5" class="btn btn-ghost" style="padding: 0.5rem;"><i class="fab fa-discord"></i></a>
+                    <a href="https://www.youtube.com/@traizerYT" class="btn btn-ghost" style="padding: 0.5rem;"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="download.html">Download</a></li>
+                    <li><a href="support.html">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="terms-of-service.html">Terms</a></li>
+                    <li><a href="refund-policy.html">Refund Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Traizer Tweaks. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.faq-q').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var item = this.closest('.faq-item');
+                var wasOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+                if (!wasOpen) item.classList.add('open');
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            var nav = document.querySelector('.nav');
+            nav.style.background = window.scrollY > 20 ? 'rgba(10, 10, 15, 0.95)' : 'rgba(10, 10, 15, 0.85)';
+        });
+
+        (function() {
+            var heroEls = document.querySelectorAll('.hero .slide-up');
+            function showHero() {
+                heroEls.forEach(function(el, i) {
+                    setTimeout(function() { el.classList.add('visible'); }, 80 + i * 80);
+                });
+            }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', showHero);
+            else showHero();
+        })();
+
+        (function() {
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var section = entry.target;
+                        var title = section.querySelector('.section-title');
+                        var desc = section.querySelector('.section-desc');
+                        var grid = section.querySelector('.features-grid, .testimonials, .faq-list');
+                        var row = section.querySelector('.games-row');
+                        if (title) title.classList.add('visible');
+                        if (desc) desc.classList.add('visible');
+                        if (grid) grid.classList.add('visible');
+                        if (row) row.classList.add('visible');
+                        if (section.classList.contains('cta-section')) section.classList.add('visible');
+                    }
+                });
+            }, { rootMargin: '0px 0px -80px 0px', threshold: 0.05 });
+
+            document.querySelectorAll('.section').forEach(function(section) { observer.observe(section); });
+            document.querySelectorAll('.cta-section').forEach(function(el) { observer.observe(el); });
+        })();
+    </script>
+</body>
+</html>

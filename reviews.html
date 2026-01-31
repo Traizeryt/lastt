@@ -6,32 +6,36 @@
     <title>Customer Reviews - Traizer Tweaks</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
         }
 
         :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --accent: #3ac5ff;
             --primary-color: #3ac5ff;
             --accent-green: #43FFAD;
-            --dark-bg: #050b1f;
-            --card-bg: rgba(20, 22, 34, 0.6);
-            --text-light: rgba(255, 255, 255, 0.7);
+            --dark-bg: #0a0a0f;
+            --card-bg: #12121a;
+            --text-light: #a1a1aa;
         }
 
         body {
-            background: linear-gradient(135deg, #050b1f 0%, #0f1a3c 50%, #101349 100%);
-            color: white;
+            background: var(--bg);
+            color: var(--text);
             overflow-x: hidden;
             min-height: 100vh;
             line-height: 1.6;
@@ -90,30 +94,27 @@
 
         .nav-links {
             position: absolute;
-            left: 52%;
+            left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 40px;
+            gap: 2rem;
         }
 
         .nav-item {
             position: relative;
             text-decoration: none;
-            color: #f1f1f1;
-            font-size: 14px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: color 0.3s ease;
+            transition: color 0.2s ease;
             padding: 5px 0;
         }
 
-        .nav-item:hover {
-            color: var(--accent-green);
-        }
-
+        .nav-item:hover,
         .nav-item.active {
-            color: var(--accent-green);
+            color: var(--accent);
         }
 
         .nav-item.active::after {
@@ -124,9 +125,8 @@
             transform: translateX(-50%);
             width: 6px;
             height: 6px;
-            background-color: var(--accent-green);
+            background: var(--accent);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-green);
         }
 
         .nav-buttons {
@@ -179,7 +179,7 @@
         }
 
         .reviews-title {
-            font-family: 'SF Pro Display', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 20px;
@@ -497,7 +497,7 @@
             font-size: 1.8rem;
             margin-bottom: 15px;
             color: var(--primary-color);
-            font-family: 'SF Pro Display', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         .modal-message {

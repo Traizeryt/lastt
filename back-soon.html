@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traizer Tweaks — Back Soon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #10121B;
+            --text-grey: #B3B3B3;
+            --text-white: #FFFFFF;
+            --badge-blue: #3B82F6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--bg);
+            color: var(--text-white);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 720px;
+            width: 100%;
+        }
+
+        /* Slogan – ALL CAPS */
+        .slogan-head {
+            font-size: clamp(1.5rem, 3.8vw, 1.95rem);
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-grey);
+            margin-bottom: 2.25rem;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* 4 icons – visible, right above the title */
+        .icon-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out 0.2s forwards;
+        }
+
+        .icon-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-cell i {
+            font-size: 2rem;
+            color: var(--text-grey);
+            opacity: 0.9;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main title + v2 badge – inline, v2.0 bigger and aligned up with title */
+        .title-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2.75rem;
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 6.5vw, 3.6rem);
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: -0.02em;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeInUp 0.7s ease-out 0.35s forwards;
+        }
+
+        .v-badge {
+            display: inline-flex;
+            align-items: center;
+            background: var(--badge-blue);
+            color: var(--text-white);
+            font-size: clamp(1.25rem, 3.2vw, 1.75rem);
+            font-weight: 700;
+            padding: 0.2rem 0.55rem;
+            border-radius: 6px;
+            transform: translateY(-4px);
+            opacity: 0;
+            animation: fadeInUp 0.5s ease-out 0.5s forwards;
+        }
+
+        /* Countdown – real, fixed to 10 Feb 1 PM GMT */
+        .countdown-wrap {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem 1.25rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out 0.6s forwards;
+        }
+
+        .countdown-unit {
+            min-width: 64px;
+        }
+
+        .countdown-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 0.75rem 0.5rem;
+        }
+
+        .countdown-num {
+            font-size: clamp(1.65rem, 4.2vw, 2.2rem);
+            font-weight: 700;
+            color: var(--text-white);
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-grey);
+            margin-top: 0.2rem;
+        }
+
+        /* Message + CTA – no spacing between, right under each other */
+        .countdown-message {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--text-grey);
+            margin-bottom: 0.25rem;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out 0.75s forwards;
+        }
+
+        .buy-cta {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out 0.9s forwards;
+        }
+
+        .buy-text {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--text-grey);
+            margin-bottom: 0.25rem;
+        }
+
+        .buy-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: var(--text-white);
+            background: var(--badge-blue);
+            border: none;
+            border-radius: 8px;
+            padding: 0.85rem 1.75rem;
+            margin-top: 0.5rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .buy-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="slogan-head">Same name. Different standard.</p>
+
+        <div class="icon-row">
+            <div class="icon-cell"><i class="fas fa-gamepad" aria-hidden="true"></i></div>
+            <div class="icon-cell"><i class="fas fa-gauge-high" aria-hidden="true"></i></div>
+            <div class="icon-cell"><i class="fas fa-microchip" aria-hidden="true"></i></div>
+            <div class="icon-cell"><i class="fas fa-rocket" aria-hidden="true"></i></div>
+        </div>
+
+        <div class="title-wrap">
+            <h1 class="main-title">Traizer Tweaks</h1>
+            <span class="v-badge">v2.0</span>
+        </div>
+
+        <div class="countdown-wrap">
+            <div class="countdown-unit">
+                <div class="countdown-box">
+                    <span class="countdown-num" id="days">0</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+            </div>
+            <div class="countdown-unit">
+                <div class="countdown-box">
+                    <span class="countdown-num" id="hours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+            </div>
+            <div class="countdown-unit">
+                <div class="countdown-box">
+                    <span class="countdown-num" id="minutes">00</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+            </div>
+            <div class="countdown-unit">
+                <div class="countdown-box">
+                    <span class="countdown-num" id="seconds">00</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+        </div>
+
+        <p class="countdown-message">We will return with improved and refined products.</p>
+
+        <div class="buy-cta">
+            <p class="buy-text">If you still would like to buy, click here.</p>
+            <a class="buy-btn" href="https://payhip.com/b/9Vdq6" target="_blank" rel="noopener noreferrer">Buy here</a>
+        </div>
+    </div>
+
+    <script>
+        // Fixed end date: 10 February, 1:00 PM GMT (does not change on refresh)
+        var endDate = new Date('2026-02-10T13:00:00Z');
+
+        function pad(n) {
+            return n < 10 ? '0' + n : String(n);
+        }
+
+        function updateCountdown() {
+            var now = new Date();
+            var diff = endDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+
+            var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = pad(days);
+            document.getElementById('hours').textContent = pad(hours);
+            document.getElementById('minutes').textContent = pad(minutes);
+            document.getElementById('seconds').textContent = pad(seconds);
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>

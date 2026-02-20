@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <style>
         :root {
             --bg: #0a0a0f;
@@ -16,6 +17,7 @@
             --text: #f4f4f5;
             --text-muted: #a1a1aa;
             --accent: #3ac5ff;
+            --accent-dim: rgba(58, 197, 255, 0.15);
         }
 
         * {
@@ -29,134 +31,440 @@
         }
 
         body {
-            background: var(--bg);
+            background: radial-gradient(circle at top, #101322 0, #05060a 45%, #020308 100%);
             position: relative;
             color: var(--text);
             overflow-x: hidden;
             min-height: 100vh;
         }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(18px);
+            animation: headerIn 0.7s ease-out forwards;
+        }
+
+        .pricing-label {
+            display: inline-flex;
             align-items: center;
-            padding: 1rem 2rem;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(10, 10, 15, 0.85);
-            border-bottom: 1px solid var(--border);
-            transition: background 0.3s ease;
-            backdrop-filter: blur(12px);
+            gap: 0.4rem;
+            padding: 0.25rem 0.85rem;
+            border-radius: 999px;
+            border: 1px solid rgba(58, 197, 255, 0.5);
+            background: radial-gradient(circle at 0 0, rgba(58, 197, 255, 0.16), transparent 60%);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
         }
 
-        .navbar.scrolled {
-            background: rgba(10, 10, 15, 0.95);
+        .pricing-label span {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #43ffad;
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
+        .pricing-header h1 {
+            font-size: clamp(2.3rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
         }
 
-        .logo {
-            height: 40px;
+        .pricing-header p {
+            max-width: 640px;
+            margin: 0 auto;
+            font-size: 1rem;
+            color: var(--text-muted);
         }
 
-        .nav-links {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
+        main {
+            max-width: 980px;
+            margin: 6.5rem auto 4.5rem;
+            padding: 0 1.5rem 4.5rem;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
             gap: 2rem;
         }
 
-        .nav-item {
+        .plan-card {
             position: relative;
-            text-decoration: none;
+            border-radius: 26px;
+            padding: 2.2rem 2rem 2.1rem;
+            background:
+                radial-gradient(circle at 0 0, rgba(58, 197, 255, 0.18), transparent 55%),
+                radial-gradient(circle at 100% 0, rgba(67, 255, 173, 0.08), transparent 55%),
+                rgba(6, 7, 14, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow:
+                0 0 0 1px rgba(0, 0, 0, 0.8),
+                0 24px 60px rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            gap: 1.3rem;
+            opacity: 0;
+            transform: translateY(24px);
+            transition:
+                transform 0.25s ease-out,
+                box-shadow 0.25s ease-out,
+                border-color 0.25s ease-out;
+        }
+
+        .plan-card.fps {
+            background:
+                radial-gradient(circle at 0 0, rgba(52, 211, 153, 0.2), transparent 55%),
+                rgba(8, 9, 14, 0.96);
+        }
+
+        .plan-card.input {
+            background:
+                radial-gradient(circle at 0 0, rgba(96, 165, 250, 0.2), transparent 55%),
+                rgba(8, 10, 18, 0.98);
+        }
+
+        .plan-card.process {
+            background:
+                radial-gradient(circle at 0 0, rgba(251, 191, 36, 0.18), transparent 55%),
+                rgba(9, 9, 13, 0.98);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-6px);
+            box-shadow:
+                0 0 0 1px rgba(0, 0, 0, 0.8),
+                0 28px 80px rgba(0, 0, 0, 0.95);
+            border-color: rgba(58, 197, 255, 0.5);
+        }
+
+        .plan-name {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .plan-tagline {
+            font-size: 1rem;
             color: var(--text-muted);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 1rem;
+            margin-top: 1.2rem;
+            margin-bottom: 1.1rem;
             font-size: 0.9rem;
-            font-weight: 500;
+        }
+
+        .metric-block {
+            background: rgba(15, 23, 42, 0.75);
+            border-radius: 16px;
+            padding: 0.9rem 1rem 1rem;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.2s ease;
-            padding: 5px 0;
+            letter-spacing: 0.12em;
+            color: rgba(148, 163, 184, 0.9);
+            margin-bottom: 0.35rem;
         }
 
-        .nav-item:hover,
-        .nav-item.active {
-            color: var(--accent);
+        .metric-values {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.5rem;
+            margin-bottom: 0.35rem;
         }
 
-        .nav-item.active::after {
+        .metric-value {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
+
+        .metric-caption {
+            font-size: 0.72rem;
+            color: rgba(148, 163, 184, 0.9);
+        }
+
+        .metric-number {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .metric-value.before .metric-number {
+            color: #f97373;
+        }
+
+        .metric-value.after .metric-number {
+            color: #4ade80;
+        }
+
+        .metric-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 600;
+        }
+
+        .metric-pill.positive {
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.4);
+        }
+
+        .metric-pill.neutral {
+            background: rgba(148, 163, 184, 0.15);
+            color: rgba(226, 232, 240, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.4);
+        }
+
+        .metric-bars {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.6rem;
+            margin-top: 0.35rem;
+        }
+
+        .metric-bars-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: rgba(148, 163, 184, 0.85);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-top: 0.3rem;
+        }
+
+        .metric-bar {
+            position: relative;
+            height: 9px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.95);
+            overflow: hidden;
+        }
+
+        .metric-bar-fill {
+            position: absolute;
+            inset: 0;
+            transform-origin: left center;
+        }
+
+        .metric-block.fps-main .metric-bar.before .metric-bar-fill {
+            width: 45%;
+            background: linear-gradient(90deg, rgba(248, 113, 113, 0.9), rgba(248, 113, 113, 0.5));
+        }
+
+        .metric-block.fps-main .metric-bar.after .metric-bar-fill {
+            width: 95%;
+            background: linear-gradient(90deg, rgba(34, 197, 94, 0.9), rgba(34, 197, 94, 0.5));
+        }
+
+        .metric-block.fps-low .metric-bar.before .metric-bar-fill {
+            width: 40%;
+            background: linear-gradient(90deg, rgba(248, 113, 113, 0.9), rgba(248, 113, 113, 0.5));
+        }
+
+        .metric-block.fps-low .metric-bar.after .metric-bar-fill {
+            width: 90%;
+            background: linear-gradient(90deg, rgba(34, 197, 94, 0.9), rgba(34, 197, 94, 0.5));
+        }
+
+        .metric-block.input-delay .metric-bar.before .metric-bar-fill {
+            width: 35%;
+            background: linear-gradient(90deg, rgba(248, 113, 113, 0.9), rgba(248, 113, 113, 0.5));
+        }
+
+        .metric-block.input-delay .metric-bar.after .metric-bar-fill {
+            width: 85%;
+            background: linear-gradient(90deg, rgba(34, 197, 94, 0.9), rgba(34, 197, 94, 0.5));
+        }
+
+        .metric-block.jitter .metric-bar.before .metric-bar-fill {
+            width: 38%;
+            background: linear-gradient(90deg, rgba(248, 113, 113, 0.9), rgba(248, 113, 113, 0.5));
+        }
+
+        .metric-block.jitter .metric-bar.after .metric-bar-fill {
+            width: 88%;
+            background: linear-gradient(90deg, rgba(34, 197, 94, 0.9), rgba(34, 197, 94, 0.5));
+        }
+
+        .metric-block.processes .metric-bar.before .metric-bar-fill {
+            width: 86%;
+            background: linear-gradient(90deg, rgba(248, 113, 113, 0.9), rgba(248, 113, 113, 0.5));
+        }
+
+        .metric-block.processes .metric-bar.after .metric-bar-fill {
+            width: 38%;
+            background: linear-gradient(90deg, rgba(34, 197, 94, 0.9), rgba(34, 197, 94, 0.5));
+        }
+
+        .metric-block.cpu .metric-bar.before .metric-bar-fill {
+            width: 70%;
+            background: linear-gradient(90deg, rgba(248, 113, 113, 0.9), rgba(248, 113, 113, 0.5));
+        }
+
+        .metric-block.cpu .metric-bar.after .metric-bar-fill {
+            width: 28%;
+            background: linear-gradient(90deg, rgba(34, 197, 94, 0.9), rgba(34, 197, 94, 0.5));
+        }
+
+        .feature-summary {
+            margin-top: 3.5rem;
+        }
+
+        .feature-summary-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: rgba(148, 163, 184, 0.95);
+            margin-bottom: 1rem;
+        }
+
+        .feature-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 0.9rem;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .feature-summary-grid.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-summary-card {
+            border-radius: 999px;
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            background: radial-gradient(circle at 0 0, rgba(51, 204, 255, 0.15), transparent 55%), rgba(6, 7, 14, 0.96);
+            font-size: 0.86rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            color: rgba(226, 232, 240, 0.96);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .feature-summary-grid.visible .feature-summary-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-summary-grid .feature-summary-card:nth-child(1) { transition-delay: 0.05s; }
+        .feature-summary-grid .feature-summary-card:nth-child(2) { transition-delay: 0.1s; }
+        .feature-summary-grid .feature-summary-card:nth-child(3) { transition-delay: 0.15s; }
+        .feature-summary-grid .feature-summary-card:nth-child(4) { transition-delay: 0.2s; }
+        .feature-summary-grid .feature-summary-card:nth-child(5) { transition-delay: 0.25s; }
+        .feature-summary-grid .feature-summary-card:nth-child(6) { transition-delay: 0.3s; }
+        .feature-summary-grid .feature-summary-card:nth-child(7) { transition-delay: 0.35s; }
+        .feature-summary-grid .feature-summary-card:nth-child(8) { transition-delay: 0.4s; }
+        .feature-summary-grid .feature-summary-card:nth-child(9) { transition-delay: 0.45s; }
+        .feature-summary-grid .feature-summary-card:nth-child(10) { transition-delay: 0.5s; }
+
+        .feature-summary-card i {
+            font-size: 0.85rem;
+            color: #43ffad;
+        }
+
+        .plan-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            font-size: 0.9rem;
+            margin-top: 0.4rem;
+        }
+
+        .plan-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.4rem;
+            color: rgba(244, 244, 245, 0.9);
+        }
+
+        .plan-features i {
+            margin-top: 0.1rem;
+            color: #43ffad;
+            font-size: 0.85rem;
+        }
+
+        .plans-grid .plan-card:nth-child(1) {
+            animation: cardIn 0.8s ease-out 0.1s forwards;
+        }
+
+        .plans-grid .plan-card:nth-child(2) {
+            animation: cardIn 0.8s ease-out 0.25s forwards;
+        }
+
+        .plans-grid .plan-card:nth-child(3) {
+            animation: cardIn 0.8s ease-out 0.4s forwards;
+        }
+
+        @keyframes headerIn {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(24px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Hero Section */
+        .features-hero {
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 1.5rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features-hero::before {
             content: '';
             position: absolute;
-            left: 50%;
-            bottom: -8px;
-            transform: translateX(-50%);
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .login-btn {
-            padding: 8px 20px;
-            border-radius: 30px;
-            background-color: transparent;
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .buy-btn {
-            padding: 10px 24px;
-            border-radius: 30px;
-            background: linear-gradient(135deg, #3ac5ff, #2196f3);
-            color: #fff;
-            border: none;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(58, 197, 255, 0.3);
-        }
-
-        .login-btn:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .buy-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(58, 197, 255, 0.5);
-            background: linear-gradient(135deg, #2196f3, #3ac5ff);
-        }
-
-        .content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 80vh;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 2.5rem;
-            font-weight: 300;
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: -0.5px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(51, 204, 255, 0.12), transparent 70%);
+            pointer-events: none;
         }
 
         @media (max-width: 968px) {
-            .navbar {
+            .nav {
                 padding: 15px 20px;
             }
             
@@ -230,271 +538,171 @@
             box-shadow: 0 5px 15px rgba(58, 197, 255, 0.3);
         }
 
-        /* Footer Styles */
-        .footer {
-            background: #050b1f;
-            padding: 60px 0 20px;
-            color: rgba(255, 255, 255, 0.8);
-            position: relative;
-            margin-top: 80px;
-            border-top: 1px solid rgba(58, 197, 255, 0.3);
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-
-        .footer-about {
-            max-width: 400px;
-        }
-
-        .footer-logo {
-            height: 40px;
-            margin-bottom: 15px;
-        }
-
-        .footer-desc {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 20px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            background-color: rgba(58, 197, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: #3ac5ff;
-            color: #050b1f;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(58, 197, 255, 0.3);
-        }
-
-        .footer-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: white;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-title:after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 30px;
-            height: 3px;
-            background: #3ac5ff;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-link {
-            margin-bottom: 12px;
-        }
-
-        .footer-link a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .footer-link a:hover {
-            color: #3ac5ff;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-
-        .contact-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            background-color: rgba(58, 197, 255, 0.1);
-            border-radius: 50%;
-            margin-right: 10px;
-            color: #3ac5ff;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 40px;
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.5);
-            max-width: 1200px;
-            margin: 0 auto;
-            border-top: 1px solid rgba(58, 197, 255, 0.1);
-            margin-top: 40px;
-        }
-
-        /* Features section styles */
-        .features-container {
-            max-width: 1200px;
-            margin: 120px auto 50px;
-            padding: 0 20px;
-        }
-        
-        .features-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .main-title {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 4rem;
-            font-weight: 700;
-            background: linear-gradient(to right, #ffffff, #3ac5ff);
+        /* Features Hero */
+        .features-hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFFFFF 0%, #33CCFF 100%);
             -webkit-background-clip: text;
             background-clip: text;
-            color: transparent;
-            margin-bottom: 20px;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
         }
-        
-        .subtitle {
-            max-width: 800px;
+
+        .features-hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: rgba(255, 255, 255, 0.75);
+            max-width: 700px;
             margin: 0 auto;
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
             line-height: 1.6;
         }
+
+        /* Features Container */
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 6rem;
+        }
         
-        /* Feature cards styling */
+        /* Main Features Grid */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 6rem;
         }
         
         .feature-card {
-            background: rgba(20, 22, 34, 0.6);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: linear-gradient(135deg, rgba(18, 18, 26, 0.9) 0%, rgba(16, 20, 30, 0.9) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(51, 204, 255, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
             text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.5s forwards;
-            animation-delay: calc(var(--index) * 0.1s);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #33CCFF, transparent);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
         }
         
         .feature-card:hover {
             transform: translateY(-10px);
-            background: rgba(27, 29, 42, 0.7);
-            border-color: rgba(58, 197, 255, 0.2);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2), 0 0 15px rgba(58, 197, 255, 0.1);
+            border-color: rgba(51, 204, 255, 0.4);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(51, 204, 255, 0.25);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
         }
         
         .feature-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, rgba(58, 197, 255, 0.2), rgba(58, 197, 255, 0.05));
-            border-radius: 50%;
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, rgba(51, 204, 255, 0.25), rgba(51, 204, 255, 0.1));
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
-            color: #3ac5ff;
-            font-size: 1.8rem;
-            box-shadow: 0 5px 15px rgba(58, 197, 255, 0.2);
-            border: 1px solid rgba(58, 197, 255, 0.1);
+            margin: 0 auto 1.5rem;
+            color: #33CCFF;
+            font-size: 2rem;
             transition: all 0.3s ease;
+            border: 1px solid rgba(51, 204, 255, 0.2);
         }
         
         .feature-card:hover .feature-icon {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(58, 197, 255, 0.3);
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, rgba(51, 204, 255, 0.35), rgba(51, 204, 255, 0.2));
+            box-shadow: 0 8px 24px rgba(51, 204, 255, 0.3);
         }
         
         .feature-title {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: 600;
-            margin-bottom: 15px;
-            color: white;
+            margin-bottom: 1rem;
+            color: #FFFFFF;
         }
         
         .feature-description {
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.7;
             font-size: 1rem;
         }
         
         /* Advanced Features Section */
         .advanced-features {
-            margin-top: 80px;
+            margin-top: 6rem;
+            padding-top: 4rem;
+            border-top: 1px solid rgba(51, 204, 255, 0.15);
         }
         
         .section-title {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 4vw, 2.75rem);
             font-weight: 700;
             text-align: center;
-            margin-bottom: 50px;
-            color: white;
+            margin-bottom: 1rem;
+            color: #FFFFFF;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .advanced-features-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
         }
         
         .advanced-feature {
             display: flex;
-            gap: 20px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.5s forwards;
-            animation-delay: calc(var(--index) * 0.1s);
+            gap: 1.5rem;
+            background: linear-gradient(135deg, rgba(18, 18, 26, 0.8) 0%, rgba(16, 20, 30, 0.8) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(51, 204, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .advanced-feature:hover {
+            transform: translateY(-6px);
+            border-color: rgba(51, 204, 255, 0.4);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3), 0 0 24px rgba(51, 204, 255, 0.15);
         }
         
         .advanced-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, rgba(58, 197, 255, 0.2), rgba(58, 197, 255, 0.05));
-            border-radius: 12px;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(51, 204, 255, 0.25), rgba(51, 204, 255, 0.1));
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #3ac5ff;
-            font-size: 1.5rem;
+            color: #33CCFF;
+            font-size: 1.75rem;
             flex-shrink: 0;
+            border: 1px solid rgba(51, 204, 255, 0.2);
         }
         
         .advanced-content {
@@ -504,178 +712,188 @@
         .advanced-title {
             font-size: 1.3rem;
             font-weight: 600;
-            margin-bottom: 10px;
-            color: white;
+            margin-bottom: 0.75rem;
+            color: #FFFFFF;
         }
         
         .advanced-description {
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.7;
             font-size: 0.95rem;
         }
         
         /* Premium Features Section */
         .premium-features {
-            margin-top: 80px;
-            background: linear-gradient(135deg, rgba(58, 197, 255, 0.05) 0%, rgba(33, 150, 243, 0.05) 100%);
-            border-radius: 20px;
-            padding: 60px 40px;
+            margin-top: 6rem;
+            background: linear-gradient(135deg, rgba(51, 204, 255, 0.08) 0%, rgba(0, 153, 255, 0.08) 100%);
+            border-radius: 24px;
+            padding: 4rem 2.5rem;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(58, 197, 255, 0.1);
+            border: 1px solid rgba(51, 204, 255, 0.2);
+        }
+
+        .premium-features::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(51, 204, 255, 0.15), transparent);
+            border-radius: 50%;
         }
         
         .premium-badge {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(to right, #3ac5ff, #2196f3);
-            color: #111;
-            font-size: 0.9rem;
-            font-weight: 600;
-            padding: 8px 20px;
-            border-radius: 30px;
-            box-shadow: 0 5px 15px rgba(58, 197, 255, 0.3);
+            top: 1.5rem;
+            right: 1.5rem;
+            background: linear-gradient(135deg, #33CCFF, #0099FF);
+            color: #FFFFFF;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(51, 204, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         
         .premium-title {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 4vw, 2.75rem);
             font-weight: 700;
             text-align: center;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #3ac5ff, #2196f3);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #33CCFF, #FFFFFF);
             -webkit-background-clip: text;
             background-clip: text;
-            color: transparent;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
         }
         
         .premium-subtitle {
             text-align: center;
             max-width: 700px;
-            margin: 0 auto 50px;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
+            margin: 0 auto 3rem;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.7;
             font-size: 1.1rem;
         }
         
         .premium-features-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
         
         .premium-feature-card {
-            background: rgba(20, 22, 34, 0.6);
+            background: linear-gradient(135deg, rgba(18, 18, 26, 0.9) 0%, rgba(16, 20, 30, 0.9) 100%);
+            backdrop-filter: blur(10px);
             border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border: 1px solid rgba(51, 204, 255, 0.2);
             transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.5s forwards;
-            animation-delay: calc(var(--index) * 0.1s);
+            position: relative;
         }
         
         .premium-feature-card:hover {
-            transform: translateY(-10px);
-            background: rgba(27, 29, 42, 0.7);
-            border-color: rgba(58, 197, 255, 0.2);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2), 0 0 15px rgba(58, 197, 255, 0.1);
+            transform: translateY(-8px);
+            border-color: rgba(51, 204, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(51, 204, 255, 0.2);
         }
         
         .premium-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, rgba(58, 197, 255, 0.2), rgba(58, 197, 255, 0.1));
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(51, 204, 255, 0.25), rgba(51, 204, 255, 0.1));
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
-            color: #3ac5ff;
+            margin-bottom: 1.25rem;
+            color: #33CCFF;
             font-size: 1.5rem;
-            box-shadow: 0 5px 15px rgba(58, 197, 255, 0.2);
-            border: 1px solid rgba(58, 197, 255, 0.1);
+            border: 1px solid rgba(51, 204, 255, 0.2);
         }
         
         .premium-feature-title {
             font-size: 1.2rem;
             font-weight: 600;
-            margin-bottom: 10px;
-            color: white;
+            margin-bottom: 0.75rem;
+            color: #FFFFFF;
         }
         
         .premium-feature-description {
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.7;
             font-size: 0.95rem;
         }
         
         .cta-section {
             text-align: center;
-            margin: 80px 0 40px;
+            margin: 6rem 0 4rem;
+            padding: 4rem 1.5rem;
+            background: radial-gradient(circle at center, rgba(51, 204, 255, 0.08), transparent);
+            border-radius: 24px;
         }
         
         .cta-section h2 {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 2.2rem;
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
             font-weight: 700;
-            color: white;
-            margin-bottom: 30px;
+            color: #FFFFFF;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
         }
         
         .cta-buttons {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
         
         .cta-button {
-            padding: 15px 35px;
-            border-radius: 30px;
+            padding: 1rem 2rem;
+            border-radius: 12px;
             font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         .primary-button {
-            background-color: #3ac5ff;
-            color: #111;
-            box-shadow: 0 5px 15px rgba(58, 197, 255, 0.3);
+            background: linear-gradient(135deg, #33CCFF 0%, #0099FF 100%);
+            color: #FFFFFF;
+            box-shadow: 0 8px 24px rgba(51, 204, 255, 0.4);
         }
         
         .primary-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(58, 197, 255, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(51, 204, 255, 0.5);
         }
         
         .secondary-button {
-            background-color: transparent;
-            color: white;
-            border: 2px solid #3ac5ff;
+            background: rgba(255, 255, 255, 0.05);
+            color: #FFFFFF;
+            border: 1px solid rgba(51, 204, 255, 0.3);
         }
         
         .secondary-button:hover {
-            transform: translateY(-5px);
-            background-color: rgba(58, 197, 255, 0.1);
-        }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            transform: translateY(-3px);
+            background: rgba(51, 204, 255, 0.1);
+            border-color: rgba(51, 204, 255, 0.5);
         }
         
         @media (max-width: 992px) {
-            .main-title {
-                font-size: 3rem;
-            }
-            
             .features-grid, .premium-features-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -686,61 +904,21 @@
         }
         
         @media (max-width: 768px) {
-            .main-title {
-                font-size: 2.5rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-            
             .features-grid, .premium-features-grid {
                 grid-template-columns: 1fr;
             }
             
-            .feature-card, .premium-feature-card {
-                max-width: 400px;
-                margin: 0 auto;
-            }
-            
             .cta-buttons {
                 flex-direction: column;
+                align-items: stretch;
                 max-width: 300px;
                 margin: 0 auto;
-                gap: 15px;
             }
-        }
-        
-        @media (max-width: 576px) {
-            .main-title {
-                font-size: 2rem;
-            }
-            
-            .premium-title, .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .premium-features {
-                padding: 40px 20px;
-            }
-        }
 
-        /* Smooth scroll effect */
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        body.smooth-scrolling {
-            overflow: hidden;
-        }
-        
-        .smooth-scroll-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            will-change: transform;
+            .cta-button {
+                width: 100%;
+                justify-content: center;
+            }
         }
 
         /* Ensure images are not pixelated */
@@ -750,229 +928,283 @@
             transform: translateZ(0);
             backface-visibility: hidden;
         }
+        
+        /* Sliding-up animation (shared with index2) */
+        .slide-up {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .slide-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-up-delay-1 { transition-delay: 0.1s; }
+        .slide-up-delay-2 { transition-delay: 0.2s; }
+        .slide-up-delay-3 { transition-delay: 0.3s; }
+        .slide-up-delay-4 { transition-delay: 0.4s; }
     </style>
 </head>
-<body>
-    <nav class="navbar">
-        <div class="logo-container">
-            <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473336/image-removebg-preview_23_ww5uf8.png" alt="TRAIZER TWEAKS" class="logo">
-        </div>
-        <div class="nav-links">
-            <a href="index.html" class="nav-item">HOME</a>
-            <a href="pricing.html" class="nav-item">PRICING</a>
-            <a href="features.html" class="nav-item active">FEATURES</a>
-            <a href="download.html" class="nav-item">DOWNLOAD</a>
-            <a href="support.html" class="nav-item">SUPPORT</a>
-        </div>
-        <div class="nav-buttons">
-            <button class="login-btn">LOGIN</button>
-            <a href="pricing.html" class="buy-btn">BUY NOW</a>
-        </div>
-    </nav>
+    <body>
+    <div id="navbar"></div>
 
-    <div class="features-container">
-        <div class="features-header">
-            <h1 class="main-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600; letter-spacing: -0.5px;">Key Features</h1>
-            <p class="subtitle" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400;">
-                Discover the powerful features that make Traizer Tweaks the ultimate optimization solution for gamers.
-                Our tools are designed to enhance your gaming experience with minimal effort.
-            </p>
-        </div>
+    <main>
+        <header class="pricing-header">
+            <div class="pricing-label">
+                <span></span>
+                Traizer Tweaks Features
+            </div>
+            <h1>Real tweaks that change how your PC feels</h1>
+            <p>Every change is built around measurable gains: higher FPS, lower input delay and fewer background processes stealing performance.</p>
+        </header>
 
-        <div class="features-grid">
-            <div class="feature-card" style="--index: 0;">
-                <div class="feature-icon">
-                    <i class="fas fa-rocket"></i>
+        <section class="plans-grid">
+            <article class="plan-card fps">
+                <div>
+                    <div class="plan-name">Significant FPS boost</div>
+                    <p class="plan-tagline">Benchmark-proven improvements so your games look and feel smoother.</p>
                 </div>
-                <h3 class="feature-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600;">Performance Boost</h3>
-                <p class="feature-description" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400;">
-                    Experience significant FPS improvements in your favorite games with our optimized system tweaks and advanced performance settings.
-                </p>
-            </div>
-            
-            <div class="feature-card" style="--index: 1;">
-                <div class="feature-icon">
-                    <i class="fas fa-bolt"></i>
+                <div class="metrics-grid">
+                    <div class="metric-block fps-main">
+                        <div class="metric-label">Average FPS</div>
+                        <div class="metric-values">
+                            <div class="metric-value before">
+                                <span class="metric-caption">Before</span>
+                                <span class="metric-number">118</span>
+                            </div>
+                            <div class="metric-value after">
+                                <span class="metric-caption">After</span>
+                                <span class="metric-number">236</span>
+                            </div>
+                        </div>
+                        <div class="metric-bars">
+                            <div class="metric-bar before">
+                                <span class="metric-bar-fill"></span>
+                            </div>
+                            <div class="metric-bar after">
+                                <span class="metric-bar-fill"></span>
+                            </div>
+                        </div>
+                        <div class="metric-bars-label">
+                            <span>Before</span>
+                            <span>After</span>
+                        </div>
+                        <div class="metric-pill positive">+100% FPS</div>
+                    </div>
+                    <div class="metric-block fps-low">
+                        <div class="metric-label">1% low FPS</div>
+                        <div class="metric-values">
+                            <div class="metric-value before">
+                                <span class="metric-caption">Before</span>
+                                <span class="metric-number">62</span>
+                            </div>
+                            <div class="metric-value after">
+                                <span class="metric-caption">After</span>
+                                <span class="metric-number">138</span>
+                            </div>
+                        </div>
+                        <div class="metric-bars">
+                            <div class="metric-bar before">
+                                <span class="metric-bar-fill"></span>
+                            </div>
+                            <div class="metric-bar after">
+                                <span class="metric-bar-fill"></span>
+                            </div>
+                        </div>
+                        <div class="metric-bars-label">
+                            <span>Before</span>
+                            <span>After</span>
+                        </div>
+                        <div class="metric-pill positive">Far fewer stutters</div>
+                    </div>
                 </div>
-                <h3 class="feature-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600;">Reduced Latency</h3>
-                <p class="feature-description" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400;">
-                    Enjoy lower ping and more responsive gameplay through our network optimization settings and packet priority system.
-                </p>
-            </div>
-            
-            <div class="feature-card" style="--index: 2;">
-                <div class="feature-icon">
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i><span>Game-tested configs for top competitive shooters and BR titles</span></li>
+                    <li><i class="fas fa-check"></i><span>Optimized render pipeline for more stable frametimes</span></li>
+                    <li><i class="fas fa-check"></i><span>GPU and Windows tweaks tuned around high refresh gameplay</span></li>
+                </ul>
+            </article>
+
+            <article class="plan-card input">
+                <div>
+                    <div class="plan-name">Lower input delay</div>
+                    <p class="plan-tagline">Clicks and keypresses land faster so your aim and movement feel instant.</p>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-block input-delay">
+                        <div class="metric-label">Input delay (ms)</div>
+                        <div class="metric-values">
+                            <div class="metric-value before">
+                                <span class="metric-caption">Before</span>
+                                <span class="metric-number">21</span>
+                            </div>
+                            <div class="metric-value after">
+                                <span class="metric-caption">After</span>
+                                <span class="metric-number">6</span>
+                            </div>
+                        </div>
+                        <div class="metric-bars">
+                            <div class="metric-bar before">
+                                <span class="metric-bar-fill"></span>
+                            </div>
+                            <div class="metric-bar after">
+                                <span class="metric-bar-fill"></span>
+                            </div>
+                        </div>
+                        <div class="metric-bars-label">
+                            <span>Before</span>
+                            <span>After</span>
+                        </div>
+                        <div class="metric-pill positive">‑15 ms input delay</div>
+                    </div>
+                    <div class="metric-block jitter">
+                        <div class="metric-label">Network jitter</div>
+                        <div class="metric-values">
+                            <div class="metric-value before">
+                                <span class="metric-caption">Before</span>
+                                <span class="metric-number">8.4</span>
+                            </div>
+                            <div class="metric-value after">
+                                <span class="metric-caption">After</span>
+                                <span class="metric-number">2.1</span>
+                            </div>
+                        </div>
+                        <div class="metric-bars">
+                            <div class="metric-bar before">
+                                <span class="metric-bar-fill"></span>
+                            </div>
+                            <div class="metric-bar after">
+                                <span class="metric-bar-fill"></span>
+                            </div>
+                        </div>
+                        <div class="metric-bars-label">
+                            <span>Before</span>
+                            <span>After</span>
+                        </div>
+                        <div class="metric-pill positive">More consistent peeks</div>
+                    </div>
+                </div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i><span>USB and mouse polling tweaks for snappier input</span></li>
+                    <li><i class="fas fa-check"></i><span>Network stack tuning to stabilize ping and reduce spikes</span></li>
+                    <li><i class="fas fa-check"></i><span>Scheduling tweaks so your game thread always gets priority</span></li>
+                </ul>
+            </article>
+
+            <article class="plan-card process">
+                <div>
+                    <div class="plan-name">Lower process count</div>
+                    <p class="plan-tagline">Strip away background clutter so more resources go straight into your game.</p>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-block processes">
+                        <div class="metric-label">Running processes</div>
+                        <div class="metric-values">
+                            <div class="metric-value before">
+                                <span class="metric-caption">Before</span>
+                                <span class="metric-number">214</span>
+                            </div>
+                            <div class="metric-value after">
+                                <span class="metric-caption">After</span>
+                                <span class="metric-number">96</span>
+                            </div>
+                        </div>
+                        <div class="metric-bars">
+                            <div class="metric-bar before">
+                                <span class="metric-bar-fill"></span>
+                            </div>
+                            <div class="metric-bar after">
+                                <span class="metric-bar-fill"></span>
+                            </div>
+                        </div>
+                        <div class="metric-bars-label">
+                            <span>Before</span>
+                            <span>After</span>
+                        </div>
+                        <div class="metric-pill positive">‑55% background load</div>
+                    </div>
+                    <div class="metric-block cpu">
+                        <div class="metric-label">Idle CPU usage</div>
+                        <div class="metric-values">
+                            <div class="metric-value before">
+                                <span class="metric-caption">Before</span>
+                                <span class="metric-number">32%</span>
+                            </div>
+                            <div class="metric-value after">
+                                <span class="metric-caption">After</span>
+                                <span class="metric-number">11%</span>
+                            </div>
+                        </div>
+                        <div class="metric-bars">
+                            <div class="metric-bar before">
+                                <span class="metric-bar-fill"></span>
+                            </div>
+                            <div class="metric-bar after">
+                                <span class="metric-bar-fill"></span>
+                            </div>
+                        </div>
+                        <div class="metric-bars-label">
+                            <span>Before</span>
+                            <span>After</span>
+                        </div>
+                        <div class="metric-pill neutral">More headroom for your game</div>
+                    </div>
+                </div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i><span>Removes unneeded background services and startup tasks</span></li>
+                    <li><i class="fas fa-check"></i><span>Disables bloat that eats CPU, RAM and disk throughput</span></li>
+                    <li><i class="fas fa-check"></i><span>Keeps restore points so you can revert with confidence</span></li>
+                </ul>
+            </article>
+        </section>
+
+        <section class="feature-summary">
+            <div class="feature-summary-title"></div>All benchmarks proven on 3060TI and 7500f
+                <div class="feature-summary-card">
+                    <i class="fas fa-gauge-high"></i>
+                    <span>Significant FPS boost</span>
+                </div>
+                <div class="feature-summary-card">
+                    <i class="fas fa-arrow-trend-down"></i>
+                    <span>Better input delay</span>
+                </div>
+                <div class="feature-summary-card">
+                    <i class="fas fa-broom"></i>
+                    <span>Debloat & cleanup</span>
+                </div>
+                <div class="feature-summary-card">
                     <i class="fas fa-microchip"></i>
+                    <span>CPU optimization</span>
                 </div>
-                <h3 class="feature-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600;">CPU Optimization</h3>
-                <p class="feature-description" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400;">
-                    Unlock your processor's full potential with advanced frequency tuning and power management optimizations.
-                </p>
-            </div>
-            
-            <div class="feature-card" style="--index: 3;">
-                <div class="feature-icon">
+                <div class="feature-summary-card">
+                    <i class="fas fa-list-check"></i>
+                    <span>Lower process count</span>
+                </div>
+                <div class="feature-summary-card">
+                    <i class="fas fa-wave-square"></i>
+                    <span>More stable frametimes</span>
+                </div>
+                <div class="feature-summary-card">
+                    <i class="fas fa-wifi"></i>
+                    <span>Network optimization</span>
+                </div>
+                <div class="feature-summary-card">
                     <i class="fas fa-desktop"></i>
+                    <span>KBM optimization</span>
                 </div>
-                <h3 class="feature-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600;">GPU Enhancement</h3>
-                <p class="feature-description" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400;">
-                    Maximize your graphics card performance with memory management tweaks and render path optimizations.
-                </p>
-            </div>
-            
-            <div class="feature-card" style="--index: 4;">
-                <div class="feature-icon">
-                    <i class="fas fa-gamepad"></i>
+                <div class="feature-summary-card">
+                    <i class="fas fa-crosshairs"></i>
+                    <span>GPU Optimization</span>
                 </div>
-                <h3 class="feature-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600;">Game-Specific Tweaks</h3>
-                <p class="feature-description" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400;">
-                    Tailored optimizations for popular titles like Fortnite, Valorant, CS2, and many more competitive games.
-                </p>
-            </div>
-            
-            <div class="feature-card" style="--index: 5;">
-                <div class="feature-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3 class="feature-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600;">Safe & Reversible</h3>
-                <p class="feature-description" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400;">
-                    All optimizations are safe for your system and can be easily reverted if needed, ensuring stability and peace of mind.
-                </p>
-            </div>
-            </div>
-            
-        <div class="advanced-features">
-            <h2 class="section-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600; letter-spacing: -0.5px;">Advanced Optimizations</h2>
-            
-            <div class="advanced-features-grid">
-                <div class="advanced-feature" style="--index: 0;">
-                    <div class="advanced-icon">
-                        <i class="fas fa-network-wired"></i>
-                    </div>
-                    <div class="advanced-content">
-                        <h3 class="advanced-title">Network Optimization</h3>
-                        <p class="advanced-description">
-                            Our network tweaks reduce packet loss and optimize routing for lower ping and more stable connections. Experience smoother online gameplay with fewer disconnects and lag spikes.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="advanced-feature" style="--index: 1;">
-                    <div class="advanced-icon">
-                        <i class="fas fa-memory"></i>
-                    </div>
-                    <div class="advanced-content">
-                        <h3 class="advanced-title">Memory Management</h3>
-                        <p class="advanced-description">
-                            Optimize RAM usage and prioritize game processes to prevent stuttering and ensure consistent frame rates, even during intense gaming sessions.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="advanced-feature" style="--index: 2;">
-                    <div class="advanced-icon">
-                        <i class="fas fa-mouse"></i>
-                    </div>
-                    <div class="advanced-content">
-                        <h3 class="advanced-title">Input Lag Reduction</h3>
-                        <p class="advanced-description">
-                            Minimize the delay between your actions and on-screen results with our USB polling rate optimizations and input processing tweaks.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="advanced-feature" style="--index: 3;">
-                    <div class="advanced-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <div class="advanced-content">
-                        <h3 class="advanced-title">System Debloater</h3>
-                        <p class="advanced-description">
-                            Remove unnecessary Windows services and background processes that consume valuable resources, freeing up CPU cycles and memory for your games.
-                        </p>
-                    </div>
+                <div class="feature-summary-card">
+                    <i class="fas fa-rotate-left"></i>
+                    <span>RAM optimization</span>
                 </div>
             </div>
-        </div>
-
-        <div class="premium-features">
-            <span class="premium-badge">PREMIUM ONLY</span>
-            <h2 class="premium-title" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600; letter-spacing: -0.5px;">Premium Exclusive Features</h2>
-            <p class="premium-subtitle" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400;">
-                Unlock these powerful features with our Premium package for the ultimate gaming advantage.
-            </p>
-            
-            <div class="premium-features-grid">
-                <div class="premium-feature-card" style="--index: 0;">
-                    <div class="premium-icon">
-                        <i class="fas fa-tachometer-alt"></i>
-                    </div>
-                    <h3 class="premium-feature-title">Extreme CPU Tuning</h3>
-                    <p class="premium-feature-description">
-                        Advanced frequency optimization and core prioritization for maximum processing power during gaming sessions.
-                    </p>
-                </div>
-                
-                <div class="premium-feature-card" style="--index: 1;">
-                    <div class="premium-icon">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <h3 class="premium-feature-title">Registry Optimization</h3>
-                    <p class="premium-feature-description">
-                        Deep Windows registry tweaks that unlock hidden performance settings not accessible through standard interfaces.
-                    </p>
-                </div>
-
-                <div class="premium-feature-card" style="--index: 2;">
-                    <div class="premium-icon">
-                        <i class="fas fa-wifi"></i>
-                    </div>
-                    <h3 class="premium-feature-title">Better Scripts</h3>
-                    <p class="premium-feature-description">
-                        We included better scripts that will help you get better results.
-                    </p>
-                </div>
-                
-                <div class="premium-feature-card" style="--index: 3;">
-                    <div class="premium-icon">
-                        <i class="fas fa-gamepad"></i>
-                    </div>
-                    <h3 class="premium-feature-title">Custom Game Profiles</h3>
-                    <p class="premium-feature-description">
-                        Game-specific optimization profiles that automatically apply the perfect settings for each title you play.
-                    </p>
-                </div>
-                
-                <div class="premium-feature-card" style="--index: 4;">
-                    <div class="premium-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3 class="premium-feature-title">Priority Support</h3>
-                    <p class="premium-feature-description">
-                        Get 24/7 access to our expert support team through Discord for immediate assistance with any optimization issues.
-                    </p>
-                </div>
-                
-                <div class="premium-feature-card" style="--index: 5;">
-                    <div class="premium-icon">
-                        <i class="fas fa-unlock-alt"></i>
-                    </div>
-                    <h3 class="premium-feature-title">Advanced GPU Optimizations</h3>
-                    <p class="premium-feature-description">
-                        Bypass frame rate limits in <span style="color: #3ac5ff;">supported by many games</span> for ultra-smooth gameplay on high refresh rate monitors.
-                    </p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="cta-section">
-            <h2>Ready to Unleash Your PC's Full Potential?</h2>
-            <div class="cta-buttons">
-                <a href="download.html" class="cta-button primary-button">Try Free Version</a>
-                <a href="pricing.html" class="cta-button secondary-button">View Pricing Plans</a>
-            </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
     <!-- Add the modal/popup for login feature -->
     <div id="loginModal" class="modal">
@@ -983,69 +1215,13 @@
         </div>
     </div>
 
-    <!-- Footer Section -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-about">
-                <p class="footer-desc">
-                    Traizer Tweaks is dedicated to helping gamers achieve peak performance through advanced optimization techniques. Our one-time purchase tools deliver lasting improvements to your gaming experience.
-                </p>
-                <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-links-container">
-                <h3 class="footer-title">Quick Links</h3>
-                <ul class="footer-links">
-                    <li class="footer-link"><a href="index.html">Home</a></li>
-                    <li class="footer-link"><a href="pricing.html">Pricing</a></li>
-                    <li class="footer-link"><a href="features.html">Features</a></li>
-                    <li class="footer-link"><a href="download.html">Download</a></li>
-                    <li class="footer-link"><a href="support.html">Support</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-links-container">
-                <h3 class="footer-title">Help</h3>
-                <ul class="footer-links">
-                    <li class="footer-link"><a href="#">FAQ</a></li>
-                    <li class="footer-link"><a href="#">Troubleshooting</a></li>
-                    <li class="footer-link"><a href="#">Privacy Policy</a></li>
-                    <li class="footer-link"><a href="#">Terms of Service</a></li>
-                    <li class="footer-link"><a href="refund-policy.html">Refund Policy</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-contact">
-                <h3 class="footer-title">Contact Us</h3>
-                <div class="contact-item">
-                    <span class="contact-icon"><i class="fas fa-envelope"></i></span>
-                    <span>traizerpersonal@gmail.com</span>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon"><i class="fab fa-discord"></i></span>
-                    <span>Join our Discord community</span>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon"><i class="fas fa-globe"></i></span>
-                    <span>Available worldwide</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="copyright">
-            &copy; 2023 Traizer Tweaks. All rights reserved.
-        </div>
-    </footer>
+    <div id="footer"></div>
 
     <script>
-        // Navigation bar scroll behavior
+        // Navigation bar scroll behavior (supports .nav or legacy .navbar)
         window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
+            const navbar = document.querySelector('.nav') || document.querySelector('.navbar');
+            if (!navbar) return;
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
@@ -1119,86 +1295,216 @@
         window.addEventListener('load', checkTableRows);
         window.addEventListener('scroll', checkTableRows);
         
-        // Smooth Scroll Script
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create container for smooth scrolling
-            const body = document.body;
-            const content = document.createElement('div');
-            content.className = 'smooth-scroll-container';
-            
-            // Move all body content to the container
-            while (body.firstChild) {
-                content.appendChild(body.firstChild);
-            }
-            
-            // Add the container back to body
-            body.appendChild(content);
-            
-            // Variables for smooth scrolling
-            let currentY = 0;
-            let targetY = 0;
-            let ease = 0.03; // Increased from 0.015 for a bit faster but still smooth scrolling
-            let rafId = null;
-            let isManualScrolling = false;
-            
-            // Calculate document height and set body height
-            function setBodyHeight() {
-                body.style.height = content.scrollHeight + 'px';
-            }
-            
-            // Update scroll position with smooth animation
-            function smoothScroll() {
-                // Calculate distance to target
-                const diff = targetY - currentY;
-                
-                // Stop if we're close enough
-                if (Math.abs(diff) < 0.1) {
-                    currentY = targetY;
-                    window.cancelAnimationFrame(rafId);
-                    rafId = null;
-                    return;
-                }
-                
-                // Ease towards target
-                currentY += diff * ease;
-                
-                // Apply transform
-                content.style.transform = `translateY(${-currentY}px)`;
-                
-                // Continue animation
-                rafId = window.requestAnimationFrame(smoothScroll);
-            }
-            
-            // Handle scroll events
-            window.addEventListener('scroll', function() {
-                targetY = window.scrollY;
-                
-                // Start animation if not already running
-                if (!rafId) {
-                    rafId = window.requestAnimationFrame(smoothScroll);
-                }
-            }, { passive: true });
-            
-            // Handle resize
-            window.addEventListener('resize', setBodyHeight);
-            
-            // Initial setup
-            setBodyHeight();
-            
-            // Fix for links and manual scrolling
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetElement = document.querySelector(this.getAttribute('href'));
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
+    </script>
+    <script>
+        // FAQ toggle (if present)
+        document.querySelectorAll('.faq-q').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var item = this.closest('.faq-item');
+                var wasOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+                if (!wasOpen) item.classList.add('open');
             });
         });
+
+        // Nav background on scroll (kept transparent)
+        window.addEventListener('scroll', function() {
+            var nav = document.querySelector('.nav') || document.querySelector('.navbar');
+            if (!nav) return;
+            nav.style.background = 'transparent';
+        });
+
+        // Hero reveal (safe if no .hero on page)
+        (function() {
+            var heroEls = document.querySelectorAll('.hero .slide-up');
+            function showHero() {
+                heroEls.forEach(function(el, i) {
+                    setTimeout(function() { el.classList.add('visible'); }, 80 + i * 80);
+                });
+            }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', showHero);
+            else showHero();
+        })();
+
+        // Intersection observer to reveal sections like index2
+        (function() {
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var section = entry.target;
+                        var title = section.querySelector('.section-title');
+                        var desc = section.querySelector('.section-desc');
+                        var grid = section.querySelector('.features-grid, .testimonials, .faq-list, .feature-summary-grid');
+                        var row = section.querySelector('.games-row');
+                        if (title) title.classList.add('visible');
+                        if (desc) desc.classList.add('visible');
+                        if (grid) grid.classList.add('visible');
+                        if (row) row.classList.add('visible');
+                        if (section.classList.contains('cta-section')) section.classList.add('visible');
+                    }
+                });
+            }, { rootMargin: '0px 0px -80px 0px', threshold: 0.05 });
+
+            document.querySelectorAll('.section').forEach(function(section) { observer.observe(section); });
+            document.querySelectorAll('.cta-section').forEach(function(el) { observer.observe(el); });
+        })();
+
+        (function() {
+            function ensureLoginPopup() {
+                var existing = document.getElementById('loginComingSoon');
+                if (existing) return existing;
+
+                var modal = document.createElement('div');
+                modal.id = 'loginComingSoon';
+                modal.style.position = 'fixed';
+                modal.style.inset = '0';
+                modal.style.display = 'flex';
+                modal.style.alignItems = 'center';
+                modal.style.justifyContent = 'center';
+                modal.style.background = 'rgba(0,0,0,0.7)';
+                modal.style.zIndex = '9999';
+                modal.style.opacity = '0';
+                modal.style.pointerEvents = 'none';
+                modal.style.transition = 'opacity 0.25s ease-out';
+
+                var box = document.createElement('div');
+                box.style.maxWidth = '380px';
+                box.style.width = '90%';
+                box.style.borderRadius = '16px';
+                box.style.padding = '1.75rem 1.5rem';
+                box.style.background = 'radial-gradient(circle at 0 0, rgba(58,197,255,0.18), transparent 55%), rgba(6,7,14,0.98)';
+                box.style.border = '1px solid rgba(148,163,184,0.45)';
+                box.style.boxShadow = '0 24px 60px rgba(0,0,0,0.9)';
+                box.style.opacity = '0';
+                box.style.transform = 'scale(0.96) translateY(4px)';
+                box.style.transition = 'transform 0.22s ease-out, opacity 0.22s ease-out';
+
+                var title = document.createElement('h3');
+                title.textContent = 'Login coming soon';
+                title.style.fontSize = '1.1rem';
+                title.style.marginBottom = '0.5rem';
+
+                var msg = document.createElement('p');
+                msg.textContent = 'Account login is currently under development. You can still browse plans, download the free optimizer, and purchase licenses normally.';
+                msg.style.fontSize = '0.9rem';
+                msg.style.color = 'var(--text-muted)';
+                msg.style.marginBottom = '1.25rem';
+
+                var btn = document.createElement('button');
+                btn.textContent = 'Got it';
+                btn.style.border = 'none';
+                btn.style.borderRadius = '999px';
+                btn.style.padding = '0.55rem 1.3rem';
+                btn.style.fontSize = '0.9rem';
+                btn.style.fontWeight = '500';
+                btn.style.cursor = 'pointer';
+                btn.style.background = 'linear-gradient(135deg, #33CCFF 0%, #0099FF 100%)';
+                btn.style.color = '#FFFFFF';
+
+                btn.addEventListener('click', function() {
+                    hide();
+                });
+
+                box.appendChild(title);
+                box.appendChild(msg);
+                box.appendChild(btn);
+                modal.appendChild(box);
+                document.body.appendChild(modal);
+
+                function show() {
+                    modal.style.opacity = '1';
+                    modal.style.pointerEvents = 'auto';
+                    box.style.opacity = '1';
+                    box.style.transform = 'scale(1) translateY(0)';
+                }
+
+                function hide() {
+                    box.style.opacity = '0';
+                    box.style.transform = 'scale(0.96) translateY(4px)';
+                    modal.style.opacity = '0';
+                    modal.style.pointerEvents = 'none';
+                }
+
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) hide();
+                });
+
+                modal._showLoginPopup = show;
+                modal._hideLoginPopup = hide;
+                return modal;
+            }
+
+            function attachLoginHandler() {
+                document.addEventListener('click', function(e) {
+                    var link = e.target.closest('a[href="login.html"]');
+                    if (!link) return;
+                    e.preventDefault();
+                    var modal = ensureLoginPopup();
+                    if (modal && modal._showLoginPopup) modal._showLoginPopup();
+                });
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', attachLoginHandler);
+            } else {
+                attachLoginHandler();
+            }
+        })();
+
+        (function() {
+            function loadNavbar() {
+                var container = document.getElementById('navbar');
+                if (!container) return;
+                fetch('navbar.html')
+                    .then(function(response) { return response.text(); })
+                    .then(function(html) {
+                        container.innerHTML = html;
+                        setActiveNavLink();
+                    })
+                    .catch(function(error) {
+                        console.error('Failed to load navbar:', error);
+                    });
+            }
+
+            function loadFooter() {
+                var footerContainer = document.getElementById('footer');
+                if (!footerContainer) return;
+                fetch('footer.html')
+                    .then(function(response) { return response.text(); })
+                    .then(function(html) {
+                        footerContainer.innerHTML = html;
+                    })
+                    .catch(function(error) {
+                        console.error('Failed to load footer:', error);
+                    });
+            }
+
+            function setActiveNavLink() {
+                var path = window.location.pathname;
+                var current = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
+                var links = document.querySelectorAll('.nav-links a');
+                links.forEach(function(link) {
+                    var href = link.getAttribute('href');
+                    if (!href) return;
+                    if (href === current || (current === '' && href === 'index.html')) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+
+            function initLayout() {
+                loadNavbar();
+                loadFooter();
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initLayout);
+            } else {
+                initLayout();
+            }
+        })();
     </script>
 </body>
 </html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traizer Tweaks Premium Tweaking Utility</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --accent: #3ac5ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top, #101322 0, #05060a 45%, #020308 100%);
+            color: var(--text);
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .product-wrapper {
+            max-width: 960px;
+            margin: 4rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 3rem;
+        }
+
+        .product-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            border: 1px solid rgba(58, 197, 255, 0.5);
+            background: radial-gradient(circle at 0 0, rgba(58, 197, 255, 0.16), transparent 60%);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .product-label span {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #43ffad;
+        }
+
+        .product-title {
+            font-size: clamp(2.2rem, 4.2vw, 2.9rem);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 420px;
+            margin-bottom: 1.75rem;
+        }
+
+        .price-meta {
+            margin-bottom: 2rem;
+        }
+
+        .price-line {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+        }
+
+        .price-line .old {
+            text-decoration: line-through;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .price-line .current {
+            font-size: 2.4rem;
+            font-weight: 700;
+        }
+
+        .price-line .badge {
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: #43ffad;
+            color: #111;
+        }
+
+        .hint {
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .features-title {
+            font-size: 1rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            color: rgba(244, 244, 245, 0.9);
+        }
+
+        .feature-list li i {
+            color: #43ffad;
+            margin-top: 0.15rem;
+        }
+
+        .buy-card {
+            background: radial-gradient(circle at 0 0, rgba(58, 197, 255, 0.18), transparent 55%),
+                        rgba(10, 10, 16, 0.98);
+            border-radius: 24px;
+            border: 1px solid rgba(58, 197, 255, 0.35);
+            padding: 2rem;
+            box-shadow:
+                0 0 0 1px rgba(0, 0, 0, 0.75),
+                0 26px 70px rgba(0, 0, 0, 0.95);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .buy-heading {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .buy-note {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .buy-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .btn-buy {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.9rem 1.4rem;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #33ccff, #0099ff);
+            color: #fff;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        .btn-buy:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-ghost-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.3rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            background: rgba(15, 23, 42, 0.6);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .btn-ghost-secondary:hover {
+            border-color: rgba(148, 163, 184, 0.65);
+        }
+
+        .small-print {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 900px) {
+            .product-wrapper {
+                grid-template-columns: 1fr;
+                margin-top: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">
+            <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473336/image-removebg-preview_23_ww5uf8.png" alt="Traizer Tweaks" class="nav-logo">
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="pricing.html" class="active">Pricing</a>
+            <a href="features.html">Features</a>
+            <a href="download.html">Download</a>
+            <a href="support.html">Support</a>
+        </div>
+        <div class="nav-actions">
+            <a href="login.html" class="btn btn-ghost">Login</a>
+            <a href="pricing.html" class="btn btn-primary">Buy Now</a>
+        </div>
+    </nav>
+
+    <main class="product-wrapper">
+        <section>
+            <div class="product-label">
+                <span></span> Premium Tweaking Utility
+            </div>
+            <h1 class="product-title">Premium Tweaking Utility</h1>
+            <p class="product-subtitle">
+                Full hands-on system optimization for competitive gamers who want the absolute maximum from their PC.
+            </p>
+
+            <div class="price-meta">
+                <div class="price-line">
+                    <span class="old">$39.99</span>
+                    <span class="current">$19.99</span>
+                    <span class="badge">50% OFF</span>
+                </div>
+                <div class="hint">One-time purchase · Lifetime access to tweaks and updates</div>
+            </div>
+
+            <h2 class="features-title">Everything included</h2>
+            <ul class="feature-list">
+                <li><i class="fas fa-check"></i><span>10,000+ performance and latency tweaks applied and validated</span></li>
+                <li><i class="fas fa-check"></i><span>Full system overhaul (Windows, drivers, services, background tasks)</span></li>
+                <li><i class="fas fa-check"></i><span>Advanced registry optimization tuned for competitive titles</span></li>
+                <li><i class="fas fa-check"></i><span>Extreme CPU frequency and power plan tuning for consistent frametimes</span></li>
+                <li><i class="fas fa-check"></i><span>GPU memory and scheduling tuning to reduce stutters and spikes</span></li>
+                <li><i class="fas fa-check"></i><span>Network packet priority and routing tweaks for lower input delay</span></li>
+                <li><i class="fas fa-check"></i><span>Game‑specific profiles built around your main titles</span></li>
+                <li><i class="fas fa-check"></i><span>Priority Discord support for follow‑up questions and adjustments</span></li>
+            </ul>
+        </section>
+
+        <aside class="buy-card">
+            <div>
+                <div class="buy-heading">Ready when you are</div>
+                <p class="buy-note">
+                    Click buy and you’ll be taken to the secure checkout. After payment you’ll receive step‑by‑step instructions and contact details so we can start your manual optimization session.
+                </p>
+            </div>
+
+            <div class="buy-actions">
+                <button class="btn-buy" onclick="window.location.href='https://payhip.com/buy?s=1&link=9Vdq6'">
+                    <i class="fas fa-shopping-cart"></i>
+                    BUY PREMIUM
+                </button>
+                <a href="https://payhip.com/buy?s=1&cart_links%5B%5D=pJwSI&qty%5BpJwSI%5D=1" class="btn-ghost-secondary">
+                    <i class="fas fa-layer-group"></i>
+                    Buy Standard
+                </a>
+                <a href="pricing.html" class="btn-ghost-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to pricing
+                </a>
+            </div>
+
+            <p class="small-print">
+                One activation applies to a single system. For teams, arenas or multiple PCs, reach out on Discord for bulk pricing.
+            </p>
+        </aside>
+    </main>
+<script>
+    (function() {
+        function ensureLoginPopup() {
+            var existing = document.getElementById('loginComingSoon');
+            if (existing) return existing;
+
+            var modal = document.createElement('div');
+            modal.id = 'loginComingSoon';
+            modal.style.position = 'fixed';
+            modal.style.inset = '0';
+            modal.style.display = 'flex';
+            modal.style.alignItems = 'center';
+            modal.style.justifyContent = 'center';
+            modal.style.background = 'rgba(0,0,0,0.7)';
+            modal.style.zIndex = '9999';
+            modal.style.opacity = '0';
+            modal.style.pointerEvents = 'none';
+            modal.style.transition = 'opacity 0.25s ease-out';
+
+            var box = document.createElement('div');
+            box.style.maxWidth = '380px';
+            box.style.width = '90%';
+            box.style.borderRadius = '16px';
+            box.style.padding = '1.75rem 1.5rem';
+            box.style.background = 'radial-gradient(circle at 0 0, rgba(58,197,255,0.18), transparent 55%), rgba(6,7,14,0.98)';
+            box.style.border = '1px solid rgba(148,163,184,0.45)';
+            box.style.boxShadow = '0 24px 60px rgba(0,0,0,0.9)';
+            box.style.opacity = '0';
+            box.style.transform = 'scale(0.96) translateY(4px)';
+            box.style.transition = 'transform 0.22s ease-out, opacity 0.22s ease-out';
+
+            var title = document.createElement('h3');
+            title.textContent = 'Login coming soon';
+            title.style.fontSize = '1.1rem';
+            title.style.marginBottom = '0.5rem';
+
+            var msg = document.createElement('p');
+            msg.textContent = 'Account login is currently under development. You can still browse plans, download the free optimizer, and purchase licenses normally.';
+            msg.style.fontSize = '0.9rem';
+            msg.style.color = '#a1a1aa';
+            msg.style.marginBottom = '1.25rem';
+
+            var btn = document.createElement('button');
+            btn.textContent = 'Got it';
+            btn.style.border = 'none';
+            btn.style.borderRadius = '999px';
+            btn.style.padding = '0.55rem 1.3rem';
+            btn.style.fontSize = '0.9rem';
+            btn.style.fontWeight = '500';
+            btn.style.cursor = 'pointer';
+            btn.style.background = 'linear-gradient(135deg, #33CCFF 0%, #0099FF 100%)';
+            btn.style.color = '#FFFFFF';
+
+            btn.addEventListener('click', function() {
+                hide();
+            });
+
+            box.appendChild(title);
+            box.appendChild(msg);
+            box.appendChild(btn);
+            modal.appendChild(box);
+            document.body.appendChild(modal);
+
+            function show() {
+                modal.style.opacity = '1';
+                modal.style.pointerEvents = 'auto';
+                box.style.opacity = '1';
+                box.style.transform = 'scale(1) translateY(0)';
+            }
+
+            function hide() {
+                box.style.opacity = '0';
+                box.style.transform = 'scale(0.96) translateY(4px)';
+                modal.style.opacity = '0';
+                modal.style.pointerEvents = 'none';
+            }
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) hide();
+            });
+
+            modal._showLoginPopup = show;
+            modal._hideLoginPopup = hide;
+            return modal;
+        }
+
+        function attachLoginHandler() {
+            document.addEventListener('click', function(e) {
+                var link = e.target.closest('a[href="login.html"]');
+                if (!link) return;
+                e.preventDefault();
+                var modal = ensureLoginPopup();
+                if (modal && modal._showLoginPopup) modal._showLoginPopup();
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', attachLoginHandler);
+        } else {
+            attachLoginHandler();
+        }
+    })();
+</script>
+</body>
+</html>

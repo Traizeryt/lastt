@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download - Traizer Tweaks</title>
-    <script type="text/javascript" src="https://payhip.com/payhip.js"></script>
+    <title>Download Traizer Free Optimizer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <style>
         :root {
             --bg: #0a0a0f;
-            --surface: #12121a;
+            --surface: #11121a;
+            --surface-soft: #10101a;
             --border: rgba(255, 255, 255, 0.08);
             --text: #f4f4f5;
             --text-muted: #a1a1aa;
@@ -24,1340 +25,508 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
         }
 
         body {
-            background: var(--bg);
-            position: relative;
+            background: radial-gradient(circle at top, #101322 0, #05060a 45%, #020308 100%);
             color: var(--text);
-            overflow-x: hidden;
             min-height: 100vh;
         }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
+        main {
+            max-width: 1120px;
+            margin: 6.5rem auto 4rem;
+            padding: 0 1.5rem 4rem;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(18px);
+            animation: headerIn 0.7s ease-out forwards;
+        }
+
+        .pricing-label {
+            display: inline-flex;
             align-items: center;
-            padding: 1rem 2rem;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(10, 10, 15, 0.85);
-            border-bottom: 1px solid var(--border);
-            transition: background 0.3s ease;
-            backdrop-filter: blur(12px);
-        }
-
-        .navbar.scrolled {
-            background: rgba(10, 10, 15, 0.95);
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo {
-            height: 40px;
-            filter: drop-shadow(0 0 8px rgba(58, 197, 255, 0.3));
-            transition: all 0.3s ease;
-        }
-        
-        .logo:hover {
-            filter: drop-shadow(0 0 12px rgba(58, 197, 255, 0.5));
-            transform: scale(1.05);
-        }
-
-        .nav-links {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-item {
-            position: relative;
-            text-decoration: none;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 500;
+            gap: 0.4rem;
+            padding: 0.25rem 0.85rem;
+            border-radius: 999px;
+            border: 1px solid rgba(58, 197, 255, 0.5);
+            background: radial-gradient(circle at 0 0, rgba(58, 197, 255, 0.16), transparent 60%);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
-            padding: 5px 0;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
         }
 
-        .nav-item:hover,
-        .nav-item.active {
-            color: var(--accent);
-        }
-
-        .nav-item.active::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: -8px;
-            transform: translateX(-50%);
+        .pricing-label span {
             width: 6px;
             height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
+            border-radius: 999px;
+            background: #43ffad;
         }
 
-        .nav-buttons {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .login-btn {
-            padding: 8px 20px;
-            border-radius: 30px;
-            background-color: transparent;
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .buy-btn {
-            padding: 10px 24px;
-            border-radius: 30px;
-            background: linear-gradient(135deg, #3ac5ff, #2196f3);
-            color: #fff;
-            border: none;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(58, 197, 255, 0.3);
-        }
-
-        .login-btn:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .buy-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(58, 197, 255, 0.5);
-            background: linear-gradient(135deg, #2196f3, #3ac5ff);
-        }
-
-        .download-section {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .download-title {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 4rem;
+        .pricing-header h1 {
+            font-size: clamp(2.3rem, 5vw, 3rem);
             font-weight: 700;
-            background: linear-gradient(90deg, #ffffff, #3ac5ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 25px;
-            text-shadow: 0 0 30px rgba(58, 197, 255, 0.3);
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 0.8s ease forwards;
+            margin-bottom: 0.75rem;
         }
 
-        .download-description {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.8);
-            max-width: 800px;
-            margin: 0 auto 50px auto;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 0.8s ease forwards 0.2s;
-        }
-
-        .download-card {
-            background: rgba(16, 19, 26, 0.7);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 40px;
-            max-width: 700px;
+        .pricing-header p {
+            max-width: 540px;
             margin: 0 auto;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 0.8s ease forwards 0.4s;
-        }
-
-        .download-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(135deg, #3ac5ff, #0078d7);
-            box-shadow: 0 0 25px rgba(58, 197, 255, 0.3);
-        }
-
-        .rocket-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 20px;
-            color: #3ac5ff;
-        }
-
-        .card-title {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 2rem;
-            color: #3ac5ff;
-            margin-bottom: 20px;
-        }
-
-        .card-description {
             font-size: 1rem;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 40px;
+            color: var(--text-muted);
         }
 
-        .download-btn {
-            padding: 15px 40px;
-            border-radius: 50px;
-            background: linear-gradient(135deg, #3ac5ff, #0078d7);
-            color: #fff;
-            border: none;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 5px 15px rgba(58, 197, 255, 0.3);
-            text-decoration: none;
-        }
-
-        .download-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(58, 197, 255, 0.5);
-        }
-        
-        /* Download button with version badge */
-        .download-button {
-            background: linear-gradient(135deg, #3ac5ff, #0078d7);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin: 30px auto;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(58, 197, 255, 0.3);
-            z-index: 1;
-        }
-
-        .download-button:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: 0.6s;
-            z-index: -1;
-        }
-
-        .download-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(58, 197, 255, 0.4);
-        }
-
-        .download-button:hover:before {
-            left: 100%;
-        }
-
-        .download-button i {
-            margin-right: 10px;
-            font-size: 1.2rem;
-        }
-
-        .download-button .version {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 3px 8px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-left: 10px;
-            font-weight: 700;
-        }
-
-        .download-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 30px;
-        }
-
-        .download-note {
-            margin-top: 15px;
-            color: var(--neon-green);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.05);
-                opacity: 0.8;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .rocket-animate {
-            animation: pulse 2s infinite ease-in-out;
-        }
-
-        @media (max-width: 968px) {
-            .navbar {
-                padding: 15px 20px;
-            }
-
-            .nav-links {
-                gap: 20px;
-            }
-
-            .download-title {
-                font-size: 3rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .download-card {
-                padding: 30px 20px;
-            }
-        }
-
-        /* Features Section */
-        .features-section {
-            text-align: center;
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .features-title {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 2.6rem;
-            font-weight: 700;
-            margin-bottom: 70px;
-            color: white;
-            letter-spacing: -0.5px;
-            position: relative;
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 0.8s ease forwards;
-        }
-
-        .features-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%) scaleX(0);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(to right, #3ac5ff, rgba(58, 197, 255, 0.5));
-            transition: transform 0.8s ease;
-            transform-origin: center;
-            animation: expandWidth 0.8s ease forwards 0.3s;
-        }
-
-        @keyframes expandWidth {
-            from {
-                transform: translateX(-50%) scaleX(0);
-            }
-            to {
-                transform: translateX(-50%) scaleX(1);
-            }
-        }
-
-        .features-grid {
+        .plans-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .feature-card {
-            background: rgba(16, 19, 26, 0.7);
-            backdrop-filter: blur(20px);
-            border-radius: 16px;
-            padding: 30px;
-            text-align: left;
-            height: 100%;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-            border: 1px solid rgba(58, 197, 255, 0.1);
-        }
-
-        .feature-card.animate {
-            animation: featureCardFadeUp 0.6s forwards;
-        }
-
-        @keyframes featureCardFadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-            background: rgba(22, 27, 39, 0.7);
-            border-color: rgba(58, 197, 255, 0.3);
-        }
-
-        .feature-card:hover .feature-title {
-            color: #3ac5ff;
-        }
-
-        .feature-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, rgba(58, 197, 255, 0.5), transparent);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .feature-card:hover::after {
-            transform: scaleX(1);
-        }
-
-        .feature-icon {
-            width: 50px;
-            height: 50px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #3ac5ff;
-            font-size: 24px;
-            position: relative;
-        }
-
-        .feature-icon::after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(58, 197, 255, 0.1);
-            z-index: -1;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover .feature-icon::after {
-            transform: scale(1.3);
-            background-color: rgba(58, 197, 255, 0.2);
-        }
-
-        .feature-card:hover .feature-icon {
-            animation: pulse 1.5s infinite ease-in-out;
-        }
-
-        .feature-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: white;
-        }
-
-        .feature-description {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        @media (max-width: 968px) {
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 650px) {
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Modal/Popup styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background-color: #14151F;
-            border-radius: 15px;
-            padding: 40px;
-            width: 450px;
-            max-width: 90%;
-            border: 1px solid rgba(58, 197, 255, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(58, 197, 255, 0.15);
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: modalFadeIn 0.4s forwards;
-        }
-
-        @keyframes modalFadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-title {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: #3ac5ff;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
-        .modal-message {
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        .modal-close {
-            padding: 10px 25px;
-            background: linear-gradient(135deg, #3ac5ff, #0078d7);
-            color: #fff;
-            border: none;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .modal-close:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(58, 197, 255, 0.3);
-        }
-
-        /* Security Section Styles */
-        .security-section {
-            padding: 80px 20px;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 1.5rem;
             max-width: 900px;
             margin: 0 auto;
-            text-align: center;
+        }
+
+        .plan-card {
+            position: relative;
+            border-radius: 24px;
+            padding: 1.9rem 1.7rem 1.7rem;
+            background:
+                radial-gradient(circle at 0 0, rgba(58, 197, 255, 0.18), transparent 55%),
+                radial-gradient(circle at 100% 0, rgba(67, 255, 173, 0.08), transparent 55%),
+                rgba(6, 7, 14, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow:
+                0 0 0 1px rgba(0, 0, 0, 0.8),
+                0 24px 60px rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            gap: 1.3rem;
             opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 0.8s ease forwards;
+            transform: translateY(24px);
+            transition:
+                transform 0.25s ease-out,
+                box-shadow 0.25s ease-out,
+                border-color 0.25s ease-out;
+        }
+
+        .plan-card.free {
+            background:
+                radial-gradient(circle at 0 0, rgba(148, 163, 184, 0.2), transparent 55%),
+                rgba(8, 9, 14, 0.96);
+        }
+
+        .plan-card.standard {
+            background:
+                radial-gradient(circle at 0 0, rgba(67, 255, 173, 0.16), transparent 55%),
+                rgba(8, 10, 16, 0.98);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-6px);
+            box-shadow:
+                0 0 0 1px rgba(0, 0, 0, 0.8),
+                0 28px 80px rgba(0, 0, 0, 0.95);
+            border-color: rgba(58, 197, 255, 0.5);
+        }
+
+        .plan-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .plan-tagline {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 0.6rem;
+        }
+
+        .price-row .current {
+            font-size: 2.1rem;
+            font-weight: 700;
+        }
+
+        .price-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .plan-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            font-size: 0.9rem;
+            margin-top: 0.4rem;
+        }
+
+        .plan-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.4rem;
+            color: rgba(244, 244, 245, 0.9);
+        }
+
+        .plan-features i {
+            margin-top: 0.1rem;
+            color: #43ffad;
+            font-size: 0.85rem;
+        }
+
+        .plan-actions {
+            margin-top: auto;
+        }
+
+        .plan-btn {
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            background: rgba(15, 23, 42, 0.7);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .plan-btn.primary {
+            border: none;
+            background: linear-gradient(135deg, #33ccff, #0099ff);
+            color: #fff;
+        }
+
+        .plan-btn.primary:hover {
+            transform: translateY(-1px);
+        }
+
+        .plan-meta {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 0.4rem;
+        }
+
+        .plans-grid .plan-card:nth-child(1) {
+            animation: cardIn 0.8s ease-out 0.1s forwards;
+        }
+
+        .plans-grid .plan-card:nth-child(2) {
+            animation: cardIn 0.8s ease-out 0.25s forwards;
+        }
+
+        .security-section {
+            margin-top: 4rem;
         }
 
         .security-title {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 4vw, 2.6rem);
             font-weight: 700;
-            color: #3ac5ff;
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .security-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #3ac5ff, transparent);
+            text-align: center;
+            color: #33ccff;
+            margin-bottom: 2rem;
         }
 
         .security-content {
-            background: rgba(16, 19, 26, 0.7);
-            backdrop-filter: blur(20px);
-            border-radius: 16px;
-            padding: 40px;
-            text-align: left;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(58, 197, 255, 0.1);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem 2.7rem;
+            border-radius: 24px;
+            background: radial-gradient(circle at 0 0, rgba(51, 204, 255, 0.12), transparent 60%), #050812;
+            border: 1px solid rgba(51, 204, 255, 0.35);
+            box-shadow:
+                0 0 0 1px rgba(0, 0, 0, 0.7),
+                0 22px 60px rgba(0, 0, 0, 0.9);
         }
 
         .security-emphasis {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #3ac5ff;
-            margin-bottom: 15px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #33ccff;
+            margin-bottom: 0.75rem;
         }
 
         .security-text {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: rgba(244, 244, 245, 0.9);
+            margin-bottom: 1rem;
         }
 
         .security-subtitle {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #ffffff;
-            margin: 30px 0 15px;
-        }
-
-        /* Footer Styles */
-        .footer {
-            background: #050b1f;
-            padding: 60px 0 20px;
-            color: rgba(255, 255, 255, 0.8);
-            position: relative;
-            margin-top: 80px;
-            border-top: 1px solid rgba(58, 197, 255, 0.3);
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-
-        .footer-about {
-            max-width: 400px;
-        }
-
-        .footer-logo {
-            height: 40px;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 8px rgba(58, 197, 255, 0.3));
-        }
-
-        .footer-desc {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 20px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            background-color: rgba(58, 197, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .social-link:hover {
-            background: #3ac5ff;
-            color: #050b1f;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(58, 197, 255, 0.3);
-        }
-
-        .footer-title {
             font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 20px;
-            color: white;
-            position: relative;
-            padding-bottom: 10px;
+            margin: 1.5rem 0 0.75rem;
+            color: #ffffff;
         }
 
-        .footer-title:after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 30px;
-            height: 3px;
-            background: #3ac5ff;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-link {
-            margin-bottom: 12px;
-        }
-
-        .footer-link a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .footer-link a:hover {
-            color: #3ac5ff;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-
-        .contact-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            background-color: rgba(58, 197, 255, 0.1);
-            border-radius: 50%;
-            margin-right: 10px;
-            color: #3ac5ff;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 40px;
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.5);
-            max-width: 1200px;
-            margin: 0 auto;
-            border-top: 1px solid rgba(58, 197, 255, 0.1);
-            margin-top: 40px;
-        }
-
-        @media (max-width: 992px) {
-            .footer-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 30px;
+        @keyframes headerIn {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
             }
-            
-            .footer-about {
-                grid-column: span 2;
-                max-width: 100%;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        @media (max-width: 576px) {
-            .footer-container {
-                grid-template-columns: 1fr;
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(24px) scale(0.98);
             }
-            
-            .footer-about {
-                grid-column: span 1;
-            }
-        }
-
-        /* Ensure images are not pixelated */
-        img {
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            transform: translateZ(0);
-            backface-visibility: hidden;
-        }
-
-        /* Testimonials Section Styles */
-        .testimonials-section {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .testimonials-title {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 2.6rem;
-            font-weight: 700;
-            margin-bottom: 60px;
-            color: white;
-            letter-spacing: -0.5px;
-            position: relative;
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 0.8s ease forwards;
-        }
-
-        .testimonials-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%) scaleX(0);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(to right, #3ac5ff, rgba(58, 197, 255, 0.5));
-            transition: transform 0.8s ease;
-            transform-origin: center;
-            animation: expandWidth 0.8s ease forwards 0.3s;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .testimonial-card {
-            background: rgba(16, 19, 26, 0.7);
-            backdrop-filter: blur(20px);
-            border-radius: 16px;
-            padding: 25px;
-            text-align: left;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-            border: 1px solid rgba(58, 197, 255, 0.1);
-            animation: featureCardFadeUp 0.6s forwards;
-            animation-delay: calc(var(--order) * 0.1s);
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-            background: rgba(22, 27, 39, 0.7);
-            border-color: rgba(58, 197, 255, 0.3);
-        }
-
-        .testimonial-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, rgba(58, 197, 255, 0.5), transparent);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .testimonial-card:hover::after {
-            transform: scaleX(1);
-        }
-
-        .stars {
-            color: #3ac5ff;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-
-        .testimonial-text {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 20px;
-            font-style: italic;
-            min-height: 60px;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .author-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(58, 197, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-        }
-
-        .author-name {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: white;
-        }
-
-        @media (max-width: 968px) {
-            .testimonials-grid {
-                grid-template-columns: repeat(2, 1fr);
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
             }
         }
 
-        @media (max-width: 650px) {
-            .testimonials-grid {
-                grid-template-columns: 1fr;
+        @media (max-width: 900px) {
+            .plans-grid {
+                grid-template-columns: minmax(0, 1fr);
             }
         }
 
-        /* Sale Banner - removed */
-        .sale-banner {
-            display: none; /* Hide the sale banner */
-        }
-        
-        /* Remove the adjustment for navbar when sale banner is active */
-        .sale-active .navbar {
-            top: 0; /* Reset to default position */
-        }
-        
-        .sale-active {
-            padding-top: 0; /* Reset to default padding */
+        @media (max-width: 720px) {
+            main {
+                margin-top: 6rem;
+            }
         }
     </style>
 </head>
-<body class="sale-active">
-    <nav class="navbar">
-        <div class="logo-container">
-            <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473336/image-removebg-preview_23_ww5uf8.png" alt="TRAIZER TWEAKS" class="logo">
-        </div>
+<body>
+    <nav class="nav">
+        <a href="index.html">
+            <img src="https://res.cloudinary.com/divg4ytf3/image/upload/v1749473336/image-removebg-preview_23_ww5uf8.png" alt="Traizer Tweaks" class="nav-logo">
+        </a>
         <div class="nav-links">
-            <a href="index.html" class="nav-item">HOME</a>
-            <a href="pricing.html" class="nav-item">PRICING</a>
-            <a href="features.html" class="nav-item">FEATURES</a>
-            <a href="download.html" class="nav-item active">DOWNLOAD</a>
-            <a href="support.html" class="nav-item">SUPPORT</a>
+            <a href="index.html">Home</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="features.html">Features</a>
+            <a href="download.html" class="active">Download</a>
+            <a href="support.html">Support</a>
         </div>
-        <div class="nav-buttons">
-            <button class="login-btn">LOGIN</button>
-            <a href="pricing.html" class="buy-btn">BUY NOW</a>
+        <div class="nav-actions">
+            <a href="login.html" class="btn btn-ghost">Login</a>
+            <a href="pricing.html" class="btn btn-primary">Buy Now</a>
         </div>
     </nav>
 
-    <section class="download-section">
-        <h1 class="download-title">Download Traizer Tweaks</h1>
-        <p class="download-description">Experience the power of optimal PC performance with our premium optimization software. Boost your FPS, reduce lag, and enhance your gaming experience today.</p>
-        
-        <div class="download-card">
-            <div class="rocket-icon rocket-animate">
-                <i class="fas fa-rocket fa-3x"></i>
+    <main>
+        <header class="pricing-header">
+            <div class="pricing-label">
+                <span></span>
+                Traizer Free Optimizer
             </div>
-            <h2 class="card-title">Traizer Performance Optimizer</h2>
-            <p class="card-description">Get started with our premium optimizer and experience significant improvements in your system's performance. This version includes advanced PC tweaks to enhance your gaming experience.</p>
-            <div class="download-actions">
-                <a href="https://mega.nz/file/rPwACYJK#liUAC7P84GOcGTrF89dd0YMiWkVk97qXY4c374YfVNk" class="download-button" target="_blank">
-                    <i class="fas fa-download"></i> Download Now <span class="version">v5.0</span>
-                </a>
-            </div>
-        </div>
-    </section>
+            <h1>Download Traizer Free Optimizer</h1>
+            <p>Start with the free optimizer pack to safely boost performance. If you want more control and features, upgrade to Standard Premium Utility or Premium Tweaking Utility.</p>
+        </header>
 
-    <section class="features-section">
-        <h2 class="features-title">Features That Make Us Different</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-rocket"></i>
+        <section class="plans-grid">
+            <article class="plan-card free">
+                <div>
+                    <div class="plan-name">Traizer Free Optimizer</div>
+                    <p class="plan-tagline">Quick starter pack with safe system tweaks for smoother gameplay.</p>
                 </div>
-                <h3 class="feature-title">Performance Boost</h3>
-                <p class="feature-description">Experience significant FPS improvements in your favorite games with our optimized system tweaks.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-bolt"></i>
+                <div>
+                    <div class="price-row">
+                        <span class="current">$0</span>
+                    </div>
+                    <div class="price-note">One-time download · Keep forever</div>
                 </div>
-                <h3 class="feature-title">Reduced Latency</h3>
-                <p class="feature-description">Enjoy lower ping and more responsive gameplay through our network optimization settings.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-cog"></i>
-                </div>
-                <h3 class="feature-title">System Optimization</h3>
-                <p class="feature-description">Automatically adjust Windows settings for optimal gaming performance without hardware upgrades.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3 class="feature-title">Safe Tweaking</h3>
-                <p class="feature-description">All optimizations are safe and can be easily reverted if needed, ensuring system stability.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-gamepad"></i>
-                </div>
-                <h3 class="feature-title">Game-Specific Optimization</h3>
-                <p class="feature-description">Tailored settings for popular games like Fortnite, Valorant, and CS2 to maximize performance.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-tachometer-alt"></i>
-                </div>
-                <h3 class="feature-title">Input Lag Reduction</h3>
-                <p class="feature-description">Minimize response time between your actions and on-screen results for competitive advantage.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials-section">
-        <h2 class="testimonials-title">What Our Customers Say</h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">"great customer service fixed my problem quick an easy testing tweaks now"</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">G</div>
-                    <div class="author-name">Goji</div>
-                </div>
-            </div>
-            
-            <div class="testimonial-card">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">"++rep great customer service 10/10"</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">D</div>
-                    <div class="author-name">Deleted User</div>
-                </div>
-            </div>
-            
-            <div class="testimonial-card">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">"great tweaks and services 10/10 you guys should use it"</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">L</div>
-                    <div class="author-name">lucassupon7</div>
-                </div>
-            </div>
-            
-            <div class="testimonial-card">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">"w tweaks"</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">M</div>
-                    <div class="author-name">MC_Ad</div>
-                </div>
-            </div>
-            
-            <div class="testimonial-card">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">"w fps boost using tweaks"</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">ア</div>
-                    <div class="author-name">アレックス</div>
-                </div>
-            </div>
-            
-            <div class="testimonial-card">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">"w tweaks w man"</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">A</div>
-                    <div class="author-name">Asto</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="security-section">
-        <h2 class="security-title">Are The Packs a Virus?</h2>
-        <div class="security-content">
-            <p class="security-emphasis">Obviously Not, Please Read Before Saying Anything.</p>
-            
-            <p class="security-text">Most People Nowadays Don't Know Much About Virus Detections, False Positives
-            and How To Actually Use Virustotal So We'll Explain Everything Shortly.</p>
-            
-            <p class="security-emphasis">None Of The Packs Contain Viruses.</p>
-            
-            <p class="security-text">ALL Paid and Free Packs Don't Contain Any Malicious Code That Will Cause Any Harm to Your PC,
-            The Free Pack Almost Always Gets False Detected Due To The Nature Of The Product, It Changes
-            a Bunch Of Settings and Applies Various Commands Which Raise Red Flags To Antivirus Programs.</p>
-            
-            <p class="security-text">To Get Rid Of These Detections We'd Have to Sacrifice Functionality Which We Don't Want To Do.</p>
-            
-            <h3 class="security-subtitle">Virustotal False Detection</h3>
-            
-            <p class="security-text">Currently, Only Our Free Packs Get Flagged as a PUA (Potentially Unwanted Application),
-            and Not as Any Sort Of Malware.
-            To Double Check You Can Go In The Behavior Tab and See That Under The Detections Category
-            No Malicious Code is Detected, Which Means It's Completely Safe to Use.</p>
-            
-            <p class="security-text">Our Goal Is To Be The Number One PC Tweaking Service and We Won't Get There By Adding
-            Harmful Programs Into Our Tools Since It Would Destroy Our Reputation and Get Us in Legal Trouble.</p>
-        </div>
-    </section>
-
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <h3 class="modal-title">Feature Coming Soon!</h3>
-            <p class="modal-message">We're currently enhancing our login system to provide you with the best experience. This feature will be available shortly.</p>
-            <button class="modal-close" onclick="closeModal()">Got it</button>
-        </div>
-    </div>
-
-    <!-- Footer Section -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-about">
-                <p class="footer-desc">
-                    Traizer Tweaks is dedicated to helping gamers achieve peak performance through advanced optimization techniques. Our one-time purchase tools deliver lasting improvements to your gaming experience.
-                </p>
-                <div class="social-links">
-                    <a href="https://discord.com/invite/G39CRawZp5" class="social-link"><i class="fab fa-discord"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.youtube.com/@traizerYT" class="social-link"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-links-container">
-                <h3 class="footer-title">Quick Links</h3>
-                <ul class="footer-links">
-                    <li class="footer-link"><a href="index.html">Home</a></li>
-                    <li class="footer-link"><a href="pricing.html">Pricing</a></li>
-                    <li class="footer-link"><a href="features.html">Features</a></li>
-                    <li class="footer-link"><a href="download.html">Download</a></li>
-                    <li class="footer-link"><a href="support.html">Support</a></li>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i><span>Preset Windows optimizations focused on FPS and frametime stability</span></li>
+                    <li><i class="fas fa-check"></i><span>Background service cleanup to reduce unnecessary CPU usage</span></li>
+                    <li><i class="fas fa-check"></i><span>Network and input tweaks to slightly lower latency</span></li>
+                    <li><i class="fas fa-check"></i><span>Safe restore options so you can revert changes anytime</span></li>
                 </ul>
-            </div>
-            
-            <div class="footer-links-container">
-                <h3 class="footer-title">Help</h3>
-                <ul class="footer-links">
-                    <li class="footer-link"><a href="#">FAQ</a></li>
-                    <li class="footer-link"><a href="#">Troubleshooting</a></li>
-                    <li class="footer-link"><a href="#">Privacy Policy</a></li>
-                    <li class="footer-link"><a href="#">Terms of Service</a></li>
-                    <li class="footer-link"><a href="refund-policy.html">Refund Policy</a></li>
+                <div class="plan-actions">
+                    <a href="https://mega.nz/file/uGwy1IKK#4ndqSkFHpx_GBK4wD0jK3NzTH8uOEn3FX9n0yhAjczY" class="plan-btn primary" target="_blank">
+                        <i class="fas fa-download"></i>
+                        Download Free Optimizer
+                    </a>
+                    <div class="plan-meta">Free to use, no login required.</div>
+                </div>
+            </article>
+
+            <article class="plan-card standard">
+                <div>
+                    <div class="plan-name">Want more than the free pack?</div>
+                    <p class="plan-tagline">Unlock additional features, deeper tweaks and manual optimization support.</p>
+                </div>
+                <div>
+                    <div class="price-note">Standard Premium Utility adds guided setup and advanced presets. Premium Tweaking Utility gives you a full hands-on optimization session and priority support.</div>
+                </div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i><span>More aggressive performance profiles for competitive titles</span></li>
+                    <li><i class="fas fa-check"></i><span>Extra modules and tuning not included in the free optimizer</span></li>
+                    <li><i class="fas fa-check"></i><span>Access to Premium Tweaking Utility for maximum PC performance</span></li>
                 </ul>
+                <div class="plan-actions">
+                    <a href="pricing.html" class="plan-btn primary">
+                        <i class="fas fa-arrow-right"></i>
+                        View Standard & Premium Plans
+                    </a>
+                    <div class="plan-meta">Best choice if you want every possible edge.</div>
+                </div>
+            </article>
+        </section>
+
+        <section class="security-section">
+            <h2 class="security-title">Are The Packs a Virus?</h2>
+            <div class="security-content">
+                <p class="security-emphasis">Obviously not, please read before saying anything.</p>
+                <p class="security-text">Most people nowadays do not know much about virus detections, false positives and how to actually use VirusTotal, so here is the short explanation.</p>
+                <p class="security-emphasis">None of the packs contain viruses.</p>
+                <p class="security-text">All paid and free packs do not contain any malicious code that will cause any harm to your PC. The free pack can be flagged due to the nature of the product, because it changes a lot of settings and applies various commands which can raise red flags to antivirus programs.</p>
+                <p class="security-text">To get rid of these detections we would have to sacrifice functionality, which we do not want to do.</p>
+                <h3 class="security-subtitle">VirusTotal false detection</h3>
+                <p class="security-text">Currently, only the free packs may be flagged as a PUA (Potentially Unwanted Application), not as any form of malware. On VirusTotal you can check the behavior tab and see that under detections no malicious code is detected, which means it is completely safe to use.</p>
+                <p class="security-text">Our goal is to be the number one PC tweaking service and we will not get there by adding harmful programs into our tools, since that would destroy our reputation and cause legal trouble.</p>
             </div>
-            
-            <div class="footer-contact">
-                <h3 class="footer-title">Contact Us</h3>
-                <div class="contact-item">
-                    <span class="contact-icon"><i class="fas fa-envelope"></i></span>
-                    <span>traizerpersonal@gmail.com.com</span>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon"><i class="fab fa-discord"></i></span>
-                    <span><a href="https://discord.com/invite/G39CRawZp5" style="color: inherit; text-decoration: none;">Join our Discord community</a></span>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon"><i class="fas fa-globe"></i></span>
-                    <span>Available worldwide</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="copyright">
-            &copy; 2023 Traizer Tweaks. All rights reserved.
-        </div>
-    </footer>
+        </section>
+    </main>
+
+    <div id="footer"></div>
 
     <script>
-        // Navigation bar scroll behavior
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
+        (function() {
+            function loadFooter() {
+                var footerContainer = document.getElementById('footer');
+                if (!footerContainer) return;
+                fetch('footer.html')
+                    .then(function(response) { return response.text(); })
+                    .then(function(html) {
+                        footerContainer.innerHTML = html;
+                    })
+                    .catch(function(error) {
+                        console.error('Failed to load footer:', error);
+                    });
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', loadFooter);
             } else {
-                navbar.classList.remove('scrolled');
+                loadFooter();
             }
-        });
+        })();
+    </script>
+    <script>
+        (function() {
+            function ensureLoginPopup() {
+                var existing = document.getElementById('loginComingSoon');
+                if (existing) return existing;
 
-        // Login modal functions
-        function showLoginModal() {
-            document.getElementById('loginModal').style.display = 'flex';
-        }
+                var modal = document.createElement('div');
+                modal.id = 'loginComingSoon';
+                modal.style.position = 'fixed';
+                modal.style.inset = '0';
+                modal.style.display = 'flex';
+                modal.style.alignItems = 'center';
+                modal.style.justifyContent = 'center';
+                modal.style.background = 'rgba(0,0,0,0.7)';
+                modal.style.zIndex = '9999';
+                modal.style.opacity = '0';
+                modal.style.pointerEvents = 'none';
+                modal.style.transition = 'opacity 0.25s ease-out';
 
-        function closeModal() {
-            document.getElementById('loginModal').style.display = 'none';
-        }
+                var box = document.createElement('div');
+                box.style.maxWidth = '380px';
+                box.style.width = '90%';
+                box.style.borderRadius = '16px';
+                box.style.padding = '1.75rem 1.5rem';
+                box.style.background = 'radial-gradient(circle at 0 0, rgba(58,197,255,0.18), transparent 55%), rgba(6,7,14,0.98)';
+                box.style.border = '1px solid rgba(148,163,184,0.45)';
+                box.style.boxShadow = '0 24px 60px rgba(0,0,0,0.9)';
+                box.style.opacity = '0';
+                box.style.transform = 'scale(0.96) translateY(4px)';
+                box.style.transition = 'transform 0.22s ease-out, opacity 0.22s ease-out';
 
-        // When user clicks anywhere outside of the modal, close it
-        window.addEventListener('click', function(event) {
-            const modal = document.getElementById('loginModal');
-            if (event.target == modal) {
-                closeModal();
+                var title = document.createElement('h3');
+                title.textContent = 'Login coming soon';
+                title.style.fontSize = '1.1rem';
+                title.style.marginBottom = '0.5rem';
+
+                var msg = document.createElement('p');
+                msg.textContent = 'Account login is currently under development. You can still browse plans, download the free optimizer, and purchase licenses normally.';
+                msg.style.fontSize = '0.9rem';
+                msg.style.color = 'var(--text-muted)';
+                msg.style.marginBottom = '1.25rem';
+
+                var btn = document.createElement('button');
+                btn.textContent = 'Got it';
+                btn.style.border = 'none';
+                btn.style.borderRadius = '999px';
+                btn.style.padding = '0.55rem 1.3rem';
+                btn.style.fontSize = '0.9rem';
+                btn.style.fontWeight = '500';
+                btn.style.cursor = 'pointer';
+                btn.style.background = 'linear-gradient(135deg, #33CCFF 0%, #0099FF 100%)';
+                btn.style.color = '#FFFFFF';
+
+                btn.addEventListener('click', function() {
+                    hide();
+                });
+
+                box.appendChild(title);
+                box.appendChild(msg);
+                box.appendChild(btn);
+                modal.appendChild(box);
+                document.body.appendChild(modal);
+
+                function show() {
+                    modal.style.opacity = '1';
+                    modal.style.pointerEvents = 'auto';
+                    box.style.opacity = '1';
+                    box.style.transform = 'scale(1) translateY(0)';
+                }
+
+                function hide() {
+                    box.style.opacity = '0';
+                    box.style.transform = 'scale(0.96) translateY(4px)';
+                    modal.style.opacity = '0';
+                    modal.style.pointerEvents = 'none';
+                }
+
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) hide();
+                });
+
+                modal._showLoginPopup = show;
+                modal._hideLoginPopup = hide;
+                return modal;
             }
-        });
 
-        // Add click event for login button to show modal
-        const loginButtons = document.querySelectorAll('.login-btn');
-        loginButtons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                showLoginModal();
-            });
-        });
-
-        // Check if an element is in the viewport
-        function isInViewport(element) {
-            const rect = element.getBoundingClientRect();
-            return (
-                rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
-                rect.bottom >= 0
-            );
-        }
-
-        // Elements to animate
-        const elementsToAnimate = document.querySelectorAll('.download-title, .download-description, .download-card');
-        const featureCards = document.querySelectorAll('.feature-card');
-        const securitySection = document.querySelector('.security-section');
-
-        // Check on scroll
-        window.addEventListener('scroll', () => {
-            elementsToAnimate.forEach(el => {
-                if (isInViewport(el) && !el.classList.contains('animated')) {
-                    el.classList.add('animated');
-                }
-            });
-
-            // Animate feature cards with staggered delay
-            featureCards.forEach((card, index) => {
-                if (isInViewport(card) && !card.classList.contains('animate')) {
-                    setTimeout(() => {
-                        card.classList.add('animate');
-                    }, index * 100);
-                }
-            });
-            
-            // Animate testimonial cards with staggered delay
-            const testimonialCards = document.querySelectorAll('.testimonial-card');
-            testimonialCards.forEach((card, index) => {
-                if (isInViewport(card) && !card.classList.contains('animate')) {
-                    card.style.setProperty('--order', index);
-                    setTimeout(() => {
-                        card.classList.add('animate');
-                    }, index * 100);
-                }
-            });
-            
-            // Animate security section
-            if (securitySection && isInViewport(securitySection) && !securitySection.classList.contains('animated')) {
-                securitySection.style.animation = 'fadeUp 0.8s ease forwards';
-                securitySection.classList.add('animated');
+            function attachLoginHandler() {
+                document.addEventListener('click', function(e) {
+                    var link = e.target.closest('a[href="login.html"]');
+                    if (!link) return;
+                    e.preventDefault();
+                    var modal = ensureLoginPopup();
+                    if (modal && modal._showLoginPopup) modal._showLoginPopup();
+                });
             }
-        });
-        
-        // Trigger initial check when page loads
-        window.addEventListener('load', () => {
-            elementsToAnimate.forEach(el => {
-                if (isInViewport(el)) {
-                    el.classList.add('animated');
-                }
-            });
-            
-            featureCards.forEach((card, index) => {
-                if (isInViewport(card)) {
-                    setTimeout(() => {
-                        card.classList.add('animate');
-                    }, 100 * index);
-                }
-            });
-        });
 
-        // Sale banner redirection
-        document.querySelectorAll('.sale-banner-item').forEach(item => {
-            item.addEventListener('click', () => {
-                window.location.href = 'pricing.html';
-            });
-        });
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', attachLoginHandler);
+            } else {
+                attachLoginHandler();
+            }
+        })();
     </script>
 </body>
 </html>
